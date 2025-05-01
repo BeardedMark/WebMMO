@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'login',
         'email',
         'password',
     ];
@@ -44,5 +44,42 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getTitle()
+    {
+        return $this->login;
+    }
+
+
+    public function character()
+    {
+        return $this->belongsTo(Character::class);
+    }
+
+    public function checkCharacter(): bool
+    {
+        return isset($this->character);
+    }
+
+    public function characters()
+    {
+        return $this->hasMany(Character::class);
+    }
+
+    public function hideouts()
+    {
+        return $this->hasMany(Hideout::class);
+    }
+
+    public function getHideoutAtCurrentLocation()
+    {
+        if (!$this->checkCharacter()) {
+            return null;
+        }
+
+        return $this->hideouts()
+            ->where('location_id', $this->character->location_id)
+            ->first();
     }
 }

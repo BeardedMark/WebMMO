@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../app/Http/Controllers"
+		},
+		{
+			"path": "../app/Models"
+		},
+		{
+			"path": "../database/migrations"
+		},
+		{
+			"path": "../public"
+		},
+		{
+			"path": "../resources/views"
+		},
+		{
+			"path": "../routes"
+		},
+		{
+			"path": "../storage"
+		}
+	],
+	"settings": {}
+}

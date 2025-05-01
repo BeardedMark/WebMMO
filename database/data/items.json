@@ -1,0 +1,283 @@
+[
+    {
+        "name": "Золото",
+        "weight": 0.1,
+        "max_stack": 100000,
+        "drop_chance": 1,
+        "image": "easter.goldegg.png",
+        "min_level": 60
+    },
+    {
+        "name": "Серебро",
+        "weight": 0.05,
+        "max_stack": 100000,
+        "drop_chance": 3,
+        "image": "easter.silveregg.png",
+        "min_level": 30,
+        "max_level": 70
+    },
+    {
+        "name": "Медь",
+        "weight": 0.04,
+        "max_stack": 100000,
+        "drop_chance": 5,
+        "image": "easter.bronzeegg.png",
+        "min_level": 0,
+        "max_level": 40
+    },
+    {
+        "name": "Железная руда",
+        "weight": 2,
+        "max_stack": 1000,
+        "drop_chance": 15,
+        "image": "metal.ore.png",
+        "min_level": 40,
+        "max_level": 80
+    },
+    {
+        "name": "Камень",
+        "weight": 1.5,
+        "max_stack": 1000,
+        "drop_chance": 30,
+        "image": "stones.png"
+    },
+    {
+        "name": "Дерево",
+        "weight": 1.5,
+        "max_stack": 1000,
+        "drop_chance": 40,
+        "image": "wood.png"
+    },
+    {
+        "name": "Мусор",
+        "weight": 0.2,
+        "max_stack": 1000,
+        "drop_chance": 80,
+        "image": "plant-fiber.png",
+        "max_level": 60
+    },
+    {
+        "name": "Паутина",
+        "weight": 0,
+        "max_stack": 1000,
+        "drop_chance": 80,
+        "image": "plant-fiber.png",
+        "min_level": 40
+    },
+    {
+        "name": "Навоз",
+        "weight": 1,
+        "max_stack": 200,
+        "drop_chance": 30,
+        "image": "horse-dung.png",
+        "max_level": 30
+    },
+    {
+        "name": "Обломки костей",
+        "weight": 0.3,
+        "max_stack": 300,
+        "drop_chance": 25,
+        "image": "bone-fragments.png"
+    },
+    {
+        "name": "Уголь",
+        "weight": 0.5,
+        "max_stack": 500,
+        "drop_chance": 20,
+        "image": "charcoal.png",
+        "min_level": 0,
+        "max_level": 60
+    },
+    {
+        "name": "Фрагменты металла",
+        "weight": 0.6,
+        "max_stack": 300,
+        "drop_chance": 15,
+        "image": "metal-fragments.png",
+        "min_level": 30,
+        "max_level": 70
+    },
+    {
+        "name": "Белая ягода",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 8,
+        "image": "white-berry.png",
+        "min_level": 40,
+        "max_level": 60
+    },
+    {
+        "name": "Гнилое яблоко",
+        "weight": 0.3,
+        "max_stack": 100,
+        "drop_chance": 20,
+        "image": "rotten-apple.png",
+        "max_level": 20
+    },
+    {
+        "name": "Гриб",
+        "weight": 0.1,
+        "max_stack": 200,
+        "drop_chance": 30,
+        "image": "mushroom.png",
+        "min_level": 0,
+        "max_level": 30
+    },
+    {
+        "name": "Ежевика",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "black-raspberries.png",
+        "min_level": 10,
+        "max_level": 30
+    },
+    {
+        "name": "Жёлтая ягода",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "yellow-berry.png",
+        "min_level": 20,
+        "max_level": 40
+    },
+    {
+        "name": "Зелёная ягода",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "green-berry.png",
+        "min_level": 30,
+        "max_level": 50
+    },
+    {
+        "name": "Красная ягода",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "red-berry.png",
+        "min_level": 40,
+        "max_level": 60
+    },
+    {
+        "name": "Синяя ягода",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "blue-berry.png",
+        "min_level": 50,
+        "max_level": 70
+    },
+    {
+        "name": "Червь",
+        "weight": 0.01,
+        "max_stack": 300,
+        "drop_chance": 18,
+        "image": "worm.png",
+        "max_level": 30
+    },
+    {
+        "name": "Чёрная ягода",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "black-berry.png",
+        "min_level": 60,
+        "max_level": 80
+    },
+    {
+        "name": "Яблоко",
+        "weight": 0.2,
+        "max_stack": 100,
+        "drop_chance": 25,
+        "image": "apple.png",
+        "min_level": 10,
+        "max_level": 30
+    },
+    {
+        "name": "Черника",
+        "weight": 0.05,
+        "max_stack": 200,
+        "drop_chance": 18,
+        "image": "blueberries.png",
+        "min_level": 60,
+        "max_level": 80
+    },
+    {
+        "name": "Металлолом",
+        "weight": 0.4,
+        "max_stack": 500,
+        "drop_chance": 30,
+        "image": "scrap.png"
+    },
+    {
+        "name": "Ткань",
+        "weight": 0.15,
+        "max_stack": 500,
+        "drop_chance": 25,
+        "image": "cloth.png"
+    },
+    {
+        "name": "Веревка",
+        "weight": 0.01,
+        "max_stack": 100,
+        "drop_chance": 15,
+        "image": "rope.png"
+    },
+    {
+        "name": "Пружина",
+        "weight": 0.3,
+        "max_stack": 100,
+        "drop_chance": 6,
+        "image": "metal-spring.png",
+        "min_level": 40
+    },
+    {
+        "name": "Труба",
+        "weight": 1.2,
+        "max_stack": 50,
+        "drop_chance": 5,
+        "image": "metal-pipe.png",
+        "min_level": 50
+    },
+    {
+        "name": "Листовой металл",
+        "weight": 2,
+        "max_stack": 50,
+        "drop_chance": 4,
+        "image": "sheet-metal.png",
+        "min_level": 60
+    },
+    {
+        "name": "Микросхемы",
+        "weight": 0.1,
+        "max_stack": 100,
+        "drop_chance": 3,
+        "image": "tech-trash.png",
+        "min_level": 60
+    },
+    {
+        "name": "Шестерни",
+        "weight": 0.5,
+        "max_stack": 100,
+        "drop_chance": 5,
+        "image": "gears.png",
+        "min_level": 50
+    },
+    {
+        "name": "Дорожные знаки",
+        "weight": 1.5,
+        "max_stack": 20,
+        "drop_chance": 4,
+        "image": "road-signs.png",
+        "min_level": 30
+    },
+    {
+        "name": "Брезент",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "tarp.png",
+        "min_level": 10
+    }
+]

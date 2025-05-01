@@ -1,0 +1,430 @@
+:root {
+    /* --color-other: #181818;
+    --color-main: #1F1F1F;
+    --color-second: #404040;
+    --color-prime: #9D9D9D; */
+
+    --color-other: #1E1E1E;
+    --color-main: #2C2C2C;
+    --color-second: #4C4C4C;
+    --color-prime: #C3C3C3;
+
+    /* --color-other: #262627;
+    --color-main: #383B43;
+    --color-second: #4F525A;
+    --color-prime: #C8C6C7; */
+
+
+    --color-light: #fff;
+    --color-dark: #000;
+
+    --color-accent: #BAC7E3;
+    --color-brand: #62a6ff;
+
+    /* --color-accent: #c5af8c;
+    --color-brand: #ffb235; */
+}
+
+.color-second {
+    color: var(--color-second);
+}
+
+.color-brand {
+    color: var(--color-brand);
+}
+
+body {
+    background-color: var(--color-other);
+    color: var(--color-prime);
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+.relative {
+    position: relative;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.absolute.fill {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.background {
+
+    z-index: -1;
+}
+
+.wallpaper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 101vw;
+    height: 101vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--color-dark);
+    opacity: .3;
+    z-index: -1;
+}
+
+.frame {
+    /* background-color: var(--color-main); */
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-other);
+    padding: 13px;
+    transition: .3s;
+}
+
+.frame:hover {
+    position: relative;
+    border: 1px solid var(--color-brand);
+    /* box-shadow: 0 0 55px rgba(0, 0, 0, 0.5); */
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex.grow {
+    display: flex;
+    flex-grow: 1;
+}
+
+.flex.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex.jc-center {
+    justify-content: center;
+}
+
+.flex.ai-center {
+    align-items: center;
+}
+
+.flex-row-8 {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.flex-row-5 {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-col-13 {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+.flex-col-8 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.icon {
+    display: inline-block;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    transition: .3s;
+    opacity: .6;
+}
+
+.icon:hover {
+    opacity: 1;
+}
+
+.button {
+    display: inline-block;
+    text-decoration: none;
+    /* background-color: var(--color-other);
+    border: 1px solid var(--color-second); */
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-other);
+
+    border-radius: 0px;
+    color: var(--color-accent);
+    padding: 5px 13px;
+    transition: .3s;
+    font-size: 14px;
+}
+
+.button.brand {
+    border: 1px solid var(--color-brand);
+    color: var(--color-brand);
+}
+
+.button.brand:hover {
+    background-color: var(--color-brand);
+    color: var(--color-other);
+}
+
+.button:hover {
+    background-color: var(--color-main);
+    color: var(--color-brand);
+}
+
+.link {
+    display: inline;
+    background-color: transparent;
+    border: 0px solid transparent;
+    border-radius: 0px;
+    padding: 0;
+    padding: 0;
+    text-decoration: none;
+    color: var(--color-accent);
+    transition: .3s;
+}
+
+.link:hover {
+    color: var(--color-brand);
+}
+
+.input,
+.input:focus,
+.input:active,
+.input:target {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--color-other);
+    border: 1px solid var(--color-second);
+    border-radius: 0px;
+    color: var(--color-accent);
+    padding: 5px 13px;
+    transition: .3s;
+    outline: transparent;
+    outline-width: 0;
+}
+
+.input:focus {
+    border: 1px solid var(--color-brand);
+}
+
+.input:hover,
+.input:focus:hover,
+.input:active:hover,
+.input:target:hover {
+    background-color: var(--color-main);
+    color: var(--color-brand);
+    border: 1px solid var(--color-accent);
+}
+
+.input:focus:hover {
+    border: 1px solid var(--color-brand);
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 130px;
+    height: 8px;
+    background: #2c2c2c;
+    border-radius: 4px;
+    outline: none;
+    transition: background 0.3s;
+    cursor: pointer;
+    box-shadow: 0 0 5px #000;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+    box-shadow: 0 0 4px #ffd700;
+    transition: transform 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: gold;
+    cursor: pointer;
+    box-shadow: 0 0 4px #ffd700;
+    transition: transform 0.2s;
+}
+
+
+.svg-map {
+    /* border: 1px solid var(--color-second); */
+    box-shadow: inset 0 0 34px rgba(0, 0, 0, 0.5);
+    background-color: var(--color-other);
+}
+
+.svg-location {
+    fill: transparent;
+    transition: .3s;
+}
+
+.svg-location:hover {
+    fill: var(--color-accent);
+}
+
+.svg-location.current {
+    fill: var(--color-brand);
+}
+
+.svg-location.visited {
+    fill: var(--color-second);
+}
+
+.svg-location.unvisited {
+    fill: var(--color-main);
+    stroke: var(--color-second);
+    stroke-width: 1px;
+}
+
+.svg-location.available {
+    fill: var(--color-accent);
+    stroke: var(--color-accent);
+    stroke-width: 0px;
+    cursor: pointer;
+}
+
+.svg-location.available:hover {
+    fill: var(--color-accent);
+    stroke: var(--color-accent);
+    stroke-width: 10px;
+}
+
+.svg-area {
+    fill: var(--color-brand);
+    opacity: .1;
+}
+
+.svg-road {
+    stroke: var(--color-second);
+}
+
+.svg-road.visited {
+    stroke: var(--color-second);
+}
+
+.svg-road.ground {
+    stroke: #3a3100;
+    stroke-linecap: round;
+}
+
+.svg-road.available {
+    stroke: var(--color-accent);
+    stroke-linecap: round;
+    stroke-dasharray: 5, 5;
+}
+
+.svg-road.lock {
+    stroke: var(--color-second);
+    stroke-linecap: round;
+    stroke-dasharray: 5, 5;
+}
+
+.lock {
+    pointer-events: none;
+}
+
+.lock-opacity {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.await {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.health {
+    display: flex;
+    min-height: 13px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    width: 100%;
+    background-color: #6aa300;
+    text-align: center;
+    color: white;
+}
+
+.energy {
+    display: flex;
+    min-height: 8px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    width: 100%;
+    background-color: #8d8800;
+    text-align: center;
+    color: white;
+    margin-top: 3px;
+}
+
+/* [data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-other);
+    border: 1px solid var(--color-second);
+    color: var(--color-prime);
+    padding: 2px 5px;
+    white-space: nowrap;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 999;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+} */
