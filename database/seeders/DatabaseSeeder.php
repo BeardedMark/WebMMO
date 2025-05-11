@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 
 use App\Models\Character;
+use App\Models\Enemy;
 use App\Models\Location;
 use App\Models\Road;
 use App\Models\Transition;
@@ -24,13 +25,20 @@ class DatabaseSeeder extends Seeder
         User::create([
             'login' => 'admin',
             'email' => 'admin@admin.ru',
-            'password' => 'Dev.201095'
+            'password' => 'Dev.201095',
+            'is_admin' => true
         ]);
 
         // Загрузка предметов
         $items = json_decode(File::get(database_path('data/items.json')), true);
         foreach ($items as $item) {
             Item::create($item);
+        }
+
+        // Загрузка врагов
+        $enemies = json_decode(File::get(database_path('data/enemies.json')), true);
+        foreach ($enemies as $enemy) {
+            Enemy::create($enemy);
         }
 
         // Загрузка локаций
@@ -46,8 +54,7 @@ class DatabaseSeeder extends Seeder
         foreach ($roads as [$from, $to]) {
             Road::create([
                 'from_location_id' => $locations[$from]->id,
-                'to_location_id' => $locations[$to]->id,
-                'size' => 1
+                'to_location_id' => $locations[$to]->id
             ]);
         }
     }

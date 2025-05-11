@@ -59,7 +59,34 @@ class Location extends Model
                 $query->whereNull('max_level')
                     ->orWhere('max_level', '>=', $this->level);
             })
-            ->get();
+            ->orderBy('drop_chance')->get();
+    }
+
+    public function availableEnemies()
+    {
+        return Enemy::where(function ($query) {
+            $query->whereNull('min_level')
+                ->orWhere('min_level', '<=', $this->level);
+        })
+            ->where(function ($query) {
+                $query->whereNull('max_level')
+                    ->orWhere('max_level', '>=', $this->level);
+            })
+            ->orderBy('spawn_chance')->get();
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'location_id');
+    }
+
+    public function lastMessages()
+    {
+        return $this->messages()
+            ->latest()
+            ->take(20)
+            ->get()
+            ->sortBy('created_at');
     }
 
 
@@ -142,6 +169,7 @@ class Location extends Model
     {
         return Character::whereHas('latestTransition', function ($query) {
             $query->where('to_location_id', $this->id);
-        })->get();
+        })
+            ->orderBy('name', 'desc')->get();
     }
 }

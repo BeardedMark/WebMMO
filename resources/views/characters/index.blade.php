@@ -10,10 +10,9 @@
         </div>
 
         <div class="frame flex-col">
-            @foreach ($allCharacters as $character)
-                @component('characters.components.line', ['character' => $character])
-                @endcomponent
-            @endforeach
+            @component('characters.components.list', compact('characters'))
+            @endcomponent
         </div>
+
     </div>
 @endsection

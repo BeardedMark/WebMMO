@@ -30,6 +30,7 @@ return new class extends Migration
             $table->boolean('is_peaceful')->default(false);
             $table->integer('x')->nullable();
             $table->integer('y')->nullable();
+            $table->json('drop')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

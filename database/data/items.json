@@ -5,6 +5,7 @@
         "max_stack": 100000,
         "drop_chance": 1,
         "image": "easter.goldegg.png",
+        "tags": ["resource", "currency"],
         "min_level": 60
     },
     {
@@ -13,6 +14,7 @@
         "max_stack": 100000,
         "drop_chance": 3,
         "image": "easter.silveregg.png",
+        "tags": ["resource", "currency"],
         "min_level": 30,
         "max_level": 70
     },
@@ -22,7 +24,7 @@
         "max_stack": 100000,
         "drop_chance": 5,
         "image": "easter.bronzeegg.png",
-        "min_level": 0,
+        "tags": ["resource", "currency"],
         "max_level": 40
     },
     {
@@ -31,6 +33,7 @@
         "max_stack": 1000,
         "drop_chance": 15,
         "image": "metal.ore.png",
+        "tags": ["resource"],
         "min_level": 40,
         "max_level": 80
     },
@@ -39,6 +42,7 @@
         "weight": 1.5,
         "max_stack": 1000,
         "drop_chance": 30,
+        "tags": ["resource"],
         "image": "stones.png"
     },
     {
@@ -46,6 +50,7 @@
         "weight": 1.5,
         "max_stack": 1000,
         "drop_chance": 40,
+        "tags": ["resource"],
         "image": "wood.png"
     },
     {
@@ -54,14 +59,16 @@
         "max_stack": 1000,
         "drop_chance": 80,
         "image": "plant-fiber.png",
+        "tags": ["resource", "trash"],
         "max_level": 60
     },
     {
         "name": "Паутина",
-        "weight": 0,
+        "weight": 0.01,
         "max_stack": 1000,
         "drop_chance": 80,
-        "image": "plant-fiber.png",
+        "image": "spider-webs.png",
+        "tags": ["resource", "trash"],
         "min_level": 40
     },
     {
@@ -70,6 +77,7 @@
         "max_stack": 200,
         "drop_chance": 30,
         "image": "horse-dung.png",
+        "tags": ["resource", "trash"],
         "max_level": 30
     },
     {
@@ -77,6 +85,7 @@
         "weight": 0.3,
         "max_stack": 300,
         "drop_chance": 25,
+        "tags": ["resource", "trash"],
         "image": "bone-fragments.png"
     },
     {
@@ -85,7 +94,7 @@
         "max_stack": 500,
         "drop_chance": 20,
         "image": "charcoal.png",
-        "min_level": 0,
+        "tags": ["resource", "trash"],
         "max_level": 60
     },
     {
@@ -94,6 +103,7 @@
         "max_stack": 300,
         "drop_chance": 15,
         "image": "metal-fragments.png",
+        "tags": ["resource"],
         "min_level": 30,
         "max_level": 70
     },
@@ -120,7 +130,6 @@
         "max_stack": 200,
         "drop_chance": 30,
         "image": "mushroom.png",
-        "min_level": 0,
         "max_level": 30
     },
     {
@@ -208,6 +217,7 @@
         "weight": 0.4,
         "max_stack": 500,
         "drop_chance": 30,
+        "tags": ["resource"],
         "image": "scrap.png"
     },
     {
@@ -215,13 +225,15 @@
         "weight": 0.15,
         "max_stack": 500,
         "drop_chance": 25,
+        "tags": ["resource", "component"],
         "image": "cloth.png"
     },
     {
         "name": "Веревка",
-        "weight": 0.01,
+        "weight": 0.1,
         "max_stack": 100,
         "drop_chance": 15,
+        "tags": ["resource", "component"],
         "image": "rope.png"
     },
     {
@@ -230,6 +242,7 @@
         "max_stack": 100,
         "drop_chance": 6,
         "image": "metal-spring.png",
+        "tags": ["resource", "component"],
         "min_level": 40
     },
     {
@@ -238,6 +251,7 @@
         "max_stack": 50,
         "drop_chance": 5,
         "image": "metal-pipe.png",
+        "tags": ["resource", "component"],
         "min_level": 50
     },
     {
@@ -246,6 +260,7 @@
         "max_stack": 50,
         "drop_chance": 4,
         "image": "sheet-metal.png",
+        "tags": ["resource", "component"],
         "min_level": 60
     },
     {
@@ -254,6 +269,7 @@
         "max_stack": 100,
         "drop_chance": 3,
         "image": "tech-trash.png",
+        "tags": ["resource", "component"],
         "min_level": 60
     },
     {
@@ -262,6 +278,7 @@
         "max_stack": 100,
         "drop_chance": 5,
         "image": "gears.png",
+        "tags": ["resource", "component"],
         "min_level": 50
     },
     {
@@ -270,6 +287,7 @@
         "max_stack": 20,
         "drop_chance": 4,
         "image": "road-signs.png",
+        "tags": ["resource", "component"],
         "min_level": 30
     },
     {
@@ -278,6 +296,210 @@
         "max_stack": 100,
         "drop_chance": 10,
         "image": "tarp.png",
+        "tags": ["resource", "component"],
         "min_level": 10
+    },
+    {
+        "name": "Сырая оленина",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "raw-deer-meat.png",
+        "tags": ["resource", "food"],
+        "min_level": 10
+    },
+    {
+        "name": "Сырая медвежатина",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "raw-bear-meat.png",
+        "tags": ["resource", "food"],
+        "min_level": 10
+    },
+    {
+        "name": "Сырая свинина",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "raw-pork.png",
+        "tags": ["resource", "food"],
+        "min_level": 10
+    },
+    {
+        "name": "Сырое волчье мясо",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "raw-wolf-meat.png",
+        "tags": ["resource", "food"],
+        "min_level": 10
+    },
+    {
+        "name": "Кожа",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "leather.png",
+        "tags": ["resource"],
+        "min_level": 10
+    },
+    {
+        "name": "Животный жир",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "animal-fat.png",
+        "tags": ["resource"],
+        "min_level": 10
+    },
+    {
+        "name": "Костяная дубина",
+        "weight": 1,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "bone-club.png",
+        "slot": "weapon",
+        "tags": ["equipment", "weapon", "melee"],
+        "craft": [
+            {
+                "item": 10,
+                "stack": 2
+            },
+            {
+                "item": 27,
+                "stack": 2
+            }
+        ]
+    },
+    {
+        "name": "Костяной нож",
+        "weight": 0.5,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "bone-knife.png",
+        "slot": "weapon",
+        "tags": ["equipment", "weapon", "melee"],
+        "craft": [
+            {
+                "item": 10,
+                "stack": 1
+            },
+            {
+                "item": 27,
+                "stack": 1
+            }
+        ]
+    },
+    {
+        "name": "Деревянный кол",
+        "weight": 0.5,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "vampire-stake.png",
+        "slot": "weapon",
+        "tags": ["equipment", "weapon", "melee"],
+        "craft": [
+            {
+                "item": 6,
+                "stack": 1
+            },
+            {
+                "item": 6,
+                "stack": 1
+            }
+        ]
+    },
+    {
+        "name": "Деревянное копье",
+        "weight": 1,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "wooden-spear.png",
+        "slot": "weapon",
+        "tags": ["equipment", "weapon", "melee"],
+        "craft": [
+            {
+                "item": 6,
+                "stack": 2
+            },
+            {
+                "item": 27,
+                "stack": 2
+            }
+        ]
+    },
+    {
+        "name": "Деревянный шлем",
+        "weight": 1,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "wood-armor-helmet.png",
+        "slot": "head",
+        "tags": ["equipment", "armor", "head"],
+        "craft": [
+            {
+                "item": 6,
+                "stack": 3
+            },
+            {
+                "item": 27,
+                "stack": 3
+            }
+        ]
+    },
+    {
+        "name": "Деревянный нагрудник",
+        "weight": 3,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "wood-chestplate.png",
+        "slot": "body",
+        "tags": ["equipment", "armor", "body"],
+        "craft": [
+            {
+                "item": 6,
+                "stack": 5
+            },
+            {
+                "item": 27,
+                "stack": 5
+            }
+        ]
+    },
+    {
+        "name": "Деревянные щитки",
+        "weight": 2,
+        "max_stack": 1,
+        "drop_chance": 1,
+        "image": "wood-armor-pants.png",
+        "slot": "legs",
+        "tags": ["equipment", "armor", "legs"],
+        "craft": [
+            {
+                "item": 6,
+                "stack": 4
+            },
+            {
+                "item": 27,
+                "stack": 4
+            }
+        ]
+    },
+    {
+        "name": "Сырое куриное мясо",
+        "weight": 0.4,
+        "max_stack": 100,
+        "drop_chance": 10,
+        "image": "raw-chicken-breast.png",
+        "tags": ["resource"]
+    },
+    {
+        "name": "Растительные волокна",
+        "weight": 0.3,
+        "max_stack": 1000,
+        "drop_chance": 80,
+        "image": "plant-fiber.png",
+        "tags": ["resource", "trash"]
     }
 ]

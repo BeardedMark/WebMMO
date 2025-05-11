@@ -12,7 +12,10 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $messages = $user->character->currentLocation()->messages;
+
+        return view('messages.components.list', compact('messages'));
     }
 
     /**
@@ -28,7 +31,19 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+
+        $user = auth()->user();
+
+        $data['user_id'] = $user->id;
+        $data['character_id'] = $user->character->id;
+        $data['location_id'] = $user->character->currentLocation()->id;
+
+        $message = Message::create($data);
+
+        return redirect()->back();
     }
 
     /**

@@ -22,8 +22,9 @@ class HideoutController extends Controller
 
     public function show(Hideout $hideout)
     {
-        $location = auth()->user()->character->currentLocation();
-        return view('hideouts.show', compact('hideout', 'location'));
+        $character = auth()->user()->character;
+        $location = $character->currentLocation();
+        return view('hideouts.show', compact('hideout', 'location', 'character'));
     }
 
     public function edit(Hideout $location)
@@ -44,7 +45,7 @@ class HideoutController extends Controller
     }
 
     $data['user_id'] = $user->id;
-    $data['location_id'] = $user->character->location_id;
+    $data['location_id'] = $user->character->currentLocation()->id;
 
     $hideout = Hideout::create($data);
 

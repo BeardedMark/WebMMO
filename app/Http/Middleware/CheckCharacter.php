@@ -16,7 +16,7 @@ class CheckCharacter
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check() && !auth()->user()->character_id) {
-            return redirect()->route('characters.create')->with('error', 'Выберите персонажа');
+            return redirect()->route('characters.create')->with('error', 'Нужен персонаж');
         }
 
         return $next($request);

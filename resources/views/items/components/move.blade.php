@@ -1,4 +1,4 @@
-<form class="row g-1" action="{{ isset($item->item) ? route('items.move') : route('items.moves') }}" method="POST" class="flex items-center gap-2">
+<form class="row g-1" action="{{ route('items.move') }}" method="POST" class="flex items-center gap-2">
     @csrf
     @isset($item->item)
     <input type="hidden" name="item_id" value="{{ $item->item->id }}">
@@ -10,7 +10,7 @@
     <input type="hidden" name="to_container_id" value="{{ $toId }}">
 
     <div class="col">
-        @component('items.components.line', ['item' => $item->item])
+        @component('items.components.link', ['item' => $item->item])
         @endcomponent
     </div>
 
@@ -25,7 +25,7 @@
 
     <div class="col-auto">
         <button class="icon" type="submit" data-tooltip="Переместить">
-            @component('elements.icon', ['size' => 21, 'name' => 'up-right-arrow', 'color' => 'BAC7E3'])
+            @component('components.icon', ['size' => 21, 'name' => 'up-right-arrow', 'color' => 'BAC7E3'])
             @endcomponent
         </button>
     </div>

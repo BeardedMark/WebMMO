@@ -1,64 +1,65 @@
 @extends('layouts.hug')
-@section('wallpaper', $currentLocation->getImageUrl())
 
 @section('content')
-    <div class="flex-col-13">
-        <div class="flex-col">
-            <h1>{{ $currentLocation->name }}</h1>
-            <div class="flex-row-8">
-                <a class="button" href="{{ route('locations.edit', $currentLocation) }}">Изменить локацию</a>
-                <form action="{{ route('locations.destroy', $currentLocation) }}" method="POST"
-                    onsubmit="return confirm('Удалить эту локацию?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="button danger">Удалить локацию</button>
-                </form>
+    <div class="row">
+        <div class="col">
+            <div class="frame flex-col-13">
+                <h1>{{ $location->getTitle() }}</h1>
+                @isset($location->description)
+                    <p>{{ $location->description }}</p>
+                @endisset
+            </div>
+
+            <div class="frame flex-col-13">
+                <h2>Встречающиеся враги</h2>
+
+                @component('enemies.components.list', ['enemies' => $location->availableEnemies()])
+                @endcomponent
+            </div>
+
+            <div class="frame flex-col-13">
+                <h2>Выпадающие предметы</h2>
+
+                @component('items.components.list', ['items' => $location->availableItems()])
+                @endcomponent
+            </div>
+
+            <div class="frame flex-col-13">
+                <h2>Доступные локации</h2>
+
+                <div class="">
+                    @foreach ($location->connectedLocations() as $connectedLocation)
+                        @component('locations.components.line', ['location' => $connectedLocation])
+                        @endcomponent
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="frame flex-col-13">
+                <h2>Персонажи на локации</h2>
+                @foreach ($location->charactersOnLocation() as $character)
+                    @component('characters.components.line', compact('character'))
+                    @endcomponent
+                @endforeach
             </div>
         </div>
 
-        <div class="row">
+        <div class="col col-4">
+            @component('locations.components.card', compact('location'))
+            @endcomponent
 
-            <div class="col">
-                <div class="flex-col-13">
-
-                    <div class="frame">
-                        @component('items.components.list', ['items' => $currentLocation->availableItems()])
-                        @endcomponent
-                    </div>
-                </div>
+            <div class="frame flex-col">
+                <a class="link" href="{{ route('locations.edit', $location) }}">Изменить локацию</a>
+                <form action="{{ route('locations.destroy', $location) }}" method="POST"
+                    onsubmit="return confirm('Удалить эту локацию?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="link">Удалить локацию</button>
+                </form>
             </div>
 
-            <div class="col">
-                <div class="flex-col-13">
-                    <div class="frame">
-                        @foreach ($currentLocation->connectedLocations() as $location)
-                            @component('locations.components.line', compact('location'))
-                            @endcomponent
-                        @endforeach
-                    </div>
-
-                    <div class="frame">
-                        @foreach ($currentLocation->charactersOnLocation() as $character)
-                            @component('characters.components.line', compact('character'))
-                            @endcomponent
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="flex-col-13">
-                    @component('locations.components.card', ['location' => $currentLocation])
-                    @endcomponent
-
-                    <div class="frame flex-col">
-                        <span>Состояние: {{ $currentLocation->is_open ? 'Открыто' : 'Закрыто' }}</span>
-                        <span>Размер локации: {{ $currentLocation->getSize() }}</span>
-                        <span>Уровень локации: {{ $currentLocation->getLevel() }}</span>
-                        <span>Координаты: x:{{ $currentLocation->x }} y:{{ $currentLocation->y }}</span>
-                    </div>
-                </div>
-            </div>
+            @component('locations.frames.stats', compact('location'))
+            @endcomponent
         </div>
     </div>
 @endsection

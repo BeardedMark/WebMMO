@@ -16,7 +16,7 @@ class CheckAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->check()) {
-            return redirect()->route('auth.main')->with('error', 'Нужен профиль на сайте');
+            return redirect()->route('users.login')->with('error', 'Нужен профиль на сайте');
         }
 
         return $next($request);

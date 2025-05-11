@@ -1,29 +1,73 @@
 <div class="flex-col-13">
 
-
-    <svg class="svg-map" id="map-svg" width="100%" height="400" xmlns="http://www.w3.org/2000/svg">
+    <svg class="svg-map" id="map-svg" width="100%" height="500" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="map" transform="translate(0,0) scale(1)">
-            @if ($currentCharacter->currentLocation())
-                <circle r="100" class="svg-area" cx="{{ $currentCharacter->currentLocation()->x }}"
-                    cy="{{ $currentCharacter->currentLocation()->y }}"
-                    data-id="{{ $currentCharacter->currentLocation()->id }}"
-                    data-name="{{ $currentCharacter->currentLocation()->name }}" />
-            @endif
+            <image class="svg-icon lock" href="{{ asset('storage/img/islands/201173.png') }}" x="0" y="0" width="1024"
+                height="1024" />
 
-            {{-- Unvisited --}}
-            @foreach ($currentCharacter->roadsToUnvisitedLocations() as $road)
+            <defs>
+                <mask id="fog-mask">
+                    <g filter="url(#blur)">
+                        <rect width="1024" height="1024" fill="white" />
+
+                        @foreach ($currentCharacter->roadsToVisitedLocations() as $road)
+                            <line x1="{{ $road->fromLocation->x }}" y1="{{ $road->fromLocation->y }}"
+                                x2="{{ $road->toLocation->x }}" y2="{{ $road->toLocation->y }}" stroke="black"
+                                stroke-width="200" stroke-linecap="round" />
+                        @endforeach
+
+                        @foreach ($currentCharacter->roadsToUnvisitedLocations() as $road)
+                            <line x1="{{ $road->fromLocation->x }}" y1="{{ $road->fromLocation->y }}"
+                                x2="{{ $road->toLocation->x }}" y2="{{ $road->toLocation->y }}" stroke="black"
+                                stroke-width="50" stroke-linecap="round" />
+                        @endforeach
+
+                        @if ($currentCharacter->currentLocation())
+                            <circle cx="{{ $currentCharacter->currentLocation()->x }}"
+                                cy="{{ $currentCharacter->currentLocation()->y }}" r="100" fill="black" />
+                        @endif
+                    </g>
+                </mask>
+
+                <filter id="blur">
+                    <feGaussianBlur stdDeviation="15" />
+                </filter>
+            </defs>
+
+            <rect width="1024" height="1024" fill="rgba(0, 0, 0, 1)" mask="url(#fog-mask)" />
+
+            {{-- @php
+                use App\Models\Road;
+                use App\Models\Location;
+                $allRoads = Road::all();
+                $allLocations = Location::all();
+            @endphp
+
+            @foreach ($allRoads as $road)
                 @if ($road->fromLocation && $road->fromLocation)
-                    <line class="svg-road lock" x1="{{ $road->fromLocation->x }}" y1="{{ $road->fromLocation->y }}"
-                        x2="{{ $road->toLocation->x }}" y2="{{ $road->toLocation->y }}" stroke-width="2" />
+                    <line stroke="red" x1="{{ $road->fromLocation->x }}" y1="{{ $road->fromLocation->y }}"
+                        x2="{{ $road->toLocation->x }}" y2="{{ $road->toLocation->y }}" stroke-width="1" />
                 @endif
             @endforeach
 
-            {{-- @foreach ($currentCharacter->unvisitedLocations() as $location)
-                <circle class="svg-location unvisited" r="{{ $location->getSize() }}" cx="{{ $location->x }}" cy="{{ $location->y }}"
-                    data-id="{{ $location->id }}" data-name="{{ $location->name }}" />
+
+            @foreach ($allLocations as $location)
+                <circle r="3" fill="red" cx="{{ $location->x }}" cy="{{ $location->y }}" />
+                <text x="{{ $location->x }}" y="{{ $location->y }}"
+                    style="fill: white; font: 12px serif;">{{ $location->name }}#{{ $location->id }}</text>
             @endforeach --}}
 
-            {{-- Visited --}}
+            {{-- Roads --}}
+
+            @foreach ($currentCharacter->roadsToUnvisitedLocations() as $road)
+                @if ($road->fromLocation && $road->fromLocation)
+                    <line class="svg-road unvisited" x1="{{ $road->fromLocation->x }}"
+                        y1="{{ $road->fromLocation->y }}" x2="{{ $road->toLocation->x }}"
+                        y2="{{ $road->toLocation->y }}" stroke-width="3" />
+                @endif
+            @endforeach
+
             @foreach ($currentCharacter->roadsToVisitedLocations() as $road)
                 @if ($road->fromLocation && $road->fromLocation)
                     <line class="svg-road visited" x1="{{ $road->fromLocation->x }}" y1="{{ $road->fromLocation->y }}"
@@ -31,56 +75,84 @@
                 @endif
             @endforeach
 
-            @foreach ($currentCharacter->visitedLocations() as $location)
-                <circle class="svg-location visited" r="{{ $location->getSize() }}" cx="{{ $location->x }}" cy="{{ $location->y }}"
-                    data-id="{{ $location->id }}" data-name="{{ $location->name }}" />
-            @endforeach
-
-            {{-- Current --}}
             @if ($currentCharacter->currentLocation())
                 @foreach ($currentCharacter->availableRoads() as $road)
                     @if ($road->fromLocation && $road->fromLocation)
-                        <line class="svg-road available await" x1="{{ $road->fromLocation->x }}"
+                        <line class="svg-road available await hidden" x1="{{ $road->fromLocation->x }}"
                             y1="{{ $road->fromLocation->y }}" x2="{{ $road->toLocation->x }}"
-                            y2="{{ $road->toLocation->y }}" stroke-width="1" />
-
-                        {{-- <text x="{{ $road->getCenterCoordinates()['x'] }}"
-                            y="{{ $road->getCenterCoordinates()['y'] }}">{{ $road->getDistance() }}</text> --}}
+                            y2="{{ $road->toLocation->y }}" stroke-width="2" />
                     @endif
                 @endforeach
             @endif
 
+            {{-- Locations --}}
+
+            @foreach ($currentCharacter->visitedLocations() as $location)
+                <image class="svg-icon" href="{{ asset('storage/img/icons/novisited.png') }}"
+                    x="{{ $location->x - 15 }}" y="{{ $location->y - 15 }}" width="30" height="30" />
+            @endforeach
+
             @foreach ($currentCharacter->availableLocations() as $location)
-                <circle r="3" class="svg-location available await" cx="{{ $location->x }}" cy="{{ $location->y }}"
-                    data-id="{{ $location->id }}" data-name="{{ $location->name }}"
+                <image class="await hidden" href="{{ asset('storage/img/icons/unvisited.png') }}"
+                    x="{{ $location->x - 15 }}" y="{{ $location->y - 15 }}" width="30" height="30" />
+
+                <circle r="13" fill="transparent" class="svg-icon available await" cx="{{ $location->x }}"
+                    cy="{{ $location->y }}" data-id="{{ $location->id }}" data-name="{{ $location->name }}"
                     onclick="redirectToLocation({{ $location->id }})" />
             @endforeach
 
-            @if ($currentCharacter->currentLocation())
-                <circle r="5" class="svg-location current" cx="{{ $currentCharacter->currentLocation()->x }}"
-                    cy="{{ $currentCharacter->currentLocation()->y }}"
-                    data-id="{{ $currentCharacter->currentLocation()->id }}"
-                    data-name="{{ $currentCharacter->currentLocation()->name }}" />
+            @foreach ($currentCharacter->unvisitedLocations() as $location)
+                <image class="svg-icon lock" href="{{ asset('storage/img/icons/unknown.png') }}"
+                    x="{{ $location->x - 15 }}" y="{{ $location->y - 15 }}" width="30" height="30" />
+            @endforeach
+
+            @if (auth()->user()->hideoutLocations())
+                @foreach (auth()->user()->hideoutLocations() as $location)
+                    <image class="svg-icon lock" href="{{ asset('storage/img/icons/home.png') }}"
+                        x="{{ $location->x - 15 }}" y="{{ $location->y - 15 }}" width="30" height="30" />
+                @endforeach
             @endif
 
+            {{-- Current --}}
 
+            @foreach ($currentCharacter->latestTransition->getItems() as $item)
+                @php
+                    $angle = (rand(0, 360) * M_PI) / 180;
+                    $distance = rand(20, 50);
+                    $offsetX = cos($angle) * $distance;
+                    $offsetY = sin($angle) * $distance;
+
+                    $itemX = $currentCharacter->currentLocation()->x + $offsetX;
+                    $itemY = $currentCharacter->currentLocation()->y + $offsetY;
+                @endphp
+
+                <image class="svg-icon lock" href="{{ $item->item->getImageUrl() }}" x="{{ $itemX - 10 }}"
+                    y="{{ $itemY - 10 }}" width="20" height="20" />
+            @endforeach
+
+            @if ($currentCharacter->currentLocation())
+                <image class="svg-icon" href="{{ asset('storage/img/icons/char.png') }}"
+                    x="{{ $currentCharacter->currentLocation()->x - 15 }}"
+                    y="{{ $currentCharacter->currentLocation()->y - 25 }}" width="30" height="30" />
+            @endif
         </g>
     </svg>
+
     <div class="flex-row-8">
         <div class="flex-row-8">
             <button class="icon" onclick="showCurrentLocation()" data-tooltip="Текущая локация">
-                @component('elements.icon', ['name' => 'marker', 'size' => 21, 'color' => 'BAC7E3'])
+                @component('components.icon', ['name' => 'marker', 'size' => 21, 'color' => 'BAC7E3'])
                 @endcomponent
             </button>
 
             <button class="icon" onclick="fitMapToView()" data-tooltip="Все локации">
-                @component('elements.icon', ['name' => 'address', 'size' => 21, 'color' => 'BAC7E3'])
+                @component('components.icon', ['name' => 'address', 'size' => 21, 'color' => 'BAC7E3'])
                 @endcomponent
             </button>
 
 
             <button class="icon" onclick="openFullscreen()" data-tooltip="На весь экран">
-                @component('elements.icon', ['name' => 'full-screen--v1', 'size' => 21, 'color' => 'BAC7E3'])
+                @component('components.icon', ['name' => 'full-screen--v1', 'size' => 21, 'color' => 'BAC7E3'])
                 @endcomponent
             </button>
         </div>
@@ -97,7 +169,7 @@
         // Добавляем скрытое поле с id локации
         const input = document.createElement('input');
         input.type = 'hidden';
-        input.name = 'to_location_id';
+        input.name = 'location_id';
         input.value = locationId;
 
         // Добавляем CSRF токен

@@ -29,6 +29,53 @@ trait HasItems
         })->values();
     }
 
+    public function getDisassembleItems(int $level): Collection
+    {
+        return $this->getItems()->filter(function ($entry) use ($level) {
+            $item = $entry->item;
+            return !empty($item->craft) && ($item->min_level ?? 0) <= $level;
+        })->values();
+    }
+
+    public function getCraftableItems(int $level): Collection
+    {
+        return Item::query()
+        ->whereNotNull('craft')
+        ->where(function ($query) use ($level) {
+            $query->whereNull('min_level')
+                  ->orWhere('min_level', '<=', $level);
+        })
+        ->get();
+    }
+
+    public function getAvailableCrafts(int $level): Collection
+    {
+        $inventory = $this->getItems()->mapWithKeys(function ($entry) {
+            return [$entry->item->id => $entry->stack];
+        });
+
+        return Item::query()
+            ->whereNotNull('craft')
+            ->where(function ($query) use ($level) {
+                $query->whereNull('min_level')
+                      ->orWhere('min_level', '<=', $level);
+            })
+            ->get()
+            ->filter(function ($item) use ($inventory) {
+                foreach ($item->craft as $component) {
+                    $requiredId = $component['item'];
+                    $requiredStack = $component['stack'];
+
+                    if (!isset($inventory[$requiredId]) || $inventory[$requiredId] < $requiredStack) {
+                        return false;
+                    }
+                }
+                return true;
+            })
+            ->values();
+    }
+
+
     public function getTotalItemsWeight(): float
     {
         return $this->getItems()->sum(function ($item) {
@@ -48,20 +95,33 @@ trait HasItems
 
     public function addItem($itemId, int $stack = 1): void
     {
+        $itemModel = Item::findOrFail($itemId);
+        $maxStack = $itemModel->max_stack ?? PHP_INT_MAX;
         $items = is_array($this->items) ? $this->items : [];
 
-        $found = false;
+        $remainingStack = $stack;
+        $added = false;
 
+        // Сначала пробуем заполнить существующие стопки
         foreach ($items as &$item) {
-            if ($item['id'] == $itemId) {
-                $item['stack'] += $stack;
-                $found = true;
-                break;
+            if ($item['id'] == $itemId && $item['stack'] < $maxStack) {
+                $availableSpace = $maxStack - $item['stack'];
+                $toAdd = min($availableSpace, $remainingStack);
+                $item['stack'] += $toAdd;
+                $remainingStack -= $toAdd;
+
+                if ($remainingStack <= 0) {
+                    $added = true;
+                    break;
+                }
             }
         }
 
-        if (!$found) {
-            $items[] = ['id' => $itemId, 'stack' => $stack];
+        // Если остался нераспределённый остаток — создаём новые стопки
+        while ($remainingStack > 0) {
+            $toAdd = min($maxStack, $remainingStack);
+            $items[] = ['id' => $itemId, 'stack' => $toAdd];
+            $remainingStack -= $toAdd;
         }
 
         $this->items = $items;

@@ -1,7 +1,4 @@
-
-<div class="flex-col">
-    @foreach ($items as $item)
-        @component('items.components.line', compact('item'))
-        @endcomponent
-    @endforeach
-</div>
+@foreach ($characters as $character)
+    @component('characters.components.line', compact('character'))
+    @endcomponent
+@endforeach

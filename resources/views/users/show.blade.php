@@ -54,8 +54,9 @@
                         <strong>Убежища профиля</strong>
                         <div class="flex-col">
                             @foreach ($user->hideouts as $hideout)
-                                <a class="link"
-                                    href="{{ route('hideouts.show', $hideout) }}">{{ $hideout->name }}</a>
+                            @component('hideouts.components.line', compact('hideout'))
+
+                            @endcomponent
                             @endforeach
                         </div>
                     </div>

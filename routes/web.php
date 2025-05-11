@@ -11,41 +11,56 @@ use App\Http\Controllers\{
     RoadController,
     TransitionController,
     ItemController,
-    HideoutController
+    HideoutController,
+    MessageController,
+    EnemyController
 };
 
 use App\Http\Middleware\{
     CheckCharacter,
-    CheckAuth
+    CheckAuth,
+    CheckGuest,
+    CheckAdmin
 };
-
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
-    Route::post('/authorization', [AuthController::class, 'authorization'])->name('auth.authorization');
-    Route::get('/register',  [AuthController::class, 'register'])->name('auth.register');
-    Route::post('/registration',  [AuthController::class, 'registration'])->name('auth.registration');
-});
-
-Route::middleware(CheckAuth::class)->group(function () {
-});
-
-Route::get('/auth', [AuthController::class, 'main'])->name('auth.main');
-Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::get('/', [PageController::class, 'main'])->name('pages.main');
 
-Route::resource('/users', UserController::class);
-Route::resource('/locations', LocationController::class);
-Route::resource('/hideouts', HideoutController::class);
-Route::resource('/transitions', TransitionController::class)->middleware(CheckAuth::class);
+Route::middleware(CheckAuth::class)->group(function () {
+    Route::get('/characters/card', [CharacterController::class, 'card'])->name('characters.card');
+    Route::get('/characters/select', [CharacterController::class, 'select'])->name('characters.select');
+    Route::get('/characters/inventory', [CharacterController::class, 'inventory'])->name('characters.inventory');
+    Route::get('/characters/craft', [CharacterController::class, 'craft'])->name('characters.craft');
+    Route::get('/characters/disassemble', [CharacterController::class, 'disassemble'])->name('characters.disassemble');
+    Route::post('/characters/selected/{character}',  [CharacterController::class, 'selected'])->name('characters.selected');
+    Route::resource('/characters', CharacterController::class);
 
-Route::post('/items/move', [ItemController::class, 'move'])->name('items.move');
-Route::post('/items/moves', [ItemController::class, 'moves'])->name('items.moves');
-Route::post('/items/swap', [ItemController::class, 'swap'])->name('items.swap');
-Route::resource('/items', ItemController::class);
+    Route::resource('/locations', LocationController::class);
+    Route::resource('/users', UserController::class);
+    Route::get('/auth', [AuthController::class, 'main'])->name('users.main');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('users.logout');
 
-Route::get('/characters/select', [CharacterController::class, 'select'])->name('characters.select');
-Route::post('/characters/selected/{character}',  [CharacterController::class, 'selected'])->name('characters.selected');
-Route::resource('/characters', CharacterController::class);
-Route::resource('/characters', CharacterController::class)->except(['index', 'show'])->middleware(CheckAuth::class);
+    Route::middleware(CheckCharacter::class)->group(function () {
+        Route::resource('/hideouts', HideoutController::class);
+        Route::resource('/transitions', TransitionController::class);
+        Route::resource('/messages', MessageController::class);
+
+        Route::post('/enemies/battle', [EnemyController::class, 'battle'])->name('enemies.battle');
+        Route::resource('/enemies', EnemyController::class);
+
+        Route::post('/items/disassemble', [ItemController::class, 'disassemble'])->name('items.disassemble');
+        Route::post('/items/assemble', [ItemController::class, 'assemble'])->name('items.assemble');
+        Route::post('/items/move', [ItemController::class, 'move'])->name('items.move');
+        Route::resource('/items', ItemController::class);
+    });
+
+    Route::middleware(CheckAdmin::class)->group(function () {
+
+    });
+});
+
+Route::middleware(CheckGuest::class)->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('users.login');
+    Route::post('/authorization', [AuthController::class, 'authorization'])->name('users.authorization');
+    Route::get('/register',  [AuthController::class, 'register'])->name('users.register');
+    Route::post('/registration',  [AuthController::class, 'registration'])->name('users.registration');
+});

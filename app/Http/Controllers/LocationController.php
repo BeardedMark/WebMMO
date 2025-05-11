@@ -9,8 +9,8 @@ class LocationController extends Controller
 {
     public function index()
     {
-        $allLocations = Location::where('is_open', true)->orderBy('level', 'asc')->get();
-        return view('locations.index', compact('allLocations'));
+        $locations = Location::where('is_open', true)->orderBy('level', 'asc')->get();
+        return view('locations.index', compact('locations'));
     }
 
     public function create()
@@ -37,8 +37,7 @@ class LocationController extends Controller
 
     public function show(Location $location)
     {
-        $currentLocation = $location;
-        return view('locations.show', compact('currentLocation'));
+        return view('locations.show', compact('location'));
     }
 
     public function edit(Location $location)

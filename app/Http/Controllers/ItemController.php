@@ -6,7 +6,9 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 
 use App\Models\Character;
+use App\Models\Hideout;
 use App\Models\Transition;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -40,7 +42,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return view('items.show', compact('item'));
     }
 
     /**
@@ -84,46 +86,101 @@ class ItemController extends Controller
         $toContainer = $this->getContainer($request->to_container_type, $request->to_container_id);
         $stack = $request->stack;
 
+        // dd($fromContainer, $toContainer);
 
         $fromContainer->moveItemTo($itemId, $toContainer, $stack);
 
         return redirect()->back();
     }
 
-    public function moves(Request $request)
+    public function disassemble(Request $request)
     {
         $request->validate([
+            'item_id' => 'required|exists:items,id',
             'from_container_type' => 'required|string',
-            'to_container_type' => 'required|string',
             'from_container_id' => 'required|exists:' . $request->from_container_type . ',id',
-            'to_container_id' => 'required|exists:' . $request->to_container_type . ',id',
+            'stack' => 'required|integer|min:1',
         ]);
 
-        $fromContainer = $this->getContainer($request->from_container_type, $request->from_container_id);
-        $toContainer = $this->getContainer($request->to_container_type, $request->to_container_id);
+        $itemId = $request->item_id;
 
-        $fromContainer->moveAllItemsTo($toContainer);
+        $fromContainer = $this->getContainer($request->from_container_type, $request->from_container_id);
+        $stack = $request->stack;
+
+        $character = Auth::user()->character;
+        $targetitem = Item::findOrFail($itemId);
+        $availableItems = $targetitem->getCraftItems();
+        $resultItemsArray = [];
+
+        for ($i = 0; $i < $stack; $i++) {
+            foreach ($availableItems as $availableItem) {
+                $items = Item::generateItems($availableItem->stack, [$availableItem->item], $character->dropChance() + 30);
+
+                foreach ($items as $item) {
+                    $resultItemsArray[] = $item['stack'] . " " . Item::findOrFail($item['id'])->getTitle();
+
+                    $fromContainer->addItem($item['id'], $item['stack']);
+                }
+            }
+        }
+
+        $resultString = "Разобран: {$stack} {$targetitem->getTitle()}";
+        $resultItemsString = implode(', ', $resultItemsArray);
+        if ($resultItemsString) {
+            $resultString .= ", получено: {$resultItemsString}";
+        }
+        $character->addLog('items', $resultString);
+        $fromContainer->removeItem($itemId, $stack);
 
         return redirect()->back();
     }
 
-    public function swap(Request $request)
+    public function assemble(Request $request)
     {
         $request->validate([
+            'item_id' => 'required|exists:items,id',
             'from_container_type' => 'required|string',
-            'to_container_type' => 'required|string',
             'from_container_id' => 'required|exists:' . $request->from_container_type . ',id',
-            'to_container_id' => 'required|exists:' . $request->to_container_type . ',id',
+            'stack' => 'required|integer|min:1',
         ]);
 
+        $character = Auth::user()->character;
+        $itemId = $request->item_id;
+        $stack = $request->stack;
         $fromContainer = $this->getContainer($request->from_container_type, $request->from_container_id);
-        $toContainer = $this->getContainer($request->to_container_type, $request->to_container_id);
 
+        $targetItem = Item::findOrFail($itemId);
+        $craftItems = $targetItem->getCraftItems();
+        $resultItemsArray = [];
 
-        $fromContainer->swapInventoryWith($toContainer);
+        // Проверка наличия всех необходимых ресурсов
+        foreach ($craftItems as $craft) {
+            $requiredCount = $craft->stack * $stack;
+            $actualCount = $fromContainer->getItems()->where('item.id', $craft->item->id)->sum('stack');
+
+            if ($actualCount < $requiredCount) {
+                $character->addLog('items', 'Недостаточно ресурсов для создания');
+                return redirect()->back();
+            }
+        }
+
+        // Удаление ресурсов
+        foreach ($craftItems as $craft) {
+            $requiredCount = $craft->stack * $stack;
+            $resultItemsArray[] = $requiredCount . " " . $craft->item->getTitle();
+            $fromContainer->removeItem($craft->item->id, $requiredCount);
+        }
+
+        // Добавление целевого предмета
+        $fromContainer->addItem($targetItem->id, $stack);
+
+        $resultItemsString = implode(', ', $resultItemsArray);
+        $resultString = "Собран: {$stack} {$targetItem->getTitle()}, потрачено: {$resultItemsString}";
+        $character->addLog('items', $resultString);
 
         return redirect()->back();
     }
+
 
     /**
      * Получение контейнера по типу и ID.
@@ -139,6 +196,8 @@ class ItemController extends Controller
                 return Character::findOrFail($containerId);
             case 'transitions':
                 return Transition::findOrFail($containerId);
+            case 'hideouts':
+                return Hideout::findOrFail($containerId);
             default:
                 abort(404, 'Контейнер не найден');
         }

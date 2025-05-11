@@ -23,11 +23,15 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('sound')->nullable();
 
+            $table->string('slot')->nullable();
             $table->decimal('weight', 8, 2)->default(0);
-            $table->unsignedTinyInteger('max_stack')->default(1);
-            $table->unsignedTinyInteger('drop_chance')->default(0);
-            $table->unsignedTinyInteger('min_level')->nullable();
-            $table->unsignedTinyInteger('max_level')->nullable();
+            $table->integer('max_stack')->default(1);
+            $table->integer('max_sockets')->default(0);
+            $table->integer('max_properties')->default(0);
+            $table->integer('drop_chance')->default(0);
+            $table->integer('min_level')->nullable();
+            $table->integer('max_level')->nullable();
+            $table->json('craft')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

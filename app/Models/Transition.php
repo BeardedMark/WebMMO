@@ -5,24 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\HasItems;
+use App\Traits\HasEnemies;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Transition extends Model
 {
     use SoftDeletes;
     use HasItems;
+    use HasEnemies;
 
     protected $fillable = [
         'character_id',
-        'from_location_id',
-        'to_location_id',
-        'next_action_at',
+        // 'from_location_id',
+        // 'to_location_id',
+        'location_id',
+        'hideout_id',
+        // 'next_action_at',
         'items',
+        'enemies',
     ];
 
     protected $casts = [
         'next_action_at' => 'datetime',
         'items' => 'array',
+        'enemies' => 'array',
     ];
 
     public function getTitle()
@@ -63,6 +70,12 @@ class Transition extends Model
 
     public function toLocation()
     {
-        return $this->belongsTo(Location::class, 'to_location_id');
+        return $this->belongsTo(Location::class, 'location_id');
+        // return $this->belongsTo(Location::class, 'to_location_id');
+    }
+
+    public function hideout()
+    {
+        return $this->belongsTo(Hideout::class, 'hideout_id');
     }
 }

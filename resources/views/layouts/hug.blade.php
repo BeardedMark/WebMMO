@@ -8,7 +8,7 @@
             @include('partials.header')
         </header>
 
-        <main>
+        <main class="section">
             @yield('content')
         </main>
 

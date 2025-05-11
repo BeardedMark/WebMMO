@@ -23,6 +23,11 @@ class Hideout extends Model
         'items' => 'array',
     ];
 
+    public function getTitle()
+    {
+        return $this->name;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

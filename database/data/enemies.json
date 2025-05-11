@@ -1,0 +1,48 @@
+[
+    {
+        "name": "Олень",
+        "spawn_chance": 5,
+        "image": "deer.png",
+        "danger": 1,
+        "drop":[9, 10, 39, 40, 35]
+    },
+    {
+        "name": "Кабан",
+        "spawn_chance": 3,
+        "image": "boar.png",
+        "danger": 2,
+        "max_level": 40,
+        "drop":[9, 10, 39, 40, 37]
+    },
+    {
+        "name": "Волк",
+        "spawn_chance": 2,
+        "image": "wolf.png",
+        "danger": 3,
+        "min_level": 30,
+        "max_level": 80,
+        "drop":[9, 10, 39, 40, 38]
+    },
+    {
+        "name": "Медведь",
+        "spawn_chance": 1,
+        "image": "bear.png",
+        "danger": 5,
+        "min_level": 70,
+        "drop":[9, 10, 39, 40, 36]
+    },
+    {
+        "name": "Курица",
+        "spawn_chance": 2,
+        "image": "chicken.png",
+        "danger": 0,
+        "drop":[10, 48]
+    },
+    {
+        "name": "Курочка Ряба",
+        "spawn_chance": 0.1,
+        "image": "chicken-ryaba.png",
+        "danger": 0,
+        "drop":[1, 2, 3, 10, 48]
+    }
+]

@@ -1,4 +1,4 @@
-<form class="flex-col-13" method="POST" action="{{ route('auth.registration') }}">
+<form class="flex-col-13" method="POST" action="{{ route('users.registration') }}">
     @csrf
 
     <input id="login" class="input" type="text" name="login" placeholder="Логин"
@@ -13,8 +13,8 @@
     <input id="password_confirmation" class="input" type="password" name="password_confirmation"
         placeholder="Подтверждение пароля" required value="Dev.201095">
 
-    <div class="flex-row-8 flex ai-center">
-        <button class="button" type="submit">Регистрация</button>
-        <a class="link" href="{{ route('auth.login') }}">Вход</a>
+    <div class="flex-row-8 flex jc-end ai-center">
+        <a class="link" href="{{ route('users.login') }}">Войти</a>
+        <button class="button" type="submit">Зарегестрироваться</button>
     </div>
 </form>

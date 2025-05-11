@@ -16,9 +16,13 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->string('name');
-
             $table->string('status')->nullable();
+            $table->unsignedBigInteger('experience')->default(0);
+
+            $table->timestamp('regenerated_at')->default(now());
+            $table->timestamp('next_action_at')->default(now()->addSeconds(10));
             $table->json('items')->nullable();
+            $table->json('logs')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

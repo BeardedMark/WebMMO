@@ -6,13 +6,14 @@ use App\Models\Character;
 use Illuminate\Http\Request;
 
 use App\Models\Transition;
+use Illuminate\Support\Facades\Auth; //Auth::
 
 class CharacterController extends Controller
 {
     public function index()
     {
-        $allCharacters = Character::all();
-        return view('characters.index', compact('allCharacters'));
+        $characters = Character::all();
+        return view('characters.index', compact('characters'));
     }
 
     public function create()
@@ -23,16 +24,16 @@ class CharacterController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255'
+            'name' => 'required|string|unique:characters,name|min:5|max:255'
         ]);
 
         $character = new Character();
         $character->name = $data['name'];
-        $character->user_id = auth()->id();
+        $character->user_id = Auth::id();
         $character->items = $data['items'] ?? [];
         $character->save();
 
-        $user = auth()->user();
+        $user = $character->user;
         $user->character_id = $character->id;
         $user->save();
 
@@ -40,11 +41,10 @@ class CharacterController extends Controller
 
         Transition::create([
             'character_id' => $character->id,
-            'to_location_id' => $spawnLocation->id,
-            'next_action_at' => now()->addSeconds(($spawnLocation->getSize())),
+            'location_id' => $spawnLocation->id,
         ]);
 
-        return redirect()->route('transitions.index')->with('success', 'Персонаж создан');
+        return redirect()->route('transitions.index');
     }
 
     public function show(Character $character)
@@ -61,11 +61,9 @@ class CharacterController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'items' => 'nullable|array',
         ]);
 
         $character->name = $data['name'];
-        $character->items = $data['items'] ?? $character->items;
         $character->save();
 
         return redirect()->route('characters.index')->with('success', 'Персонаж обновлён');
@@ -79,16 +77,51 @@ class CharacterController extends Controller
 
     public function select()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         return view('characters.select', compact('user'));
     }
 
     public function selected(Character $character)
     {
-        $user = auth()->user();
+        $user = $character->user;
         $user->character_id = $character->id;
         $user->save();
 
         return redirect()->route('transitions.index')->with('success', 'Персонаж выбран');
+    }
+
+    public function card(Character $character)
+    {
+        $user = Auth::user();
+        $character = $user->character;
+
+        return view('characters.components.card', compact('character'));
+    }
+
+    public function inventory()
+    {
+        $currentCharacter = Auth::user()->character;
+        $currentLocation = $currentCharacter->currentLocation();
+        $currentTransition = $currentCharacter->latestTransition;
+
+        return view('characters.inventory', compact('currentCharacter', 'currentLocation', 'currentTransition'));
+    }
+
+    public function craft()
+    {
+        $currentCharacter = Auth::user()->character;
+        $currentLocation = $currentCharacter->currentLocation();
+        $currentTransition = $currentCharacter->latestTransition;
+
+        return view('characters.craft', compact('currentCharacter', 'currentLocation', 'currentTransition'));
+    }
+
+    public function disassemble()
+    {
+        $currentCharacter = Auth::user()->character;
+        $currentLocation = $currentCharacter->currentLocation();
+        $currentTransition = $currentCharacter->latestTransition;
+
+        return view('characters.disassemble', compact('currentCharacter', 'currentLocation', 'currentTransition'));
     }
 }

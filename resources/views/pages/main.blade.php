@@ -6,14 +6,15 @@
             <h1>Главная страница</h1>
 
             <div class="flex-row-8">
-                <a class="button brand" href="{{ route('characters.create') }}">Создать персонажа</a>
+                <a class="button brand" href="{{ route('characters.create') }}">Начать игру</a>
             </div>
         </div>
 
         <div class="flex-col-13">
             <h2>Описание</h2>
 
-            <p class="frame">Браузерная ММО с картой локаций, соединённых дорогами. Игроки перемещаются между ними с таймерами,
+            <p class="frame">Браузерная ММО с картой локаций, соединённых дорогами. Игроки перемещаются между ними с
+                таймерами,
                 собирают
                 случайно сгенерированный лут, взаимодействуют с инвентарём, другими игроками и локациями. Всё строится
                 на
@@ -26,7 +27,7 @@
             <div class="row">
                 <div class="col">
                     <div class="frame">
-                        <p class="link">Передвижение</p>
+                        <p>Передвижение</p>
 
                         <ul>
                             <li>Атмосферные локации с активностями</li>
@@ -43,7 +44,7 @@
 
                 <div class="col">
                     <div class="frame">
-                        <p class="link">Предметы</p>
+                        <p>Предметы</p>
 
                         <ul>
                             <li>Сбор предметов на локациях</li>
@@ -59,7 +60,7 @@
 
                 <div class="col lock-opacity">
                     <div class="frame">
-                        <p class="link">Планы</p>
+                        <p>Планы</p>
 
                         <ul>
                             <li>Враги на локациях</li>
@@ -68,78 +69,87 @@
                     </div>
                 </div>
             </div>
-        </div><div class="flex-col-13">
-            <h2>Вдохновения</h2>
+        </div>
+        <h2>Вдохновения</h2>
+        <div class="frame flex-col-13">
 
             <div class="row">
                 <div class="col">
-                    <div class="frame">
-                        <p class="link">RUST</p>
+                    <p>RUST</p>
 
-                        <ul>
-                            <li>Игровой мир и сюжет</li>
-                            <li>Предметы и крафт</li>
-                            <li>Система развития</li>
-                        </ul>
-                    </div>
+                    <ul>
+                        <li>Игровой мир и сюжет</li>
+                        <li>Предметы и крафт</li>
+                        <li>Система развития</li>
+                    </ul>
                 </div>
 
                 <div class="col">
-                    <div class="frame">
-                        <p class="link">Path of Exile</p>
+                    <p>Path of Exile</p>
 
-                        <ul>
-                            <li>Древовидность и гибкость</li>
-                            <li>Свойства предметов и персонажей</li>
-                            <li>Гринд и развитие экипировки</li>
-                        </ul>
-                    </div>
+                    <ul>
+                        <li>Древовидность и гибкость</li>
+                        <li>Свойства предметов и персонажей</li>
+                        <li>Гринд и развитие экипировки</li>
+                    </ul>
                 </div>
 
                 <div class="col">
-                    <div class="frame">
-                        <p class="link">Carnage</p>
+                    <p>Carnage</p>
 
-                        <ul>
-                            <li>Механника перемещения</li>
-                            <li>Боевая система</li>
-                            <li>Система событий на локациях</li>
-                        </ul>
-                    </div>
+                    <ul>
+                        <li>Механника перемещения</li>
+                        <li>Боевая система</li>
+                        <li>Система событий на локациях</li>
+                    </ul>
                 </div>
 
                 <div class="col">
-                    <div class="frame">
-                        <p class="link">В целом</p>
+                    <p>В целом</p>
 
-                        <ul>
-                            <li>Убежища для персонажей</li>
-                            <li>Система гильдий и груп</li>
-                            <li>Социальные возможности</li>
-                        </ul>
-                    </div>
+                    <ul>
+                        <li>Убежища для персонажей</li>
+                        <li>Система гильдий и груп</li>
+                        <li>Социальные возможности</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="flex-col-13">
-            <h3>Авторизация</h3>
+        <h2>Ресурсы</h2>
 
+        <div class="frame flex-col-13">
             <div class="row">
                 <div class="col">
-                    <div class="frame">
-                        <p class="link">Вход</p>
-                        @component('auth.components.login')
-                        @endcomponent
-                    </div>
+                    <p>Медиаконтент</p>
+
+                    <ul>
+                        <li><a class="link" href="https://zvukipro.com/" target="_blink">Озвучка</a></li>
+                        <li><a class="link" href="https://icons8.ru/icons/set/home--style-windows"
+                                target="_blink">Иконки</a></li>
+                        <li><a class="link" href="https://chatgpt.com/" target="_blink">Изображения и текст</a></li>
+                    </ul>
                 </div>
 
                 <div class="col">
-                    <div class="frame">
-                        <p class="link">Регистрация</p>
-                        @component('auth.components.register')
-                        @endcomponent
-                    </div>
+                    <p>Инструменты</p>
+
+                    <ul>
+                        <li><a class="link" href="https://programforyou.ru/graph-redactor" target="_blink">Рaбота с
+                                графами</a></li>
+                        <li><a class="link" href="https://www.redblobgames.com/maps/mapgen4/" target="_blink">Генератор
+                                мира</a></li>
+                        <li><a class="link" href="https://randomall.ru/" target="_blink">Генератор лора</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <p>Технологии</p>
+
+                    <ul>
+                        <li><a class="link" href="https://hosting.timeweb.ru/" target="_blink">Хостинг и домен</a></li>
+                        <li><a class="link" href="https://laravel.com/" target="_blink">Фреймворк</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

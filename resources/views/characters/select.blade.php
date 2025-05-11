@@ -1,20 +1,18 @@
-@extends('layouts.hug')
+@extends('users.sidebar')
 
-@section('content')
-    <div class="flex-col-13">
-        <div class="flex-col">
-            <h1>Выбор персонажа</h1>
-            <div class="flex-row-8">
-                <a class="button" href="{{ route('characters.create') }}">Создать нового персонажа</a>
-            </div>
-        </div>
+@section('user-content')
+    <div class="frame flex-col-13">
+        <h1 class="color-brand">Выбор персонажа</h1>
 
-        <div class="frame flex-col">
+        <div>
             @foreach ($user->characters as $character)
-            <form action="{{ route('characters.selected', $character) }}" method="POST">
-                @csrf
-                <button class="link" type="submit">{{ $character->getTitle() }}</button>
-            </form>
+                <form class="flex-row-8" action="{{ route('characters.selected', $character) }}" method="POST">
+                    @csrf
+                    @component('characters.components.line', compact('character'))
+                    @endcomponent
+
+                    <button class="link" type="submit">Выбрать</button>
+                </form>
             @endforeach
         </div>
     </div>

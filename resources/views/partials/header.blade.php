@@ -5,23 +5,22 @@
             <a class="button" href="{{ route('characters.index') }}">Персонажи</a>
             <a class="button" href="{{ route('locations.index') }}">Локации</a>
             <a class="button" href="{{ route('items.index') }}">Предметы</a>
+            <a class="button" href="{{ route('enemies.index') }}">Враги</a>
         </div>
 
         <div class="flex-row-8 ai-center">
             @if (auth()->check())
-                @if (count(auth()->user()->characters) > 0)
-                    @if (auth()->user()->checkCharacter())
-                        <a class="button" href="{{ route('transitions.index') }}">Персонаж</a>
-                    @else
-                        <a class="button brand" href="{{ route('characters.create') }}">Создать персонажа</a>
-                    @endif
-                @else
-                    <a class="button brand" href="{{ route('characters.select') }}">Выбор персонажа</a>
+                @if (auth()->user()->checkCharacter())
+                    <a class="button" href="{{ route('transitions.index') }}">Локация</a>
+                    <a class="button" href="{{ route('characters.inventory') }}">Инвентарь</a>
+                    <a class="button lock-opacity" href="{{ route('transitions.index') }}">Поединки</a>
+                    <a class="button lock-opacity" href="{{ route('transitions.index') }}">Задания</a>
+                    <a class="button lock-opacity" href="{{ route('transitions.index') }}">Навыки</a>
                 @endif
 
-                <a class="button" href="{{ route('auth.main') }}">Профиль</a>
+                <a class="button" href="{{ route('users.main') }}">Профиль</a>
             @else
-                <a class="button" href="{{ route('auth.main') }}">Войти в профиль</a>
+                <a class="button" href="{{ route('users.login') }}">Войти в профиль</a>
             @endif
         </div>
     </div>

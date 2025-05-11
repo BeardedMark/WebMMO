@@ -66,11 +66,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(Character::class);
     }
+    public function setCharacterById($id)
+    {
+        $this->character_id = $id;
+        $this->save();
+    }
 
     public function hideouts()
     {
         return $this->hasMany(Hideout::class);
     }
+
+    public function hideoutLocations()
+    {
+        return $this->hideouts()
+            ->with('location')
+            ->get()
+            ->pluck('location')
+            ->filter();
+    }
+
 
     public function getHideoutAtCurrentLocation()
     {
@@ -79,7 +94,7 @@ class User extends Authenticatable
         }
 
         return $this->hideouts()
-            ->where('location_id', $this->character->location_id)
+            ->where('location_id', $this->character->currentLocation()->id)
             ->first();
     }
 }
