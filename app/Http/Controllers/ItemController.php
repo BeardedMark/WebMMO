@@ -17,8 +17,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $allItems = Item::all();
-        return view('items.index', compact('allItems'));
+        $items = Item::all();
+        return view('db.items.index', compact('items'));
     }
 
     /**
@@ -42,7 +42,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return view('items.show', compact('item'));
+        return view('db.items.show', compact('item'));
     }
 
     /**
@@ -72,7 +72,7 @@ class ItemController extends Controller
     public function move(Request $request)
     {
         $request->validate([
-            'item_id' => 'required|exists:items,id',
+            'uuid' => 'required|string',
             'from_container_type' => 'required|string',
             'to_container_type' => 'required|string',
             'from_container_id' => 'required|exists:' . $request->from_container_type . ',id',
@@ -80,103 +80,13 @@ class ItemController extends Controller
             'stack' => 'required|integer|min:1',
         ]);
 
-        $itemId = $request->item_id;
-
-        $fromContainer = $this->getContainer($request->from_container_type, $request->from_container_id);
-        $toContainer = $this->getContainer($request->to_container_type, $request->to_container_id);
+        $uuid = $request->uuid;
         $stack = $request->stack;
 
-        // dd($fromContainer, $toContainer);
+        $from = $this->getContainer($request->from_container_type, $request->from_container_id);
+        $to = $this->getContainer($request->to_container_type, $request->to_container_id);
 
-        $fromContainer->moveItemTo($itemId, $toContainer, $stack);
-
-        return redirect()->back();
-    }
-
-    public function disassemble(Request $request)
-    {
-        $request->validate([
-            'item_id' => 'required|exists:items,id',
-            'from_container_type' => 'required|string',
-            'from_container_id' => 'required|exists:' . $request->from_container_type . ',id',
-            'stack' => 'required|integer|min:1',
-        ]);
-
-        $itemId = $request->item_id;
-
-        $fromContainer = $this->getContainer($request->from_container_type, $request->from_container_id);
-        $stack = $request->stack;
-
-        $character = Auth::user()->character;
-        $targetitem = Item::findOrFail($itemId);
-        $availableItems = $targetitem->getCraftItems();
-        $resultItemsArray = [];
-
-        for ($i = 0; $i < $stack; $i++) {
-            foreach ($availableItems as $availableItem) {
-                $items = Item::generateItems($availableItem->stack, [$availableItem->item], $character->dropChance() + 30);
-
-                foreach ($items as $item) {
-                    $resultItemsArray[] = $item['stack'] . " " . Item::findOrFail($item['id'])->getTitle();
-
-                    $fromContainer->addItem($item['id'], $item['stack']);
-                }
-            }
-        }
-
-        $resultString = "Разобран: {$stack} {$targetitem->getTitle()}";
-        $resultItemsString = implode(', ', $resultItemsArray);
-        if ($resultItemsString) {
-            $resultString .= ", получено: {$resultItemsString}";
-        }
-        $character->addLog('items', $resultString);
-        $fromContainer->removeItem($itemId, $stack);
-
-        return redirect()->back();
-    }
-
-    public function assemble(Request $request)
-    {
-        $request->validate([
-            'item_id' => 'required|exists:items,id',
-            'from_container_type' => 'required|string',
-            'from_container_id' => 'required|exists:' . $request->from_container_type . ',id',
-            'stack' => 'required|integer|min:1',
-        ]);
-
-        $character = Auth::user()->character;
-        $itemId = $request->item_id;
-        $stack = $request->stack;
-        $fromContainer = $this->getContainer($request->from_container_type, $request->from_container_id);
-
-        $targetItem = Item::findOrFail($itemId);
-        $craftItems = $targetItem->getCraftItems();
-        $resultItemsArray = [];
-
-        // Проверка наличия всех необходимых ресурсов
-        foreach ($craftItems as $craft) {
-            $requiredCount = $craft->stack * $stack;
-            $actualCount = $fromContainer->getItems()->where('item.id', $craft->item->id)->sum('stack');
-
-            if ($actualCount < $requiredCount) {
-                $character->addLog('items', 'Недостаточно ресурсов для создания');
-                return redirect()->back();
-            }
-        }
-
-        // Удаление ресурсов
-        foreach ($craftItems as $craft) {
-            $requiredCount = $craft->stack * $stack;
-            $resultItemsArray[] = $requiredCount . " " . $craft->item->getTitle();
-            $fromContainer->removeItem($craft->item->id, $requiredCount);
-        }
-
-        // Добавление целевого предмета
-        $fromContainer->addItem($targetItem->id, $stack);
-
-        $resultItemsString = implode(', ', $resultItemsArray);
-        $resultString = "Собран: {$stack} {$targetItem->getTitle()}, потрачено: {$resultItemsString}";
-        $character->addLog('items', $resultString);
+        $from->transferItemTo($to, $uuid, $stack);
 
         return redirect()->back();
     }
@@ -202,4 +112,91 @@ class ItemController extends Controller
                 abort(404, 'Контейнер не найден');
         }
     }
+
+
+    public function assemble(Request $request)
+    {
+        $character = Auth::user()->character;
+        $item = Item::findOrFail($request->input('id'));
+
+        if (!$item->craft || !is_array($item->craft)) {
+            return response()->json(['error' => 'Предмет нельзя собрать'], 400);
+        }
+
+        if (!$character->hasRequiredResources($item->craft)) {
+            return response()->json(['error' => 'Недостаточно ресурсов'], 400);
+        }
+
+        $character->removeResources($item->craft);
+        $character->addItem($item->generateInstance());
+
+        return redirect()->back();
+    }
+
+    public function disassemble(Request $request)
+    {
+        $character = Auth::user()->character;
+        $uuid = $request->input('uuid');
+
+        $item = $character->findItem($uuid);
+        if (!$item) {
+            return response()->json(['error' => 'Предмет не найден'], 404);
+        }
+
+        $template = Item::find($item->id);
+        if (!$template || !$template->craft) {
+            return response()->json(['error' => 'Этот предмет нельзя разобрать'], 400);
+        }
+
+        $character->removeItem($uuid, $item->stack);
+
+        foreach ($template->craft as $resource) {
+            $resItem = Item::find($resource['item']);
+            if ($resItem) {
+                $character->addItem($resItem->generateInstance($resource['stack']));
+            }
+        }
+
+        return redirect()->back();
+    }
+    public function equip(Request $request)
+{
+    $character = Auth::user()->character;
+    $uuid = $request->input('uuid');
+
+    $item = $character->findItem($uuid);
+    if (!$item) {
+        return response()->json(['error' => 'Предмет не найден в инвентаре'], 404);
+    }
+
+    // Пробрасываем class из модели Item
+    $model = Item::find($item->id);
+    if (!$model || !$model->class) {
+        return response()->json(['error' => 'Предмет нельзя экипировать (нет класса/слота)'], 400);
+    }
+
+    $item->class = $model->class; // "weapon", "armor" и т.п.
+
+    if (!$character->equip($item)) {
+        return response()->json(['error' => 'Не удалось экипировать предмет'], 400);
+    }
+
+    $character->removeItem($uuid);
+    return redirect()->back();
+
+}
+
+public function unequip(Request $request)
+{
+    $character = Auth::user()->character;
+    $uuid = $request->input('uuid');
+
+    $item = $character->unequip($uuid);
+    if (!$item) {
+        return response()->json(['error' => 'Предмет не найден среди экипированных'], 404);
+    }
+
+    $character->addItem($item);
+    return redirect()->back();
+}
 }

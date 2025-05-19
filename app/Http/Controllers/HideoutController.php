@@ -10,26 +10,26 @@ class HideoutController extends Controller
     public function index()
     {
         $hideouts = Hideout::with('user', 'location')->get();
-        return view('hideouts.index', compact('hideouts'));
+        return view('db.hideouts.index', compact('hideouts'));
     }
 
     public function create()
     {
         $location = auth()->user()->character->currentLocation();
 
-        return view('hideouts.create', compact('location'));
+        return view('db.hideouts.create', compact('location'));
     }
 
     public function show(Hideout $hideout)
     {
         $character = auth()->user()->character;
         $location = $character->currentLocation();
-        return view('hideouts.show', compact('hideout', 'location', 'character'));
+        return view('db.hideouts.show', compact('hideout', 'location', 'character'));
     }
 
     public function edit(Hideout $location)
     {
-        return view('hideouts.edit', compact('location'));
+        return view('db.hideouts.edit', compact('location'));
     }
 
     public function store(Request $request)

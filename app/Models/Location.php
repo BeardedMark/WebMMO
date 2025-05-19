@@ -27,6 +27,11 @@ class Location extends Model
         return $this->name;
     }
 
+    public function getStatusTitle()
+    {
+        return $this->is_open ? 'Открыто' : 'Закрыто';
+    }
+
     public function getImageUrl()
     {
         return asset('storage/img/locations/' . $this->image ?? 'default.jpg');
@@ -45,6 +50,16 @@ class Location extends Model
     public function getSize()
     {
         return count($this->availableRoads()) + $this->level + 5;
+    }
+
+    public function getCordX()
+    {
+        return $this->x;
+    }
+
+    public function getCordY()
+    {
+        return $this->y;
     }
 
     // Items

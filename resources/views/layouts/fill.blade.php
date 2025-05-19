@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('container')
-    <div class="container-fluid mx-auto py-4">
+    <div class="container-fluid mx-auto py-3">
         <div class="flex-col-13">
             <header>
                 @include('partials.header')

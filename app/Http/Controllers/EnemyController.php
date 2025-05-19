@@ -16,7 +16,7 @@ class EnemyController extends Controller
     public function index()
     {
         $enemies = Enemy::all();
-        return view('enemies.index', compact('enemies'));
+        return view('db.enemies.index', compact('enemies'));
     }
 
     /**
@@ -40,7 +40,7 @@ class EnemyController extends Controller
      */
     public function show(Enemy $enemy)
     {
-        return view('enemies.show', compact('enemy'));
+        return view('db.enemies.show', compact('enemy'));
     }
 
     /**
@@ -81,9 +81,9 @@ class EnemyController extends Controller
         $enemy = Enemy::findOrFail($enemyId);
 
         $transition = $character->latestTransition;
-        $locationLevel = $transition->toLocation->getLevel();
+        $locationLevel = $transition->location->getLevel();
 
-        $totalExperience = ($enemiesStackSize + $locationLevel) * ($enemy->danger + 1);
+        $totalExperience = ($enemy->danger + $locationLevel) * $enemiesStackSize;
 
         $charHp = $character->getCurrentHealth();
 
@@ -94,7 +94,10 @@ class EnemyController extends Controller
             while ($charHp > 0 && $enemyHp > 0) {
                 $enemyHp -= $character->damage();
                 if ($enemyHp > 0) {
-                    $charHp -= $enemyDmg;
+                    $reductionRatio = $character->defense() / ($character->defense() + 10 * $enemyDmg);
+                    $reducedDmg = round($enemyDmg * (1 - $reductionRatio));
+
+                    $charHp -= $reducedDmg;
                 }
             }
 
@@ -108,24 +111,39 @@ class EnemyController extends Controller
             $character->setRegenerationTime(0);
             $character->reduceExperience($totalExperience);
             $character->setDelayToNextAction($totalExperience);
-            $character->addLog('battle', "Поражение с {$enemiesStackSize} {$enemy->getTitle()}, потеряно {$totalExperience} оп");
+            $character->addLog('battle', "Поражение: {$enemiesStackSize} {$enemy->getTitle()}, потеряно {$totalExperience} оп");
             return redirect()->back();
         }
 
         $availableItems = $enemy->availableItems();
         $totalItems = count($availableItems) * $enemiesStackSize;
 
-        $items = Item::generateItems($totalItems, $availableItems, $character->dropChance() + 30);
+        $items = Item::generateItemsFromPool(
+            $totalItems,
+            $availableItems,
+            $character->dropChance() + 30
+        );
+        // $items = Item::generateItems($totalItems, $availableItems, $character->dropChance() + 30);
+        $transition->addItems($items);
+
+        $resultItemsArray = [];
 
         foreach ($items as $item) {
-            $transition->addItem($item['id'], $item['stack']);
+            // $transition->addItem($item['id'], $item['stack']);
+            $resultItemsArray[] = $item['stack'] . " " . Item::findOrFail($item['id'])->getTitle();
         }
+
+        $resultString = "Победа: {$enemiesStackSize} {$enemy->getTitle()}, получено {$totalExperience} оп";
+        $resultItemsString = implode(', ', $resultItemsArray);
+        if ($resultItemsString) {
+            $resultString .= ", {$resultItemsString}";
+        }
+        $character->addLog('battle', $resultString);
 
         $character->increaseExperience($totalExperience);
         $character->setRegenerationTime($charHp);
         $transition->removeEnemy($enemyId, $enemiesStackSize);
 
-        $character->addLog('battle', "Победа над {$enemiesStackSize} {$enemy->getTitle()}, получено {$totalExperience} оп");
         return redirect()->back();
     }
 }

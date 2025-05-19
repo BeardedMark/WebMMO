@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->boolean('is_admin')->default(false);
             $table->foreignId('character_id')->nullable()->constrained('characters')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->json('settings')->nullable();
 
             $table->rememberToken();

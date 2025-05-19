@@ -10,4 +10,9 @@ class PageController extends Controller
     {
         return view('pages.main');
     }
+
+    public function about()
+    {
+        return view('pages.about');
+    }
 }

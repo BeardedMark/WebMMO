@@ -31,7 +31,7 @@ trait HasEnemies
     public function getTotalEnemiesdanger(): float
     {
         return $this->getEnemies()->sum(function ($item) {
-            return $item->item->getWeight() * $item->stack;
+            return $item->item->getWeight()* $item->stack;
         });
     }
 

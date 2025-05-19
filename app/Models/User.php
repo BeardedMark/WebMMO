@@ -51,6 +51,16 @@ class User extends Authenticatable
         return $this->login;
     }
 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getRoleTitle()
+    {
+        return $this->is_admin ? 'Администратор' : 'Пользователь';
+    }
+
 
     public function character()
     {

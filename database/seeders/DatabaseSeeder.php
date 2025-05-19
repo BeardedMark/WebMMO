@@ -12,6 +12,8 @@ use App\Models\Location;
 use App\Models\Road;
 use App\Models\Transition;
 use App\Models\Item;
+use App\Models\Property;
+use App\Models\Modifier;
 
 use Illuminate\Support\Facades\File;
 
@@ -33,6 +35,18 @@ class DatabaseSeeder extends Seeder
         $items = json_decode(File::get(database_path('data/items.json')), true);
         foreach ($items as $item) {
             Item::create($item);
+        }
+
+        // Загрузка параметров предметов
+        $properties = json_decode(File::get(database_path('data/properties.json')), true);
+        foreach ($properties as $prop) {
+            Property::create($prop);
+        }
+
+        // Загрузка модификаторов предметов
+        $modifiers = json_decode(File::get(database_path('data/modifiers.json')), true);
+        foreach ($modifiers as $mod) {
+            Modifier::create($mod);
         }
 
         // Загрузка врагов

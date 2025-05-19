@@ -22,6 +22,8 @@ return new class extends Migration
             $table->timestamp('regenerated_at')->default(now());
             $table->timestamp('next_action_at')->default(now()->addSeconds(10));
             $table->json('items')->nullable();
+            $table->json('equipment')->nullable();
+            $table->json('passives')->nullable();
             $table->json('logs')->nullable();
 
             $table->timestamps();

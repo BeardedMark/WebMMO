@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class Item extends Model
 {
@@ -24,49 +26,82 @@ class Item extends Model
     protected $casts = [
         'craft' => 'array',
         'tags' => 'array',
+        'properties' => 'array',
+        'modifiers' => 'array',
     ];
 
-    // Values
+    // Content
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return "{$this->name}";
     }
 
-    public function getWeight()
+    public function getImageUrl(): string
     {
-        return $this->weight;
+        return asset('storage/img/items/' . $this->image);
     }
 
-    public function getMaxStack()
+    // Values
+
+    public function getClass(): string
     {
-        return $this->max_stack;
+        return $this->class;
     }
 
-    public function getDropChance()
+    public function getDropChance(): float
     {
         return $this->drop_chance;
     }
 
-    public function getMinLevel()
+    public function getWeight(): float
     {
-        return $this->min_level ?? "–";
+        return $this->weight;
     }
 
-    public function getMaxLevel()
-    {
-        return $this->max_level ?? "–";
-    }
-
-    public function getWeightTitle()
+    public function getWeightTitle(): string
     {
         return "{$this->weight} кг";
     }
 
-    public function getImageUrl()
+    public function getMaxStack(): int
     {
-        return asset('storage/img/items/' . $this->image);
+        return $this->max_stack;
     }
+
+    public function getMaxModifiers(): int
+    {
+        return $this->max_modifiers;
+    }
+
+    public function getMinLevel(): ?int
+    {
+        return $this->min_level;
+    }
+
+    public function getMaxLevel(): ?int
+    {
+        return $this->max_level;
+    }
+
+    // Arrays
+
+    public function getPropertiesArray(): array
+    {
+        return $this->properties ?? [];
+    }
+
+    public function getModifiersArray(): array
+    {
+        return $this->modifiers ?? [];
+    }
+
+    public function getCraftArray(): array
+    {
+        return $this->craft ?? [];
+    }
+
+    // Dependencies
 
     public function availableLocations()
     {
@@ -82,6 +117,7 @@ class Item extends Model
 
         return $query->orderBy('level')->get();
     }
+
     public function getCraftItems()
     {
         if (empty($this->craft)) {
@@ -101,6 +137,7 @@ class Item extends Model
             return $craft->item !== null;
         });
     }
+
     public function usedInCrafts()
     {
         return self::all()->filter(function ($item) {
@@ -109,6 +146,30 @@ class Item extends Model
             return collect($item->craft)->pluck('item')->contains($this->id);
         });
     }
+
+    public function getAvailableProperties(): Collection
+    {
+        if (empty($this->properties)) {
+            return collect();
+        }
+
+        $codes = collect($this->properties)->pluck('code')->unique()->all();
+
+        return Modifier::whereIn('code', $codes)->get();
+    }
+
+    public function getAvailableModifiers(): Collection
+    {
+        if (empty($this->modifiers)) {
+            return collect();
+        }
+
+        return Modifier::whereIn('code', $this->modifiers)->get();
+    }
+
+
+
+    // Functions
 
     public function droppedByEnemies()
     {
@@ -119,56 +180,126 @@ class Item extends Model
         });
     }
 
-    public static function generateItem($item, int $remaining, int $chanceScale = 0): array
+    public function generateInstance(int $stack = 1): array
     {
-        $generated = [];
-        $stack = 0;
-        $maxStack = $item->max_stack ?? PHP_INT_MAX;
-        $dropChance = $item->drop_chance + $item->drop_chance * ($chanceScale / 100);
+        return [
+            'uuid' => (string) Str::uuid(),
+            'id' => $this->id,
+            'stack' => $stack,
+            'class' => $this->class,
+            'modifiers' => $this->generateModifiers(),
+            'properties' => $this->generateProperties(),
+            'sockets' => [],
+        ];
+    }
+    public function generateModifiers(): array
+    {
+        if (!$this->class || empty($this->modifiers)) return [];
 
-        for ($i = 0; $i <= $remaining; $i++) {
-            if (mt_rand(1, 100) <= $dropChance) {
-                $stack++;
+        $modifierDefs = Modifier::whereIn('code', $this->modifiers)->get()->shuffle();
 
-                if ($stack >= $remaining) break;
+        // Чем больше модификаторов — тем реже встречаются
+        $weights = [
+            0 => 50,  // 50% что не будет модов вообще
+            1 => 30,
+            2 => 15,
+            3 => 8,
+            4 => 5,
+            5 => 2,
+            6 => 1,
+        ];
+
+        $max = min(count($modifierDefs), 6);
+        $pool = collect();
+
+        foreach ($weights as $amount => $chance) {
+            if ($amount <= $max) {
+                $pool = $pool->concat(array_fill(0, $chance, $amount));
             }
         }
 
-        // Разбиваем на пачки
-        while ($stack > 0) {
-            $addStack = min($stack, $maxStack);
-            $generated[] = [
-                'uuid' => (string) Str::uuid(),
-                'id' => $item->id,
-                'stack' => $addStack,
+        $count = $pool->random();
+
+        $selected = $modifierDefs->take($count);
+
+        $result = [];
+
+        foreach ($selected as $mod) {
+            $base = $mod->value ?? 1;
+            $spread = $mod->spread ?? 0;
+
+            $min = (int) floor($base - ($base * $spread / 100));
+            $max = (int) ceil($base + ($base * $spread / 100));
+
+            $result[] = [
+                'code' => $mod->code,
+                'name' => $mod->name,
+                'value' => rand(max(1, $min), max(1, $max)),
             ];
-            $stack -= $addStack;
         }
 
-        return $generated;
+        return $result;
     }
 
 
-    public static function generateItems($totalCount, $availableItems, $chanceScale = 0): array
+    protected function generateProperties(): array
     {
-        $items = [];
-        $maxTotal = mt_rand(0, $totalCount);
-        $totalAdded = 0;
+        if (empty($this->properties) || !is_array($this->properties)) {
+            return [];
+        }
 
-        if ($maxTotal > 0) {
-            foreach ($availableItems as $item) {
-                $remaining = $maxTotal - $totalAdded;
-                if ($remaining <= 0) break;
+        $codes = collect($this->properties)->pluck('code')->all();
+        $defs = Modifier::whereIn('code', $codes)->get()->keyBy('code');
 
-                $generated = self::generateItem($item, $remaining, $chanceScale);
-                $totalAdded += collect($generated)->sum('stack');
+        $result = [];
 
-                $items = array_merge($items, $generated);
+        foreach ($this->properties as $property) {
+            $code = $property['code'] ?? null;
+            if (!$code || !isset($defs[$code])) continue;
 
-                if ($totalAdded >= $maxTotal) break;
+            $def = $defs[$code];
+            $base = $property['value'] ?? $def->value;
+            $spread = $def->spread ?? 0;
+
+            $min = (int) floor($base - ($base * $spread / 100));
+            $max = (int) ceil($base + ($base * $spread / 100));
+
+            $result[] = [
+                'code' => $def->code,
+                'name' => $def->name,
+                'value' => rand(max(1, $min), max(1, $max)),
+            ];
+        }
+
+        return $result;
+    }
+
+
+
+    public static function generateItemsFromPool(int $count, Collection $items, float $chance = 0): array
+    {
+        $result = [];
+
+        $weighted = collect();
+        foreach ($items as $item) {
+            $dropChance = $item->drop_chance + $item->drop_chance * ($chance / 100);
+            if ($dropChance > 0) {
+                $weighted = $weighted->concat(array_fill(0, max(1, (int) round($dropChance)), $item));
             }
         }
 
-        return $items;
+        if ($weighted->isEmpty()) return [];
+
+        $remaining = $count;
+
+        while ($remaining > 0) {
+            $picked = $weighted->random();
+            $stack = rand(1, min($picked->max_stack, $remaining));
+            $instance = $picked->generateInstance($stack);
+            $result[] = $instance;
+            $remaining -= $stack;
+        }
+
+        return $result;
     }
 }

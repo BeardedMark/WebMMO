@@ -13,13 +13,13 @@ class AuthController extends Controller
     // Главная страница
     public function main()
     {
-        return view('users.main');
+        return view('db.users.main');
     }
 
     // Форма авторизации
     public function login()
     {
-        return view('users.login');
+        return view('db.users.login');
     }
 
     // Авторизация
@@ -49,7 +49,7 @@ class AuthController extends Controller
             Auth::attempt(['login' => $user->login, 'password' => $validatedData['password']]) ||
             Auth::attempt(['email' => $user->email, 'password' => $validatedData['password']])
         ) {
-            return redirect()->route('users.main', $user)->with('success', 'Добро пожаловать в свой аккаунт!');
+            return redirect()->route('users.main', $user);
         }
 
         return back()->withErrors('Неверный пароль');
@@ -59,13 +59,13 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('users.main')->with('warning', 'Выход успешно совершен');
+        return redirect()->route('users.login');
     }
 
     // Форма регистрации
     public function register()
     {
-        return view('users.register');
+        return view('db.users.register');
     }
 
     // Регистрация
@@ -98,6 +98,6 @@ class AuthController extends Controller
             'is_admin' => ($validatedData['login'] == 'admin') ? true : false,
         ]);
 
-        return redirect()->route('users.main')->with('success', 'Регистрация успешно пройдена');
+        return redirect()->route('users.main');
     }
 }

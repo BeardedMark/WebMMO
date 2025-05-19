@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex-col-13">
-        <div class="flex-col-13">
+        <div class="flex-col-13 pad-13">
             <h1>Главная страница</h1>
 
             <div class="flex-row-8">

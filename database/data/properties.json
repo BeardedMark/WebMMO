@@ -1,0 +1,23 @@
+[
+    {
+      "code": "strength",
+      "name": "Силе",
+      "classes": ["legs", "body"],
+      "value": 1,
+      "spread": 5
+    },
+    {
+      "code": "agility",
+      "name": "Ловкости",
+      "classes": ["legs", "body"],
+      "value": 1,
+      "spread": 5
+    },
+    {
+      "code": "intelligence",
+      "name": "Интеллекту",
+      "classes": ["legs", "body"],
+      "value": 1,
+      "spread": 5
+    }
+  ]

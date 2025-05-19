@@ -4,27 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Hideout;
 use App\Traits\HasItems;
+use App\Traits\HasEquipment;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Character extends Model
 {
     use SoftDeletes;
-    use HasItems;
+    use HasItems, HasEquipment;
 
     protected $fillable = [
         'name',
         'user_id',
         'status',
-        'items',
+        'equipment',
+        'regenerated_at',
         'experience',
         'regenerated_at',
         'logs'
     ];
 
     protected $casts = [
+        'equipment' => 'array',
         'items' => 'array',
         'logs' => 'array',
     ];
@@ -56,22 +58,27 @@ class Character extends Model
             'message' => $message,
         ];
 
-        if (count($logs) > 10) {
-            $logs = array_slice($logs, -10);
+        if (count($logs) > 8) {
+            $logs = array_slice($logs, -8);
         }
 
         $this->logs = $logs;
         $this->save();
     }
 
+    public function getViewRange()
+    {
+        return 100 + $this->getEquipmentStat('vision_range');
+    }
+
     public function health()
     {
-        return 10 + $this->strength();
+        return 10 + $this->getEquipmentStat('increase_health') + $this->strength();
     }
 
     public function getRegen()
     {
-        return 1;
+        return 1 + $this->getEquipmentStat('life_regen');
     }
 
     public function setRegenerationTime(int $currentHealth): void
@@ -134,32 +141,60 @@ class Character extends Model
     }
     public function damage()
     {
-        return 1 + $this->getLevel();
+        $damage = 1;
+        $stats = [
+            "physical_damage",
+            "slashing_damage",
+            "piercing_damage",
+            "blunt_damage"
+        ];
+
+        foreach ($stats as $stat) {
+            $damage += $this->getEquipmentStat($stat);
+        }
+
+        return $damage + $this->getLevel() + $this->strength();
+    }
+    public function defense()
+    {
+        $defense = 0;
+        $stats = [
+            "physical_resistance",
+            "slashing_resistance",
+            "piercing_resistance",
+            "blunt_resistance"
+        ];
+
+        foreach ($stats as $stat) {
+            $defense += $this->getEquipmentStat($stat);
+        }
+
+        return $defense;
     }
     public function strength()
     {
-        return 0 + $this->getLevel();
+        return 0 + $this->getEquipmentStat('increase_strength');
     }
     public function agility()
     {
-        return 900 + $this->getLevel();
+        return 990 + $this->getEquipmentStat('increase_agility');
     }
     public function intelligence()
     {
-        return 0 + $this->getLevel();
+        return 0 + $this->getEquipmentStat('increase_intelligence');
     }
     public function maxWeight()
     {
-        return 100 + $this->strength();
+        return 100 + $this->strength() + $this->getEquipmentStat('weight_carry');
     }
     public function overWeight()
     {
-        $overWeight = $this->getTotalItemsWeight() - $this->maxWeight();
+        $overWeight = $this->getTotalWeight() - $this->maxWeight();
         return $overWeight > 0 ? $overWeight : 0;
     }
     public function moveSpeed()
     {
-        return $this->agility() / 10;
+        return ($this->agility() + $this->getEquipmentStat('move_speed')) / 10;
     }
     public function dropChance()
     {
@@ -272,6 +307,11 @@ class Character extends Model
         return $this->hasOne(Transition::class)->latestOfMany();
     }
 
+    public function transition()
+    {
+        return $this->hasOne(Transition::class)->latestOfMany();
+    }
+
     public function timeToNextAction()
     {
         // $transition = $this->latestTransition()->first();
@@ -305,8 +345,13 @@ class Character extends Model
 
     public function currentLocation()
     {
-        $latestTransition = $this->latestTransition()->with('toLocation')->first();
-        return $latestTransition?->toLocation;
+        $latestTransition = $this->latestTransition;
+        return $latestTransition?->location;
+    }
+
+    public function location()
+    {
+        return $this->transition->location();
     }
 
     public function availableLocations()
@@ -323,9 +368,9 @@ class Character extends Model
     public function visitedLocations()
     {
         return $this->hasMany(Transition::class)
-            ->with('toLocation')
+            ->with('location')
             ->get()
-            ->pluck('toLocation')
+            ->pluck('location')
             ->unique('id');
     }
 

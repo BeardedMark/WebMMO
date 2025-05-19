@@ -15,7 +15,7 @@ class MessageController extends Controller
         $user = auth()->user();
         $messages = $user->character->currentLocation()->messages;
 
-        return view('messages.components.list', compact('messages'));
+        return view('db.messages.components.list', compact('messages'));
     }
 
     /**

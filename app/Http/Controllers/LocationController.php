@@ -10,12 +10,12 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::where('is_open', true)->orderBy('level', 'asc')->get();
-        return view('locations.index', compact('locations'));
+        return view('db.locations.index', compact('locations'));
     }
 
     public function create()
     {
-        return view('locations.create');
+        return view('db.locations.create');
     }
 
     public function store(Request $request)
@@ -37,12 +37,12 @@ class LocationController extends Controller
 
     public function show(Location $location)
     {
-        return view('locations.show', compact('location'));
+        return view('db.locations.show', compact('location'));
     }
 
     public function edit(Location $location)
     {
-        return view('locations.edit', compact('location'));
+        return view('db.locations.edit', compact('location'));
     }
 
     public function update(Request $request, Location $location)

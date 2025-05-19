@@ -12,7 +12,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('db.users.index', compact('users'));
     }
 
     /**
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        return view('db.users.show', compact('user'));
     }
 
     /**

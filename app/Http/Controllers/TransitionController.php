@@ -15,19 +15,26 @@ use Illuminate\Support\Facades\Auth; //Auth::
 
 class TransitionController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $currentCharacter = Auth::user()->character;
-        $currentLocation = $currentCharacter->currentLocation();
-        $currentTransition = $currentCharacter->latestTransition;
+        $character = Auth::user()->character;
+        $location = $character->currentLocation();
+        $transition = $character->latestTransition;
 
-        if($currentTransition->hideout){
-            return view('hideouts.show', $currentTransition->hideout);
+        if ($transition->hideout) {
+            return view('db.hideouts.show', $transition->hideout);
         }
 
-        return view('transitions.index', compact('currentCharacter', 'currentLocation', 'currentTransition'));
+        return view('db.transitions.index', compact('character', 'location', 'transition'));
     }
 
+
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         //
@@ -40,20 +47,17 @@ class TransitionController extends Controller
     {
         $request->validate([
             'location_id' => 'nullable|exists:locations,id',
-            'hideout_id' => 'nullable|exists:hideouts,id',
         ]);
 
-        $currentCharacter = Auth::user()->character;
-        $fromLocation = $currentCharacter->currentLocation();
+        $character = Auth::user()->character;
+        $fromLocation = $character->location;
         $toLocation = Location::findOrFail($request->location_id);
 
-        if ($currentCharacter->timeToNextAction() > 0) {
+        if ($character->timeToNextAction() > 0) {
             return redirect()->back()->with('error', "Переход пока невозможен");
         }
 
-        $chosenRoad = null;
-
-        foreach ($currentCharacter->availableRoads() as $road) {
+        foreach ($character->availableRoads() as $road) {
             if (($road->from_location_id === $fromLocation->id && $road->to_location_id === $toLocation->id) ||
                 ($road->from_location_id === $toLocation->id && $road->to_location_id === $fromLocation->id)
             ) {
@@ -61,37 +65,27 @@ class TransitionController extends Controller
                 break;
             }
         }
-
         if (!$chosenRoad && $fromLocation != $toLocation) {
             return redirect()->back()->with('error', "Нет доступной дороги для перехода в этом направлении");
         }
-
         if ($road->from_location_id === $fromLocation->id && !$road->is_open) {
             return redirect()->back()->with('error', "Дорога в этом направлении закрыта");
         }
 
-        $items = Item::generateItems($toLocation->getSize(), $toLocation->availableItems(), $currentCharacter->dropChance());
-        $enemies = Enemy::generateEnemies($toLocation->getSize(), $toLocation->availableEnemies(), $currentCharacter->dropChance());
+        $loot = $this->generateContentForLocation($toLocation, $character);
 
-        $currentCharacter->allTransitions()->create([
+        $transition = $character->allTransitions()->create([
             'location_id' => $toLocation->id,
-            'items' => $items,
-            'enemies' => $enemies,
+            'enemies' => $loot['enemies'],
         ]);
+        $transition->addItems($loot['items']);
 
+        $delay = $chosenRoad->getDistance() + $toLocation->getSize() + $character->overWeight();
+        $character->setDelayToNextAction($delay);
+        $character->addLog('transitions', "Вход: {$toLocation->getTitle()}, потрачено {$delay} сек");
 
-        $delay = (isset($chosenRoad) ? $chosenRoad->getDistance() : 0) + $toLocation->getSize() + $currentCharacter->overWeight();
-        $currentCharacter->setDelayToNextAction($delay);
-
-        if ($fromLocation == $toLocation) {
-            $currentCharacter->addLog('transitions', 'Переобход: ' . $toLocation->getTitle());
-        } else {
-            $currentCharacter->addLog('transitions', 'Вход: ' . $toLocation->getTitle());
-        }
         return redirect()->route('transitions.index');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -114,7 +108,30 @@ class TransitionController extends Controller
      */
     public function update(Request $request, Transition $transition)
     {
-        //
+        $request->validate([
+            'hideout_id' => 'nullable|exists:hideouts,id',
+        ]);
+
+        $character = Auth::user()->character;
+        $location = $transition->location;
+
+        if ($character->timeToNextAction() > 0) {
+            return redirect()->back()->with('error', "Переход пока невозможен");
+        }
+
+        $loot = $this->generateContentForLocation($location, $character);
+        $transition->update([
+            'items' => [],
+            'enemies' => $loot['enemies'],
+        ]);
+        $transition->addItems($loot['items']);
+
+
+        $delay = $location->getSize() + $character->overWeight();
+        $character->setDelayToNextAction($delay);
+        $character->addLog('transitions', "Переобход: {$location->getTitle()}, потрачено {$delay} сек");
+
+        return redirect()->route('transitions.index');
     }
 
     /**
@@ -123,5 +140,25 @@ class TransitionController extends Controller
     public function destroy(Transition $transition)
     {
         //
+    }
+
+    protected function generateContentForLocation(Location $location, Character $character): array
+    {
+        $items = Item::generateItemsFromPool(
+            $location->getSize(),
+            $location->availableItems(),
+            $character->dropChance()
+        );
+
+        $enemies = Enemy::generateEnemies(
+            $location->getSize(),
+            $location->availableEnemies(),
+            $character->dropChance()
+        );
+
+        return [
+            'items' => $items,
+            'enemies' => $enemies,
+        ];
     }
 }

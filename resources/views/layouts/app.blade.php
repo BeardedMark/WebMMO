@@ -22,6 +22,7 @@
 
     <div class="wallpaper" style="background-image: url('@yield('wallpaper', asset('storage/img/locations/default.png'))')"></div>
     <div class="overlay"></div>
+
     <script>
         document.addEventListener('mousemove', (e) => {
             const maxShift = 20;
