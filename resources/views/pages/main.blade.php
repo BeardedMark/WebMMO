@@ -1,156 +1,222 @@
 @extends('layouts.hug')
 
 @section('content')
+    <div class="flex-row jc-center">
+        <div class="img-contain" style="height: 500px">
+            <img src="{{ asset('storage/images/logo.png') }}" alt="">
+        </div>
+    </div>
+
+    <div class="row ai-center">
+        <div class="col">
+            <div class="flex-col-13 pad-13">
+                <h1 class="color-brand">Remnants of the Future</h1>
+
+                <div class="flex-col">
+                    <p class="font-lg color-accent">Жизнь на остатках будущего</p>
+                    <p>Исследуй, выживай, строй и меняй судьбу мира в игре, где каждая деталь важна</p>
+                </div>
+
+                <span class="font-sm color-second">Узнать
+                    <a class="link" href="{{ route('pages.about') }}">Подробнее</a>
+                    о геймплее</span>
+            </div>
+        </div>
+
+        <div class="col-5">
+            <p class="flex-col-8 pad-13 ai-end">
+                <a class="button brand font-lg" href="{{ route('transitions.index') }}">Начать игру</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="frame img-cover" style="height: 250px">
+        <img src="{{ asset('storage/images/pages/main/preview.png') }}" alt="">
+            {{-- <p class="absolute font-xxl font-light-brand">Большой мир</p> --}}
+    </div>
+
     <div class="flex-col-13">
-        <div class="flex-col-13 pad-13">
-            <h1>Главная страница</h1>
-
-            <div class="flex-row-8">
-                <a class="button brand" href="{{ route('characters.create') }}">Начать игру</a>
-            </div>
-        </div>
-
-        <div class="flex-col-13">
-            <h2>Описание</h2>
-
-            <p class="frame">Браузерная ММО с картой локаций, соединённых дорогами. Игроки перемещаются между ними с
-                таймерами,
-                собирают
-                случайно сгенерированный лут, взаимодействуют с инвентарём, другими игроками и локациями. Всё строится
-                на
-                Laravel с SVG-картой и расширяемой системой предметов, событий и социальных взаимодействий</p>
-        </div>
-
-        <div class="flex-col-13">
-            <h2>Механники</h2>
-
+        <div class="pad-13">
             <div class="row">
                 <div class="col">
-                    <div class="frame">
-                        <p>Передвижение</p>
-
-                        <ul>
-                            <li>Атмосферные локации с активностями</li>
-                            <li class="lock-opacity">Чат локации и список персонажей на ней</li>
-                            <li>Открытие локаций путем их посещения</li>
-                            <li>Переобход локаций для обновления активностей</li>
-                            <li>Создание убежища для персонажей на локациях</li>
-                            <li>Размер области влияет на время переобхода локации</li>
-                            <li>Переходы между локациями по дорогам</li>
-                            <li>Расстояние между локациями влияет на время в пути</li>
-                        </ul>
+                    <div class="flex-col-8">
+                        <h3>Путешествуй по живой карте</h3>
+                        <p class="p-indent">Мир игры состоит из уникальных локаций, связанных между собой дорогами. Каждый
+                            переход — это реальное путешествие, с ожиданием, рисками и шансом на неожиданное событие.
+                            Нападения, находки, встречи — всё это может случиться в пути
+                        </p>
                     </div>
                 </div>
 
                 <div class="col">
-                    <div class="frame">
-                        <p>Предметы</p>
-
-                        <ul>
-                            <li>Сбор предметов на локациях</li>
-                            <li>Размер и уровень локации влияет на кол-во лута</li>
-                            <li>Выпадение предметов зависит от уровня локаций</li>
-                            <li class="lock-opacity">Привязка выпадения предметов к локациям</li>
-                            <li>У всех предметов есть базовый шанс выпадения</li>
-                            <li>Предметы имеют свой вес в инвентаре</li>
-                            <li class="lock-opacity">Сбор и разбор предметов на составляющие</li>
-                        </ul>
+                    <div class="flex-col-8">
+                        <h3>Мир создаётся вместе с тобой</h3>
+                        <p class="p-indent">Каждое существо, предмет или объект в игре — уникален. Генерация контента
+                            основана на шаблонах и случайности. Один и тот же лут может быть ценным, бесполезным или
+                            смертельно опасным — в зависимости от параметров и модификаторов
+                        </p>
                     </div>
                 </div>
 
-                <div class="col lock-opacity">
-                    <div class="frame">
-                        <p>Планы</p>
-
-                        <ul>
-                            <li>Враги на локациях</li>
-                            <li>Объекты на локациях</li>
-                        </ul>
+                <div class="col">
+                    <div class="flex-col-8">
+                        <h3>Каждый предмет — уникален</h3>
+                        <p class="p-indent">Инвентарь — это не просто список. Все предметы существуют как отдельные
+                            экземпляры: их можно разобрать, улучшить, скомбинировать. Экипировка влияет на параметры
+                            персонажа и определяет твой стиль игры
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <h2>Вдохновения</h2>
-        <div class="frame flex-col-13">
+    </div>
 
+    <div class="frame img-cover" style="height: 500px">
+        <img src="{{ asset('storage/images/pages/main/history.png') }}" alt="">
+            {{-- <p class="absolute font-xxl font-light-brand">Интересные локации</p> --}}
+    </div>
+
+    <div class="flex-col-13">
+        <div class="flex-col-8 pad-13">
+            <h2>Природа победила стекло и бетон</h2>
+            <p>Мир молчит. Остались только ты и то, что ты сделаешь</p>
+        </div>
+
+        <div class="pad-13">
             <div class="row">
                 <div class="col">
-                    <p>RUST</p>
-
-                    <ul>
-                        <li>Игровой мир и сюжет</li>
-                        <li>Предметы и крафт</li>
-                        <li>Система развития</li>
-                    </ul>
+                    <div class="flex-col-8">
+                        <h3>Как было</h3>
+                        <p class="p-indent">Мир когда-то жил в изобилии и покое. Искусственный интеллект управлял всем — от
+                            транспорта до здравоохранения. Люди не строили, не готовили, не лечили — всё делали машины. Это
+                            была эпоха цифрового комфорта
+                        </p>
+                    </div>
                 </div>
 
                 <div class="col">
-                    <p>Path of Exile</p>
-
-                    <ul>
-                        <li>Древовидность и гибкость</li>
-                        <li>Свойства предметов и персонажей</li>
-                        <li>Гринд и развитие экипировки</li>
-                    </ul>
+                    <div class="flex-col-8">
+                        <h3>Что случилось</h3>
+                        <p class="p-indent">Но системы начали давать сбои. Без знаний и навыков люди не смогли их
+                            восстановить. Цивилизация замерла — не разрушенная, а забытая. Теперь, спустя двадцать лет,
+                            человечество живёт среди ржавчины и мха, учась выживать заново
+                        </p>
+                    </div>
                 </div>
 
                 <div class="col">
-                    <p>Carnage</p>
-
-                    <ul>
-                        <li>Механника перемещения</li>
-                        <li>Боевая система</li>
-                        <li>Система событий на локациях</li>
-                    </ul>
-                </div>
-
-                <div class="col">
-                    <p>В целом</p>
-
-                    <ul>
-                        <li>Убежища для персонажей</li>
-                        <li>Система гильдий и груп</li>
-                        <li>Социальные возможности</li>
-                    </ul>
+                    <div class="flex-col-8">
+                        <h3>Как стало</h3>
+                        <p class="p-indent">Природа вернула себе города. Техника стала артефактами. Социальные связи
+                            ослабли. Настоящее — это мир, собранный вручную
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <h2>Ресурсы</h2>
+    <div class="frame img-cover" style="height: 250px">
+        <img src="{{ asset('storage/images/pages/main/world.png') }}" alt="">
+            {{-- <p class="absolute font-xxl font-light-brand">Уникальный лут</p> --}}
+    </div>
 
-        <div class="frame flex-col-13">
+    <div class="flex-col-13">
+        <div class="pad-13">
             <div class="row">
                 <div class="col">
-                    <p>Медиаконтент</p>
-
-                    <ul>
-                        <li><a class="link" href="https://zvukipro.com/" target="_blink">Озвучка</a></li>
-                        <li><a class="link" href="https://icons8.ru/icons/set/home--style-windows"
-                                target="_blink">Иконки</a></li>
-                        <li><a class="link" href="https://chatgpt.com/" target="_blink">Изображения и текст</a></li>
-                    </ul>
+                    <div class="flex-col-8">
+                        <h3>Ты не один в этом мире</h3>
+                        <p class="p-indent">Объединяйся в группы, создавай гильдии, сражайся с врагами или с другими
+                            игроками. Торгуй, договаривайся, вступай в конфликты или мирись. В игре есть внутриигровой чат,
+                            личные сообщения и открытый рынок
+                        </p>
+                    </div>
                 </div>
 
                 <div class="col">
-                    <p>Инструменты</p>
-
-                    <ul>
-                        <li><a class="link" href="https://programforyou.ru/graph-redactor" target="_blink">Рaбота с
-                                графами</a></li>
-                        <li><a class="link" href="https://www.redblobgames.com/maps/mapgen4/" target="_blink">Генератор
-                                мира</a></li>
-                        <li><a class="link" href="https://randomall.ru/" target="_blink">Генератор лора</a></li>
-                    </ul>
+                    <div class="flex-col-8">
+                        <h3>Создавай, исследуй, вливайся</h3>
+                        <p class="p-indent">Строй собственное убежище. Расширяй его, защищай, улучшай. В локациях происходят
+                            события: атаки, аномалии, редкие находки. Игровой мир живёт, даже когда ты не играешь
+                        </p>
+                    </div>
                 </div>
 
                 <div class="col">
-                    <p>Технологии</p>
-
-                    <ul>
-                        <li><a class="link" href="https://hosting.timeweb.ru/" target="_blink">Хостинг и домен</a></li>
-                        <li><a class="link" href="https://laravel.com/" target="_blink">Фреймворк</a></li>
-                    </ul>
+                    <div class="flex-col-8">
+                        <h3>Какое будущее выберешь ты?</h3>
+                        <p class="p-indent">Ты можешь вернуть технологии или жить в гармонии с природой. Можешь собирать
+                            сообщества или идти в одиночку. Мир открыт, но не навязан. Здесь нет правильного пути — только
+                            твой
+                        </p>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-col-13">
+        <div class="row g-4 ai-center">
+            <div class="col-3">
+                <div class="frame img-contain">
+                    <a href="{{ asset('storage/images/screenshots/location.png') }}" target="_blink">
+                        <img src="{{ asset('storage/images/screenshots/location.png') }}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="frame img-contain">
+                    <a href="{{ asset('storage/images/screenshots/transition.png') }}" target="_blink">
+                        <img src="{{ asset('storage/images/screenshots/transition.png') }}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="frame img-contain">
+                    <a href="{{ asset('storage/images/screenshots/inventory.png') }}" target="_blink">
+                        <img src="{{ asset('storage/images/screenshots/inventory.png') }}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="frame img-contain">
+                    <a href="{{ asset('storage/images/screenshots/battle.png') }}" target="_blink">
+                        <img src="{{ asset('storage/images/screenshots/battle.png') }}" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ai-center">
+        <div class="col-3">
+            <div class="img-cover">
+                <img src="{{ asset('storage/images/npc/xenon.png') }}" alt="">
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="flex-col-13 pad-13 text-center">
+                <h1 class="color-brand">Ты готов начать свою историю?</h1>
+
+                <div class="flex-col">
+                    <p class="font-lg color-accent">Играй прямо в браузере — без установки и бесплатно</p>
+                    <p>Исследуй, строй, выживай и оставь след в новом мире</p>
+                </div>
+
+                <p class="flex-col-8 ai-center">
+                    <a class="button brand font-lg" href="{{ route('transitions.index') }}">Начать игру</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="img-cover">
+                <img src="{{ asset('storage/images/npc/astat.png') }}" alt="">
             </div>
         </div>
     </div>

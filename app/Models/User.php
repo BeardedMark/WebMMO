@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Domains\Characters\Models\Character;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'login',
         'email',
         'password',
+        'activity_at',
     ];
 
     /**
@@ -46,6 +48,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->login;
+    }
+
     public function getTitle()
     {
         return $this->login;
@@ -60,51 +67,24 @@ class User extends Authenticatable
     {
         return $this->is_admin ? 'Администратор' : 'Пользователь';
     }
-
-
-    public function character()
+    public function currentCharacter()
     {
-        return $this->belongsTo(Character::class);
-    }
-
-    public function checkCharacter(): bool
-    {
-        return isset($this->character);
+        return $this->characters()->where('is_current', true)->first();
     }
 
     public function characters()
     {
         return $this->hasMany(Character::class);
     }
-    public function setCharacterById($id)
+
+    public function setActivityAt(): void
     {
-        $this->character_id = $id;
+        $this->activity_at = now();
         $this->save();
     }
 
-    public function hideouts()
+    public function getActivityAt()
     {
-        return $this->hasMany(Hideout::class);
-    }
-
-    public function hideoutLocations()
-    {
-        return $this->hideouts()
-            ->with('location')
-            ->get()
-            ->pluck('location')
-            ->filter();
-    }
-
-
-    public function getHideoutAtCurrentLocation()
-    {
-        if (!$this->checkCharacter()) {
-            return null;
-        }
-
-        return $this->hideouts()
-            ->where('location_id', $this->character->currentLocation()->id)
-            ->first();
+        return $this->activity_at;
     }
 }

@@ -1,8 +1,13 @@
 <p class="flex-row-8 w-100">
-    @component('db.characters.components.link', compact('character'))
-    @endcomponent
+    <span class="flex-row-8 ai-center">
+        @component('db.characters.components.link', compact('character'))
+        @endcomponent
+
+        <span class="color-second font-sm">{{ $character->getOnlineTitle() }}</span>
+    </span>
+
     <span class="flex grow"></span>
-    {{-- <small class="color-second">{{ $character->user->login }}</small> --}}
-    <small>{{ $character->getStatus() }}</small>
-    <small class="color-brand">{{ $character->getLevel() }} ур</small>
+
+    <span class="color-second font-sm">{{ $character->getExperience() }} оп</span>
+    <span class="color-brand font-sm">{{ $character->getLevel() }} ур</span>
 </p>

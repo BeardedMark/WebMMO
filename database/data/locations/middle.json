@@ -1,0 +1,264 @@
+[
+  {
+    "level": 40,
+    "x": 330,
+    "y": 480,
+    "code": "loc-7bcf0d",
+    "name": "Подземное озеро",
+    "image": "underground_lake.png",
+    "sound": "underground_lake.mp3",
+    "description": "Безмолвный резервуар под землёй, окружённый камнями и сыростью.",
+    "modifiers": [
+      { "code": "increase_health_regen", "value": 5 },
+      { "code": "resist_poison", "value": 5 }
+    ]
+  },
+  {
+    "level": 35,
+    "x": 410,
+    "y": 510,
+    "code": "loc-f7c8e3",
+    "name": "Тонель шахтёров",
+    "image": "miners_gatehouse.png",
+    "sound": "miners_gatehouse.mp3",
+    "description": "Маленький пункт у входа в старые шахты. Здесь можно найти инструменты и следы.",
+    "modifiers": [
+      { "code": "add_strength", "value": 3 },
+      { "code": "increase_loot_chance", "value": 5 }
+    ]
+  },
+  {
+    "level": 40,
+    "x": 430,
+    "y": 430,
+    "code": "loc-3ad47f",
+    "name": "Рудные залежи",
+    "image": "ore_deposits.png",
+    "sound": "ore_deposits.mp3",
+    "description": "Целая сеть шахт, где всё ещё можно добыть ценные материалы.",
+    "modifiers": [
+      { "code": "increase_loot_chance", "value": 15 },
+      { "code": "add_weight", "value": 10 }
+    ]
+  },
+  {
+    "level": 35,
+    "x": 670,
+    "y": 660,
+    "code": "loc-a2f19c",
+    "name": "Густой лес",
+    "image": "dense_forest.png",
+    "sound": "dense_forest.mp3",
+    "description": "Древние деревья сплелись в туннели. Слабый свет, много зверья и скрытых троп.",
+    "modifiers": [
+      { "code": "add_evasion", "value": 5 },
+      { "code": "resist_crit", "value": 5 }
+    ]
+  },
+  {
+    "level": 35,
+    "x": 720,
+    "y": 840,
+    "code": "loc-b9e63a",
+    "name": "Поляна у побережья",
+    "image": "glade_by_the_coast.png",
+    "sound": "glade_by_the_coast.mp3",
+    "description": "Огромная и открытая поляна, где еще виденются технологии старых времен",
+    "modifiers": [
+      { "code": "add_endurance", "value": 3 },
+      { "code": "add_view_range", "value": -1 }
+    ]
+  },
+  {
+    "level": 40,
+    "x": 670,
+    "y": 580,
+    "code": "loc-1e84cd",
+    "name": "Горный каньон",
+    "description": "Заваленные скалы, где до сих пор обитают охотники и звери.",
+    "modifiers": [
+      { "code": "add_strength", "value": 4 },
+      { "code": "add_health", "value": 10 }
+    ]
+  },
+  {
+    "level": 40,
+    "x": 800,
+    "y": 820,
+    "code": "loc-928f1e",
+    "name": "Склон безмолвия",
+    "description": "Ветры здесь молчат. Место как будто вне времени.",
+    "modifiers": [
+      { "code": "add_intelligence", "value": 2 },
+      { "code": "add_charisma", "value": 1 }
+    ]
+  },
+  {
+    "level": 45,
+    "x": 770,
+    "y": 720,
+    "code": "loc-c04ea5",
+    "name": "Покосившийся ангар",
+    "description": "Техно-останки времен старой войны. Внутри что-то дышит.",
+    "modifiers": [
+      { "code": "add_damage", "value": 5 },
+      { "code": "add_crit_chance", "value": 3 }
+    ]
+  },
+  {
+    "level": 45,
+    "x": 570,
+    "y": 530,
+    "code": "loc-f2db6c",
+    "name": "Старая вышка",
+    "description": "Когда-то отсюда наблюдали за всем округом. Теперь это точка обзора и засад.",
+    "modifiers": [
+      { "code": "add_view_range", "value": 2 },
+      { "code": "increase_attack_range", "value": 5 }
+    ]
+  },
+  {
+    "level": 45,
+    "x": 630,
+    "y": 480,
+    "code": "loc-438e7b",
+    "name": "Выжженная поляна",
+    "description": "Ни деревьев, ни тени. Только зола, запах гари и что-то, прячущиеся под пеплом.",
+    "modifiers": [
+      { "code": "resist_burn", "value": 10 },
+      { "code": "add_evasion", "value": 5 }
+    ]
+  },
+  {
+    "level": 50,
+    "x": 710,
+    "y": 380,
+    "code": "loc-b1f98c",
+    "name": "Склад биоматериалов",
+    "description": "Исследовательская зона, в которой остались фрагменты жизни и вирусов.",
+    "modifiers": [
+      { "code": "resist_poison", "value": 10 },
+      { "code": "add_health", "value": 15 }
+    ]
+  },
+  {
+    "level": 50,
+    "x": 780,
+    "y": 620,
+    "code": "loc-d0ea2f",
+    "name": "Технический пост",
+    "description": "Разграбленный КПП, где всё ещё можно найти остатки деталей и энергии.",
+    "modifiers": [
+      { "code": "increase_loot_chance", "value": 10 },
+      { "code": "add_intelligence", "value": 3 }
+    ]
+  },
+  {
+    "level": 50,
+    "x": 720,
+    "y": 450,
+    "code": "loc-e38ac1",
+    "name": "Старый терминал",
+    "description": "Выключенные экраны, пыльные терминалы и неактивный протокол охраны.",
+    "modifiers": [
+      { "code": "add_charisma", "value": 2 },
+      { "code": "add_crit_chance", "value": 2 }
+    ]
+  },
+  {
+    "level": 50,
+    "x": 580,
+    "y": 410,
+    "code": "loc-7c2f4d",
+    "name": "Заросший тоннель",
+    "description": "Туннель, по которому больше никто не ездит. Он стал логовом.",
+    "modifiers": [
+      { "code": "add_evasion", "value": 5 },
+      { "code": "increase_move_speed", "value": 5 }
+    ]
+  },
+  {
+    "level": 55,
+    "x": 850,
+    "y": 570,
+    "code": "loc-91cf33",
+    "name": "Башня наблюдения",
+    "description": "С высоты лучше видно, но и падают отсюда дальше.",
+    "modifiers": [
+      { "code": "add_view_range", "value": 3 },
+      { "code": "add_perception", "value": 2 }
+    ]
+  },
+  {
+    "level": 55,
+    "x": 820,
+    "y": 430,
+    "code": "loc-4bf82a",
+    "name": "Каменные врата",
+    "description": "Стены прошлого. Местами исписаны символами, местами — кровью.",
+    "modifiers": [
+      { "code": "add_defence", "value": 5 },
+      { "code": "resist_crit", "value": 5 }
+    ]
+  },
+  {
+    "level": 55,
+    "x": 500,
+    "y": 280,
+    "code": "loc-6f3ea1",
+    "name": "Разлом тишины",
+    "description": "Рваный край земли. Здесь не ловит радиосвязь. И не слышно собственных шагов.",
+    "modifiers": [
+      { "code": "reduce_noise", "value": 10 },
+      { "code": "add_intelligence", "value": 2 }
+    ]
+  },
+  {
+    "level": 55,
+    "x": 570,
+    "y": 330,
+    "code": "loc-d8ce77",
+    "name": "Узел дренажа",
+    "description": "Система труб, гудящая глубоко под землёй. Возможно, здесь живёт нечто.",
+    "modifiers": [
+      { "code": "resist_poison", "value": 10 },
+      { "code": "add_health_regen", "value": 5 }
+    ]
+  },
+  {
+    "level": 55,
+    "x": 520,
+    "y": 360,
+    "code": "loc-82b63e",
+    "name": "Станция замера",
+    "description": "Остатки научного комплекса, где что-то измеряли. Возможно — время.",
+    "modifiers": [
+      { "code": "increase_attack_speed", "value": 5 },
+      { "code": "add_intelligence", "value": 3 }
+    ]
+  },
+  {
+    "level": 60,
+    "x": 630,
+    "y": 260,
+    "code": "loc-3de449",
+    "name": "Потерянная платформа",
+    "description": "Забытая посадочная площадка. Ни кораблей, ни сигналов. Только шелест.",
+    "modifiers": [
+      { "code": "add_strength", "value": 5 },
+      { "code": "increase_loot_chance", "value": 5 }
+    ]
+  },
+  {
+    "level": 60,
+    "x": 900,
+    "y": 460,
+    "code": "loc-9ad1ce",
+    "name": "Проколотый хребет",
+    "description": "Горы, рассечённые чем-то древним. Здесь всё кажется надломленным.",
+    "modifiers": [
+      { "code": "add_endurance", "value": 4 },
+      { "code": "resist_bleed", "value": 5 }
+    ]
+  }
+]

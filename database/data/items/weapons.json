@@ -1,0 +1,108 @@
+[
+  {
+    "code": "vampire-stake",
+    "name": "Деревянный кол",
+    "tags": ["weapon", "melee", "piercing", "wood", "primitive"],
+    "slot": "melee",
+    "weight": 0.6,
+    "drop_chance": 1,
+    "image": "vampire-stake.png",
+    "craft": [
+      { "code": "wood", "stack": 1, "chance": 80 },
+      { "code": "rope", "stack": 1, "chance": 70 }
+    ],
+    "modifiers": [
+      { "code": "add_damage", "value": 6, "chance": 100 },
+      { "code": "increase_damage", "value": 10, "chance": 100 },
+      { "code": "add_crit_chance", "value": 3, "chance": 80 },
+      { "code": "add_crit_damage", "value": 10, "chance": 70 },
+      { "code": "add_agility", "value": 1, "chance": 60 },
+      { "code": "resist_bleed", "value": 5, "chance": 40 }
+    ]
+  },
+  {
+    "code": "bone-club",
+    "name": "Костяная дубина",
+    "tags": ["weapon", "melee", "blunt", "bone", "primitive"],
+    "slot": "melee",
+    "weight": 1.2,
+    "drop_chance": 1,
+    "image": "bone-club.png",
+    "craft": [
+      { "code": "bone-fragments", "stack": 2, "chance": 75 },
+      { "code": "rope", "stack": 2, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_damage", "value": 8, "chance": 100 },
+      { "code": "increase_damage", "value": 12, "chance": 100 },
+      { "code": "add_strength", "value": 2, "chance": 80 },
+      { "code": "reflect_damage", "value": 5, "chance": 60 },
+      { "code": "add_endurance", "value": 1, "chance": 60 },
+      { "code": "resist_crit", "value": 5, "chance": 40 }
+    ]
+  },
+  {
+    "code": "bone-knife",
+    "name": "Костяной нож",
+    "tags": ["weapon", "melee", "piercing", "bone", "primitive"],
+    "slot": "melee",
+    "weight": 0.5,
+    "drop_chance": 1,
+    "image": "bone-knife.png",
+    "craft": [
+      { "code": "bone-fragments", "stack": 1, "chance": 70 },
+      { "code": "rope", "stack": 1, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_damage", "value": 5, "chance": 100 },
+      { "code": "increase_damage", "value": 10, "chance": 100 },
+      { "code": "add_crit_chance", "value": 5, "chance": 80 },
+      { "code": "add_attack_speed", "value": 1, "chance": 80 },
+      { "code": "add_agility", "value": 2, "chance": 60 },
+      { "code": "add_poison_chance", "value": 3, "chance": 40 }
+    ]
+  },
+  {
+    "code": "wooden-spear",
+    "name": "Деревянное копьё",
+    "tags": ["weapon", "melee", "piercing", "wood", "primitive"],
+    "slot": "melee",
+    "weight": 1.0,
+    "drop_chance": 1,
+    "image": "wooden-spear.png",
+    "craft": [
+      { "code": "wood", "stack": 2, "chance": 80 },
+      { "code": "rope", "stack": 2, "chance": 70 }
+    ],
+    "modifiers": [
+      { "code": "add_damage", "value": 7, "chance": 100 },
+      { "code": "increase_damage", "value": 10, "chance": 100 },
+      { "code": "add_attack_range", "value": 1, "chance": 80 },
+      { "code": "add_strength", "value": 1, "chance": 60 },
+      { "code": "resist_poison", "value": 4, "chance": 40 },
+      { "code": "add_move_speed", "value": 1, "chance": 30 }
+    ]
+  },
+  {
+    "code": "stone-spear",
+    "name": "Каменное копьё",
+    "tags": ["weapon", "melee", "piercing", "stone", "primitive"],
+    "slot": "melee",
+    "weight": 1.6,
+    "drop_chance": 0.5,
+    "image": "stone-spear.png",
+    "craft": [
+      { "code": "rock", "stack": 1, "chance": 70 },
+      { "code": "rope", "stack": 1, "chance": 60 },
+      { "code": "wooden-spear", "stack": 1, "chance": 100 }
+    ],
+    "modifiers": [
+      { "code": "add_damage", "value": 9, "chance": 100 },
+      { "code": "increase_damage", "value": 15, "chance": 100 },
+      { "code": "add_attack_range", "value": 1, "chance": 90 },
+      { "code": "resist_bleed", "value": 5, "chance": 60 },
+      { "code": "add_strength", "value": 2, "chance": 50 },
+      { "code": "add_crit_damage", "value": 10, "chance": 50 }
+    ]
+  }
+]

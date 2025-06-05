@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('roads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('from_location_id')->constrained('locations')->onDelete('cascade');
-            $table->foreignId('to_location_id')->constrained('locations')->onDelete('cascade');
+
+            $table->string('from_location_code')->index();
+            $table->string('to_location_code')->index();
 
             $table->boolean('is_one_way')->default(false);
             $table->boolean('is_open')->default(true);
-            $table->integer('size')->default(1);
 
             $table->timestamps();
             $table->softDeletes();

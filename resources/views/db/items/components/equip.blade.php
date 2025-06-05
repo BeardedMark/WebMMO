@@ -25,7 +25,7 @@
 
     <div class="col-auto">
         <button class="icon" type="submit" data-tooltip="Переместить">
-            @component('components.icon', ['size' => 21, 'name' => 'up-right-arrow', 'color' => 'BAC7E3'])
+            @component('components.icon', ['size' => 21, 'name' => 'up-right-arrow', 'color' => 'FFFFFF'])
             @endcomponent
         </button>
     </div>

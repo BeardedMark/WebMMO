@@ -1,6 +1,8 @@
-<span class="color-brand" id="countdown-{{ $character->id }}" data-seconds="{{ $character->timeToNextAction() }}" style="display: none;">
-    {{ gmdate('H:i:s', $character->timeToNextAction()) }}
-</span>
+@if ($character)
+    <span class="color-brand" id="countdown-{{ $character->id }}" data-seconds="{{ $character->timeToNextAction() }}" style="display: none;">
+        {{ gmdate('H:i:s', $character->timeToNextAction()) }}
+    </span>
+@endif
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

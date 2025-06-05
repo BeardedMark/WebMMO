@@ -1,0 +1,99 @@
+[
+  {
+    "level": 65,
+    "x": 600,
+    "y": 180,
+    "code": "loc-a0c3e4",
+    "name": "Угасшие скалы",
+    "description": "Ветра выли между мачтами и скалами, оставив только тени и песок.",
+    "modifiers": [
+      { "code": "add_endurance", "value": 5 },
+      { "code": "resist_bleed", "value": 10 }
+    ]
+  },
+  {
+    "level": 65,
+    "x": 710,
+    "y": 250,
+    "code": "loc-b3f1d7",
+    "name": "Разбитая дорога",
+    "description": "Остатки трассы, что когда-то соединяла крупные узлы. Теперь — место засад.",
+    "modifiers": [
+      { "code": "add_evasion", "value": 5 },
+      { "code": "add_crit_chance", "value": 5 }
+    ]
+  },
+  {
+    "level": 70,
+    "x": 510,
+    "y": 140,
+    "code": "loc-89d71c",
+    "name": "Край раскопа",
+    "description": "Люди пытались достать что-то из-под земли. Судя по обломкам, им это почти удалось.",
+    "modifiers": [
+      { "code": "increase_loot_chance", "value": 15 },
+      { "code": "add_intelligence", "value": 3 }
+    ]
+  },
+  {
+    "level": 70,
+    "x": 780,
+    "y": 300,
+    "code": "loc-f0ae9a",
+    "name": "Брошенный генератор",
+    "description": "Огромная установка, из которой до сих пор идёт слабое гудение. Рядом часто гибнут звери.",
+    "modifiers": [
+      { "code": "resist_poison", "value": 10 },
+      { "code": "add_health", "value": 10 }
+    ]
+  },
+  {
+    "level": 75,
+    "x": 420,
+    "y": 180,
+    "code": "loc-c451eb",
+    "name": "Мёртвый склон",
+    "description": "Здесь когда-то сошёл оползень, похоронив базу. Всё завалено и пропитано металлом.",
+    "modifiers": [
+      { "code": "add_weight", "value": 15 },
+      { "code": "add_defence", "value": 5 }
+    ]
+  },
+  {
+    "level": 80,
+    "x": 300,
+    "y": 180,
+    "code": "loc-7dbf64",
+    "name": "Техно-завал",
+    "is_peaceful": true,
+    "description": "Редкая безопасная зона среди беспорядка: груды техники, заросшие лианами. Место для отдыха.",
+    "modifiers": [
+      { "code": "increase_health_regen", "value": 10 },
+      { "code": "add_charisma", "value": 3 }
+    ]
+  },
+  {
+    "level": 85,
+    "x": 230,
+    "y": 210,
+    "code": "loc-3ca1f0",
+    "name": "Сеть глубин",
+    "description": "Старые инженерные тоннели, сплетённые в лабиринт. Здесь кто-то бродит в темноте.",
+    "modifiers": [
+      { "code": "add_evasion", "value": 10 },
+      { "code": "resist_crit", "value": 5 }
+    ]
+  },
+  {
+    "level": 85,
+    "x": 360,
+    "y": 270,
+    "code": "loc-55a04b",
+    "name": "Старый узел",
+    "description": "Центр связи прошлого века. Теперь — глухой комплекс с неработающими системами и странным фоном.",
+    "modifiers": [
+      { "code": "add_intelligence", "value": 5 },
+      { "code": "add_attack_speed", "value": 5 }
+    ]
+  }
+]

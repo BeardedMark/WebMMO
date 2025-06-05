@@ -1,0 +1,24 @@
+[
+    {
+      "code": "boar-corpse",
+      "name": "Тушка кабана",
+      "spawn_chance": 100,
+      "drop": [
+        { "code": "boar-meat", "stack": 2 },
+        { "code": "boar-hide", "stack": 1 }
+      ],
+      "requirements": [
+        { "type": "has_item", "code": "knife" }
+      ]
+    },
+    {
+      "code": "hunter-body",
+      "name": "Тело охотника",
+      "spawn_chance": 60,
+      "drop": [
+        { "code": "old-pistol", "stack": 1 },
+        { "code": "bullet-9mm", "stack": 3 }
+      ],
+      "requirements": []
+    }
+  ]

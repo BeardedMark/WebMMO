@@ -1,8 +1,8 @@
-<form class="row g-1" action="{{ route('items.disassemble') }}" method="POST" class="flex items-center gap-2">
+<form class="row g-1" action="{{ route('items.disassemble', ['uuid' => $item->getUuid()]) }}" method="POST" class="flex items-center gap-2">
     @csrf
-    <input type="hidden" name="uuid" value="{{ $item->uuid }}">
+    {{-- <input type="hidden" name="uuid" value="{{ $item->uuid }}">
     <input type="hidden" name="from_container_type" value="{{ $fromContainer }}">
-    <input type="hidden" name="from_container_id" value="{{ $fromId }}">
+    <input type="hidden" name="from_container_id" value="{{ $fromId }}"> --}}
 
     <div class="col">
         @component('db.items.components.link', ['item' => $item->model])
@@ -21,7 +21,7 @@
     <div class="col-auto">
         <button class="icon link" type="submit" data-tooltip="Разобрать">
             <small>Разобрать</small>
-            @component('components.icon', ['size' => 21, 'name' => 'divarication', 'color' => 'BAC7E3'])
+            @component('components.icon', ['size' => 21, 'name' => 'divarication', 'color' => 'FFFFFF'])
             @endcomponent
         </button>
     </div>

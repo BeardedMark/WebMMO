@@ -16,19 +16,22 @@
 
     <div>
         @component('components.stat', [
-            'name' => 'Время задержки на локации',
+            'name' => 'Время задержки',
             'value' => $character->timeToNextAction() . ' сек',
         ])
         @endcomponent
         @component('components.stat', [
-            'name' => 'Время нахождения на локации',
+            'name' => 'Время на локации',
             'value' => $character->timeOnCurrentLocation() . ' сек',
         ])
         @endcomponent
     </div>
 
     <div>
-        @component('components.datetime', ['entity' => $character])
+        @component('components.stat', ['name' => 'Последняя активность', 'value' => $character->getActivityAt()])
+        @endcomponent
+
+        @component('components.datetime', ['container' => $character])
         @endcomponent
     </div>
 </div>

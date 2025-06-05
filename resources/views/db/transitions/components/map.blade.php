@@ -1,49 +1,142 @@
-<div class="frame flex-col-13">
+<svg class="svg-map" id="map-svg" width="100%" height="500" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="map" transform="translate(0,0) scale(1)">
 
-    <svg class="svg-map" id="map-svg" width="100%" height="500" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g id="map" transform="translate(0,0) scale(1)">
+        <defs>
+            <mask id="fog-mask">
+                <g filter="url(#blur)">
+                    <rect width="1024" height="1024" fill="black" />
 
-            <defs>
-                <mask id="fog-mask">
-                    <g filter="url(#blur)">
-                        <rect width="1024" height="1024" fill="black" />
+                    @foreach ($character->roadsToVisitedLocations() as $roadToVisitedLocation)
+                        <line x1="{{ $roadToVisitedLocation->fromLocation->x }}"
+                            y1="{{ $roadToVisitedLocation->fromLocation->y }}"
+                            x2="{{ $roadToVisitedLocation->toLocation->x }}"
+                            y2="{{ $roadToVisitedLocation->toLocation->y }}" stroke="white"
+                            stroke-width="{{ $character->getViewRange() * 2 }}" stroke-linecap="round" />
+                    @endforeach
 
-                        @foreach ($character->roadsToVisitedLocations() as $roadToVisitedLocation)
-                            <line x1="{{ $roadToVisitedLocation->fromLocation->x }}"
-                                y1="{{ $roadToVisitedLocation->fromLocation->y }}"
-                                x2="{{ $roadToVisitedLocation->toLocation->x }}"
-                                y2="{{ $roadToVisitedLocation->toLocation->y }}" stroke="white"
-                                stroke-width="{{ $character->getViewRange() * 2 }}" stroke-linecap="round" />
-                        @endforeach
+                    @foreach ($character->roadsToUnvisitedLocations() as $roadToUnvisitedLocation)
+                        <line x1="{{ $roadToUnvisitedLocation->fromLocation->x }}"
+                            y1="{{ $roadToUnvisitedLocation->fromLocation->y }}"
+                            x2="{{ $roadToUnvisitedLocation->toLocation->x }}"
+                            y2="{{ $roadToUnvisitedLocation->toLocation->y }}" stroke="white"
+                            stroke-width="{{ $character->getViewRange() / 2 }}" stroke-linecap="round" />
+                    @endforeach
 
-                        @foreach ($character->roadsToUnvisitedLocations() as $roadToUnvisitedLocation)
-                            <line x1="{{ $roadToUnvisitedLocation->fromLocation->x }}"
-                                y1="{{ $roadToUnvisitedLocation->fromLocation->y }}"
-                                x2="{{ $roadToUnvisitedLocation->toLocation->x }}"
-                                y2="{{ $roadToUnvisitedLocation->toLocation->y }}" stroke="white"
-                                stroke-width="{{ $character->getViewRange() / 2 }}" stroke-linecap="round" />
-                        @endforeach
+                    @if ($character->currentLocation())
+                        <circle cx="{{ $character->currentLocation()->x }}"
+                            cy="{{ $character->currentLocation()->y }}" r="{{ $character->getViewRange() }}"
+                            fill="white" />
+                    @endif
+                </g>
+            </mask>
 
-                        @if ($character->currentLocation())
-                            <circle cx="{{ $character->currentLocation()->x }}"
-                                cy="{{ $character->currentLocation()->y }}" r="{{ $character->getViewRange() }}"
-                                fill="white" />
-                        @endif
-                    </g>
-                </mask>
+            <filter id="blur">
+                <feGaussianBlur stdDeviation="15" />
+            </filter>
 
-                <filter id="blur">
-                    <feGaussianBlur stdDeviation="15" />
-                </filter>
-            </defs>
+            <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"
+                markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L6,3 z" fill="red" />
+            </marker>
 
-            <image class="svg-icon lock" href="{{ asset('storage/img/islands/201173.png') }}" x="0" y="0" width="1024"  mask="url(#fog-mask)"
-                height="1024" />
+            {{-- <linearGradient id="fade-line-gradient" x1="100%" y1="0%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="var(--color-other)" stop-opacity="1" />
+                    <stop offset="100%" stop-color="var(--color-other)" stop-opacity="0" />
+                </linearGradient> --}}
+        </defs>
 
-            {{-- @php
+        <image class="svg-icon lock" href="{{ asset('storage/images/islands/201173.png') }}" x="0" y="0" width="1024"
+            mask="url(#fog-mask)" height="1024" />
+
+        {{-- Roads --}}
+
+        @foreach ($character->roadsToUnvisitedLocations() as $roadToUnvisitedLocation)
+            @if ($roadToUnvisitedLocation->fromLocation && $roadToUnvisitedLocation->fromLocation)
+                <line class="svg-road unvisited" stroke-width="3"
+                    x1="{{ $roadToUnvisitedLocation->fromLocation->x }}"
+                    y1="{{ $roadToUnvisitedLocation->fromLocation->y }}"
+                    x2="{{ $roadToUnvisitedLocation->toLocation->x }}"
+                    y2="{{ $roadToUnvisitedLocation->toLocation->y }}" />
+            @endif
+        @endforeach
+
+        @foreach ($character->roadsToVisitedLocations() as $roadToVisitedLocation)
+            @if ($roadToVisitedLocation->fromLocation && $roadToVisitedLocation->fromLocation)
+                @if ($roadToVisitedLocation->is_one_way)
+                    @php
+                        $from = $roadToVisitedLocation->fromLocation;
+                        $to = $roadToVisitedLocation->toLocation;
+                        $gradId = 'grad-' . $roadToVisitedLocation->id;
+                    @endphp
+
+                    <defs>
+                        <linearGradient id="{{ $gradId }}" gradientUnits="userSpaceOnUse"
+                            x1="{{ $from->x }}" y1="{{ $from->y }}" x2="{{ $to->x }}"
+                            y2="{{ $to->y }}">
+                            <stop offset="0%" stop-color="var(--color-other)" stop-opacity="1" />
+                            <stop offset="100%" stop-color="var(--color-other)" stop-opacity="0" />
+                        </linearGradient>
+                    </defs>
+
+                    <line stroke="url(#{{ $gradId }})" stroke-width="3" x1="{{ $from->x }}"
+                        y1="{{ $from->y }}" x2="{{ $to->x }}" y2="{{ $to->y }}" />
+                @else
+                    <line class="svg-road visited" stroke-width="3"
+                        x1="{{ $roadToVisitedLocation->fromLocation->x }}"
+                        y1="{{ $roadToVisitedLocation->fromLocation->y }}"
+                        x2="{{ $roadToVisitedLocation->toLocation->x }}"
+                        y2="{{ $roadToVisitedLocation->toLocation->y }}" />
+                @endif
+            @endif
+        @endforeach
+
+        @if ($character->currentLocation())
+            @foreach ($character->availableRoads() as $availableRoad)
+                @if ($availableRoad->fromLocation && $availableRoad->fromLocation)
+                    <line class="svg-road available await hidden" stroke-width="2"
+                        x1="{{ $availableRoad->fromLocation->x }}" y1="{{ $availableRoad->fromLocation->y }}"
+                        x2="{{ $availableRoad->toLocation->x }}" y2="{{ $availableRoad->toLocation->y }}" />
+                @endif
+            @endforeach
+        @endif
+
+        {{-- Locations --}}
+
+        @foreach ($character->visitedLocations() as $visitedLocation)
+            <image class="svg-icon" href="{{ asset('storage/images/icons/novisited.png') }}"
+                x="{{ $visitedLocation->x - 15 }}" y="{{ $visitedLocation->y - 15 }}" width="30" height="30" />
+        @endforeach
+
+        @foreach ($character->availableLocations() as $availableLocation)
+            <image class="await hidden" href="{{ asset('storage/images/icons/unvisited.png') }}"
+                x="{{ $availableLocation->x - 15 }}" y="{{ $availableLocation->y - 15 }}" width="30"
+                height="30" />
+
+            <circle r="13" fill="transparent" class="svg-icon available await" cx="{{ $availableLocation->x }}"
+                cy="{{ $availableLocation->y }}" data-id="{{ $availableLocation->id }}"
+                data-name="{{ $availableLocation->name }}"
+                onclick="redirectToLocation({{ $availableLocation->id }})" />
+        @endforeach
+
+        @foreach ($character->unvisitedLocations() as $unvisitedLocation)
+            <image class="svg-icon lock" href="{{ asset('storage/images/icons/unknown.png') }}"
+                x="{{ $unvisitedLocation->x - 15 }}" y="{{ $unvisitedLocation->y - 15 }}" width="30"
+                height="30" />
+        @endforeach
+
+        {{-- Current --}}
+
+        @if ($character->currentLocation())
+            <image class="svg-icon" href="{{ asset('storage/images/icons/char.png') }}"
+                x="{{ $character->currentLocation()->x - 15 }}" y="{{ $character->currentLocation()->y - 25 }}"
+                width="30" height="30" />
+        @endif
+
+
+        {{-- @php
                 use App\Models\Road;
-                use App\Models\Location;
+                use App\Domains\Locations\Models\Location;
                 $allRoads = Road::all();
                 $allLocations = Location::all();
             @endphp
@@ -61,112 +154,73 @@
                 <text x="{{ $location->x }}" y="{{ $location->y }}"
                     style="fill: white; font: 12px serif;">{{ $location->name }}#{{ $location->id }}</text>
             @endforeach --}}
+    </g>
+</svg>
 
-            {{-- Roads --}}
+@section('top-content')
+    {{-- <div class="flex-col-13"> --}}
+        <div class="frame flex-row-13 ai-center font-sm">
 
-            @foreach ($character->roadsToUnvisitedLocations() as $roadToUnvisitedLocation)
-                @if ($roadToUnvisitedLocation->fromLocation && $roadToUnvisitedLocation->fromLocation)
-                    <line class="svg-road unvisited" stroke-width="3"
-                        x1="{{ $roadToUnvisitedLocation->fromLocation->x }}"
-                        y1="{{ $roadToUnvisitedLocation->fromLocation->y }}"
-                        x2="{{ $roadToUnvisitedLocation->toLocation->x }}"
-                        y2="{{ $roadToUnvisitedLocation->toLocation->y }}" />
-                @endif
-            @endforeach
+        <button class="icon" onclick="showCurrentLocation()" data-tooltip="Текущая локация">
+            @component('components.icon', ['name' => 'marker', 'size' => 28, 'color' => 'FFFFFF'])
+            @endcomponent
+        </button>
 
-            @foreach ($character->roadsToVisitedLocations() as $roadToVisitedLocation)
-                @if ($roadToVisitedLocation->fromLocation && $roadToVisitedLocation->fromLocation)
-                    <line class="svg-road visited" stroke-width="3" x1="{{ $roadToVisitedLocation->fromLocation->x }}"
-                        y1="{{ $roadToVisitedLocation->fromLocation->y }}"
-                        x2="{{ $roadToVisitedLocation->toLocation->x }}"
-                        y2="{{ $roadToVisitedLocation->toLocation->y }}" />
-                @endif
-            @endforeach
+        <button class="icon" onclick="fitMapToView()" data-tooltip="Все локации">
+            @component('components.icon', ['name' => 'address', 'size' => 28, 'color' => 'FFFFFF'])
+            @endcomponent
+        </button>
 
-            @if ($character->currentLocation())
-                @foreach ($character->availableRoads() as $availableRoad)
-                    @if ($availableRoad->fromLocation && $availableRoad->fromLocation)
-                        <line class="svg-road available await hidden" stroke-width="2"
-                            x1="{{ $availableRoad->fromLocation->x }}" y1="{{ $availableRoad->fromLocation->y }}"
-                            x2="{{ $availableRoad->toLocation->x }}" y2="{{ $availableRoad->toLocation->y }}" />
-                    @endif
-                @endforeach
-            @endif
+        <button class="icon" onclick="openFullscreen()" data-tooltip="На весь экран">
+            @component('components.icon', ['name' => 'full-screen--v1', 'size' => 28, 'color' => 'FFFFFF'])
+            @endcomponent
+        </button>
 
-            {{-- Locations --}}
+            <span class="flex grow"></span>
 
-            @foreach ($character->visitedLocations() as $visitedLocation)
-                <image class="svg-icon" href="{{ asset('storage/img/icons/novisited.png') }}"
-                    x="{{ $visitedLocation->x - 15 }}" y="{{ $visitedLocation->y - 15 }}" width="30" height="30" />
-            @endforeach
-
-            @foreach ($character->availableLocations() as $availableLocation)
-                <image class="await hidden" href="{{ asset('storage/img/icons/unvisited.png') }}"
-                    x="{{ $availableLocation->x - 15 }}" y="{{ $availableLocation->y - 15 }}" width="30" height="30" />
-
-                <circle r="13" fill="transparent" class="svg-icon available await" cx="{{ $availableLocation->x }}"
-                    cy="{{ $availableLocation->y }}" data-id="{{ $availableLocation->id }}" data-name="{{ $availableLocation->name }}"
-                    onclick="redirectToLocation({{ $availableLocation->id }})" />
-            @endforeach
-
-            @foreach ($character->unvisitedLocations() as $unvisitedLocation)
-                <image class="svg-icon lock" href="{{ asset('storage/img/icons/unknown.png') }}"
-                    x="{{ $unvisitedLocation->x - 15 }}" y="{{ $unvisitedLocation->y - 15 }}" width="30" height="30" />
-            @endforeach
-
-            @if (auth()->user()->hideoutLocations())
-                @foreach (auth()->user()->hideoutLocations() as $hideoutLocation)
-                    <image class="svg-icon lock" href="{{ asset('storage/img/icons/home.png') }}"
-                        x="{{ $hideoutLocation->x - 15 }}" y="{{ $hideoutLocation->y - 15 }}" width="30" height="30" />
-                @endforeach
-            @endif
-
-            {{-- Current --}}
-
-            {{-- @foreach ($character->latestTransition->getItemsModels() as $itemTransaction)
-                @php
-                    $angle = (rand(0, 360) * M_PI) / 180;
-                    $distance = rand(20, 50);
-                    $offsetX = cos($angle) * $distance;
-                    $offsetY = sin($angle) * $distance;
-
-                    $itemX = $character->currentLocation()->x + $offsetX;
-                    $itemY = $character->currentLocation()->y + $offsetY;
-                @endphp
-
-                <image class="svg-icon lock" href="{{ $itemTransaction->getmodel()->getImageUrl() }}" x="{{ $itemX - 10 }}"
-                    y="{{ $itemY - 10 }}" width="20" height="20" />
-            @endforeach --}}
-
-            @if ($character->currentLocation())
-                <image class="svg-icon" href="{{ asset('storage/img/icons/char.png') }}"
-                    x="{{ $character->currentLocation()->x - 15 }}" y="{{ $character->currentLocation()->y - 25 }}"
-                    width="30" height="30" />
-            @endif
-        </g>
-    </svg>
-    <div class="flex-row-8">
-        <div class="flex grow"></div>
-        <div class="flex-row-8">
-            <button class="icon" onclick="showCurrentLocation()" data-tooltip="Текущая локация">
-                @component('components.icon', ['name' => 'marker', 'size' => 21, 'color' => 'BAC7E3'])
-                @endcomponent
-            </button>
-
-            <button class="icon" onclick="fitMapToView()" data-tooltip="Все локации">
-                @component('components.icon', ['name' => 'address', 'size' => 21, 'color' => 'BAC7E3'])
-                @endcomponent
-            </button>
-
-            <button class="icon" onclick="openFullscreen()" data-tooltip="На весь экран">
-                @component('components.icon', ['name' => 'full-screen--v1', 'size' => 21, 'color' => 'BAC7E3'])
-                @endcomponent
-            </button>
+        <div class="color-second" id="cursor-coordinates" data-default-x="{{ $character->currentLocation()->x }}"
+            data-default-y="{{ $character->currentLocation()->y }}" class="font-sm color-second">
+            X: {{ $character->currentLocation()->x }}, Y: {{ $character->currentLocation()->y }}
         </div>
     </div>
-</div>
+@endsection
+
+{{-- <div class="flex-row-8 ai-center">
+    <div class="flex grow">
+        <div id="cursor-coordinates" data-default-x="{{ $character->currentLocation()->x }}"
+            data-default-y="{{ $character->currentLocation()->y }}" class="font-sm color-second">
+            X: {{ $character->currentLocation()->x }}, Y: {{ $character->currentLocation()->y }}
+        </div>
+    </div>
+
+    <div class="flex-row-8">
+        <button class="icon" onclick="resetZoom()" data-tooltip="Сброс масштаба">
+                @component('components.icon', ['name' => 'find-and-replace', 'size' => 28, 'color' => 'FFFFFF'])
+                @endcomponent
+            </button>
+
+        <button class="icon" onclick="showCurrentLocation()" data-tooltip="Текущая локация">
+            @component('components.icon', ['name' => 'marker', 'size' => 28, 'color' => 'FFFFFF'])
+            @endcomponent
+        </button>
+
+        <button class="icon" onclick="fitMapToView()" data-tooltip="Все локации">
+            @component('components.icon', ['name' => 'address', 'size' => 28, 'color' => 'FFFFFF'])
+            @endcomponent
+        </button>
+
+        <button class="icon" onclick="openFullscreen()" data-tooltip="На весь экран">
+            @component('components.icon', ['name' => 'full-screen--v1', 'size' => 28, 'color' => 'FFFFFF'])
+            @endcomponent
+        </button>
+    </div>
+</div> --}}
 
 <script>
+    function updateCoordinatesDisplay(x, y) {
+        document.getElementById('cursor-coordinates').innerText = `X: ${x}, Y: ${y}`;
+    }
+
     function redirectToLocation(locationId) {
         // Создаём форму для перехода
         const form = document.createElement('form');
@@ -203,28 +257,46 @@
     let isPanning = false;
     let startX, startY;
 
-    @if ($character->currentLocation())
 
-        const currentLocationCoords = {
-            x: {{ $character->currentLocation()->x }},
-            y: {{ $character->currentLocation()->y }}
-        };
-        // Центрируем SVG по текущей локации
-        window.addEventListener('load', () => {
-            showCurrentLocation();
-        });
+    const currentLocationCoords = {
+        x: {{ $character->currentLocation()->x }},
+        y: {{ $character->currentLocation()->y }}
+    };
 
-        function showCurrentLocation() {
-            const svgRect = svg.getBoundingClientRect();
-            const centerX = svgRect.width / 2
-            const centerY = svgRect.height / 2;
+    window.addEventListener('load', () => {
+        showCurrentLocation();
+    });
 
-            panX = centerX - currentLocationCoords.x * scale;
-            panY = centerY - currentLocationCoords.y * scale;
+    function showCurrentLocation() {
+        resetZoom();
+        const svgRect = svg.getBoundingClientRect();
+        const centerX = svgRect.width / 2
+        const centerY = svgRect.height / 2;
 
-            map.setAttribute('transform', `translate(${panX}, ${panY}) scale(${scale})`);
-        }
-    @endif
+        panX = centerX - currentLocationCoords.x * scale;
+        panY = centerY - currentLocationCoords.y * scale;
+
+        map.setAttribute('transform', `translate(${panX}, ${panY}) scale(${scale})`);
+    }
+
+    function resetZoom() {
+        const svgRect = svg.getBoundingClientRect();
+        const centerX = svgRect.width / 2;
+        const centerY = svgRect.height / 2;
+
+        const pt = svg.createSVGPoint();
+        pt.x = centerX;
+        pt.y = centerY;
+
+        const cursor = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+        // Центрировать на той же точке, но с масштабом 1
+        scale = 1;
+        panX = centerX - cursor.x * scale;
+        panY = centerY - cursor.y * scale;
+
+        map.setAttribute('transform', `translate(${panX}, ${panY}) scale(${scale})`);
+    }
 
     function fitMapToView() {
         const bbox = map.getBBox(); // Получаем границы карты
@@ -290,4 +362,34 @@
 
     svg.addEventListener('mouseup', () => isPanning = false);
     svg.addEventListener('mouseleave', () => isPanning = false);
+
+    svg.addEventListener('mousemove', function(e) {
+        const pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        const cursor = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+        const x = Math.round((cursor.x - panX) / scale);
+        const y = Math.round((cursor.y - panY) / scale);
+
+        updateCoordinatesDisplay(x, y);
+
+        if (!isPanning) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        panX += dx;
+        panY += dy;
+        startX = e.clientX;
+        startY = e.clientY;
+        map.setAttribute('transform', `translate(${panX}, ${panY}) scale(${scale})`);
+    });
+    svg.addEventListener('mouseleave', () => {
+        const el = document.getElementById('cursor-coordinates');
+        updateCoordinatesDisplay(el.dataset.defaultX, el.dataset.defaultY);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const el = document.getElementById('cursor-coordinates');
+        updateCoordinatesDisplay(el.dataset.defaultX, el.dataset.defaultY);
+    });
 </script>

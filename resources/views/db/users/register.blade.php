@@ -16,10 +16,10 @@
                     </div>
 
                     <div class="flex-col-8 pad-13">
-                        <p class="color-second font-small">После регистрации вы получите письмо на почту о подтверждении
+                        <p class="color-second font-sm">После регистрации вы получите письмо на почту о подтверждении
                             регистрации. Это нужно для проверки почты и защиты от роботов</p>
 
-                        <p class="color-second font-small">Регистрируясь на сайте вы принимаете <a class="link"
+                        <p class="color-second font-sm">Регистрируясь на сайте вы принимаете <a class="link"
                                 href="">правила работы сайта</a></p>
                     </div>
                 </div>

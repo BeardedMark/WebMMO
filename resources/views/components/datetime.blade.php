@@ -1,13 +1,13 @@
 @component('components.stat', [
     'name' => 'Дата создания',
-    'value' => $entity->created_at,
+    'value' => $container->created_at,
 ])
 @endcomponent
 
-@if ($entity->created_at != $entity->updated_at)
+@if ($container->created_at != $container->updated_at)
     @component('components.stat', [
         'name' => 'Дата изменения',
-        'value' => $entity->updated_at,
+        'value' => $container->updated_at,
     ])
     @endcomponent
 @endif
@@ -15,7 +15,7 @@
 @isset($character->deleted_at)
     @component('components.stat', [
         'name' => 'Дата удаления',
-        'value' => $entity->deleted_at,
+        'value' => $container->deleted_at,
     ])
     @endcomponent
 @endisset

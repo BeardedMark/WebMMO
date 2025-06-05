@@ -1,0 +1,146 @@
+[
+  {
+    "code": "head-bag",
+    "name": "Тряпочный мешок",
+    "slot": "back",
+    "tags": ["backpack", "bag", "primitive", "cloth", "light"],
+    "weight": 0.8,
+    "drop_chance": 0.5,
+    "image": "head-bag.png",
+    "craft": [
+      { "code": "cloth", "stack": 10, "chance": 80 },
+      { "code": "rope", "stack": 1, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_weight", "value": 10, "chance": 100 },
+      { "code": "increase_weight", "value": 10, "chance": 100 },
+      { "code": "reduce_noise", "value": 2, "chance": 50 }
+    ],
+    "requirements": [
+      { "type": "has_attribute", "attr": "intellect", "value": 10 }
+    ]
+  },
+  {
+    "code": "saddle-bag",
+    "name": "Кожаная сумка",
+    "slot": "back",
+    "tags": ["backpack", "bag", "leather", "crafted"],
+    "weight": 1.1,
+    "drop_chance": 0.5,
+    "image": "saddle-bag.png",
+    "craft": [
+      { "code": "leather", "stack": 6, "chance": 75 },
+      { "code": "rope", "stack": 1, "chance": 50 }
+    ],
+    "modifiers": [
+      { "code": "add_weight", "value": 15, "chance": 100 },
+      { "code": "increase_weight", "value": 10, "chance": 100 },
+      { "code": "resist_burn", "value": 5, "chance": 60 }
+    ]
+  },
+  {
+    "code": "small-backpack",
+    "name": "Самодельный рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "cloth", "crafted", "primitive"],
+    "weight": 1.3,
+    "drop_chance": 0.5,
+    "image": "small-backpack.png",
+    "craft": [
+      { "code": "cloth", "stack": 8, "chance": 80 },
+      { "code": "rope", "stack": 1, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_weight", "value": 20, "chance": 100 },
+      { "code": "increase_weight", "value": 15, "chance": 100 },
+      { "code": "add_endurance", "value": 2, "chance": 50 }
+    ]
+  },
+  {
+    "code": "school-backpack",
+    "name": "Школьный рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "cloth", "school", "civilian"],
+    "weight": 1.5,
+    "drop_chance": 0.5,
+    "image": "school-backpack.png",
+    "modifiers": [
+      { "code": "add_weight", "value": 20, "chance": 100 },
+      { "code": "increase_weight", "value": 20, "chance": 100 },
+      { "code": "add_intelligence", "value": 2, "chance": 40 }
+    ]
+  },
+  {
+    "code": "new-school-backpack",
+    "name": "Новый школьный рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "cloth", "school", "new", "rare"],
+    "weight": 1.3,
+    "drop_chance": 0.05,
+    "image": "new-school-backpack.png",
+    "modifiers": [
+      { "code": "add_weight", "value": 25, "chance": 100 },
+      { "code": "increase_weight", "value": 25, "chance": 100 },
+      { "code": "add_intelligence", "value": 3, "chance": 60 },
+      { "code": "increase_move_speed", "value": 5, "chance": 40 }
+    ]
+  },
+  {
+    "code": "large-backpack",
+    "name": "Армейский рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "military", "durable", "large"],
+    "weight": 1.7,
+    "drop_chance": 0.5,
+    "image": "large-backpack.png",
+    "modifiers": [
+      { "code": "add_weight", "value": 30, "chance": 100 },
+      { "code": "increase_weight", "value": 30, "chance": 100 },
+      { "code": "resist_bleed", "value": 5, "chance": 50 }
+    ]
+  },
+  {
+    "code": "new-large-backpack",
+    "name": "Новый армейский рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "military", "new", "rare", "large"],
+    "weight": 1.5,
+    "drop_chance": 0.05,
+    "image": "new-large-backpack.png",
+    "modifiers": [
+      { "code": "add_weight", "value": 40, "chance": 100 },
+      { "code": "increase_weight", "value": 40, "chance": 100 },
+      { "code": "resist_bleed", "value": 10, "chance": 50 },
+      { "code": "add_perception", "value": 2, "chance": 50 }
+    ]
+  },
+  {
+    "code": "parachute",
+    "name": "Походный рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "expedition", "civilian", "large", "outdoors"],
+    "weight": 1.6,
+    "drop_chance": 0.5,
+    "image": "parachute.png",
+    "modifiers": [
+      { "code": "add_weight", "value": 35, "chance": 100 },
+      { "code": "increase_weight", "value": 35, "chance": 100 },
+      { "code": "increase_escape_chance", "value": 10, "chance": 40 }
+    ]
+  },
+  {
+    "code": "new-parachute",
+    "name": "Новый походный рюкзак",
+    "slot": "back",
+    "tags": ["backpack", "expedition", "civilian", "large", "new", "rare"],
+    "weight": 1.4,
+    "drop_chance": 0.05,
+    "image": "new-parachute.png",
+    "modifiers": [
+      { "code": "add_weight", "value": 45, "chance": 100 },
+      { "code": "increase_weight", "value": 45, "chance": 100 },
+      { "code": "increase_escape_chance", "value": 15, "chance": 50 },
+      { "code": "add_endurance", "value": 3, "chance": 60 }
+    ]
+  }
+]

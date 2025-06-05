@@ -1,0 +1,26 @@
+[
+    {
+      "code": "wooden-chest",
+      "name": "Деревянный сундук",
+      "spawn_chance": 80,
+      "drop": [
+        { "code": "rope", "stack": 2 },
+        { "code": "bone-fragments", "stack": 3 }
+      ],
+      "requirements": [
+        { "type": "has_item", "code": "lockpick" }
+      ]
+    },
+    {
+      "code": "metal-lockbox",
+      "name": "Металлический ящик",
+      "spawn_chance": 40,
+      "drop": [
+        { "code": "bullet-9mm", "stack": 5 },
+        { "code": "wrench", "stack": 1 }
+      ],
+      "requirements": [
+        { "type": "has_item", "code": "crowbar" }
+      ]
+    }
+  ]

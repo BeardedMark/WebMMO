@@ -1,0 +1,52 @@
+[
+  {
+    "code": "plant-fiber",
+    "name": "Растительные волокна",
+    "tags": ["organic", "plant", "fiber", "material", "common"],
+    "weight": 0.2,
+    "drop_chance": 80,
+    "min_level": 1,
+    "max_level": 60,
+    "image": "plant-fiber.png"
+  },
+  {
+    "code": "spider-web",
+    "name": "Паутина",
+    "tags": ["organic", "insect", "web", "fiber", "material", "uncommon"],
+    "weight": 0.01,
+    "drop_chance": 80,
+    "min_level": 40,
+    "max_level": 100,
+    "image": "spider-webs.png"
+  },
+  {
+    "code": "dung",
+    "name": "Навоз",
+    "tags": ["organic", "animal", "fertilizer", "resource", "smelly"],
+    "weight": 1,
+    "drop_chance": 30,
+    "min_level": 1,
+    "max_level": 30,
+    "image": "horse-dung.png"
+  },
+  {
+    "code": "rotten-apple",
+    "name": "Гнилое яблоко",
+    "tags": ["organic", "food", "rotten", "fruit", "junk"],
+    "weight": 0.3,
+    "drop_chance": 20,
+    "min_level": 1,
+    "max_level": 20,
+    "image": "rotten-apple.png"
+  },
+  {
+    "code": "worm",
+    "name": "Червь",
+    "tags": ["organic", "animal", "bait", "insect", "creature", "soft"],
+    "weight": 0.01,
+    "drop_chance": 18,
+    "min_level": 1,
+    "max_level": 30,
+    "image": "worm.png"
+  }
+]

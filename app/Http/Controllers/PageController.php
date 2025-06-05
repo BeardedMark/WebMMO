@@ -15,4 +15,9 @@ class PageController extends Controller
     {
         return view('pages.about');
     }
+
+    public function lore()
+    {
+        return view('pages.lore');
+    }
 }

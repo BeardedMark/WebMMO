@@ -1,0 +1,228 @@
+[
+  {
+    "code": "wood-armor-helmet",
+    "name": "Деревянный шлем",
+    "slot": "head",
+    "tags": ["defence", "headgear", "wood", "primitive", "light"],
+    "weight": 1.2,
+    "drop_chance": 1,
+    "image": "wood-armor-helmet.png",
+    "craft": [
+      { "code": "wood", "stack": 3, "chance": 80 },
+      { "code": "rope", "stack": 2, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_defence", "value": 5, "chance": 100 },
+      { "code": "increase_defence", "value": 10, "chance": 100 },
+      { "code": "add_view_range", "value": -1, "chance": 100 },
+      { "code": "add_strength", "value": 1, "chance": 50 },
+      { "code": "resist_bleed", "value": 5, "chance": 60 },
+      { "code": "block_chance", "value": 2, "chance": 40 }
+    ]
+  },
+  {
+    "code": "wood-chestplate",
+    "name": "Деревянный нагрудник",
+    "slot": "armor",
+    "tags": ["armor", "wood", "primitive", "medium"],
+    "weight": 3.2,
+    "drop_chance": 1,
+    "image": "wood-chestplate.png",
+    "craft": [
+      { "code": "wood", "stack": 5, "chance": 90 },
+      { "code": "rope", "stack": 3, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_defence", "value": 6, "chance": 100 },
+      { "code": "increase_defence", "value": 12, "chance": 100 },
+      { "code": "resist_poison", "value": 5, "chance": 60 },
+      { "code": "add_health", "value": 10, "chance": 50 },
+      { "code": "add_endurance", "value": 2, "chance": 40 },
+      { "code": "reflect_damage", "value": 2, "chance": 30 }
+    ]
+  },
+  {
+    "code": "wood-armor-pants",
+    "name": "Деревянные щитки",
+    "slot": "belt",
+    "tags": ["armor", "wood", "primitive", "medium"],
+    "weight": 2.4,
+    "drop_chance": 1,
+    "image": "wood-armor-pants.png",
+    "craft": [
+      { "code": "wood", "stack": 4, "chance": 80 },
+      { "code": "rope", "stack": 3, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_defence", "value": 4, "chance": 100 },
+      { "code": "increase_defence", "value": 10, "chance": 100 },
+      { "code": "add_weight", "value": 5, "chance": 50 },
+      { "code": "resist_burn", "value": 4, "chance": 40 },
+      { "code": "add_endurance", "value": 2, "chance": 40 },
+      { "code": "block_chance", "value": 2, "chance": 30 }
+    ]
+  },
+  {
+    "code": "burlap-shoes",
+    "name": "Обувь из мешковины",
+    "slot": "feet",
+    "tags": ["armor", "cloth", "primitive", "light", "natural"],
+    "weight": 0.8,
+    "drop_chance": 1,
+    "image": "burlap-shoes.png",
+    "craft": [
+      { "code": "cloth", "stack": 4, "chance": 75 }
+    ],
+    "modifiers": [
+      { "code": "add_move_speed", "value": 1, "chance": 100 },
+      { "code": "increase_move_speed", "value": 10, "chance": 100 },
+      { "code": "add_agility", "value": 2, "chance": 60 },
+      { "code": "resist_poison", "value": 5, "chance": 40 },
+      { "code": "resist_bleed", "value": 5, "chance": 40 },
+      { "code": "add_evasion", "value": 2, "chance": 50 }
+    ]
+  },
+  {
+    "code": "burlap-gloves",
+    "name": "Перчатки из мешковины",
+    "slot": "hands",
+    "tags": ["armor", "cloth", "primitive", "light", "natural"],
+    "weight": 0.7,
+    "drop_chance": 1,
+    "image": "burlap-gloves.png",
+    "craft": [
+      { "code": "cloth", "stack": 2, "chance": 70 }
+    ],
+    "modifiers": [
+      { "code": "add_attack_speed", "value": 1, "chance": 100 },
+      { "code": "increase_attack_speed", "value": 10, "chance": 100 },
+      { "code": "add_attack_range", "value": 1, "chance": 80 },
+      { "code": "increase_attack_range", "value": 10, "chance": 80 },
+      { "code": "add_agility", "value": 1, "chance": 50 },
+      { "code": "add_perception", "value": 1, "chance": 50 }
+    ]
+  },
+  {
+    "code": "burlap-shirt",
+    "name": "Рубашка из мешковины",
+    "slot": "body",
+    "tags": ["armor", "cloth", "primitive", "light", "natural"],
+    "weight": 1.4,
+    "drop_chance": 1,
+    "image": "burlap-shirt.png",
+    "craft": [
+      { "code": "cloth", "stack": 8, "chance": 80 }
+    ],
+    "modifiers": [
+      { "code": "add_health", "value": 10, "chance": 100 },
+      { "code": "increase_health", "value": 10, "chance": 100 },
+      { "code": "add_health_regen", "value": 1, "chance": 100 },
+      { "code": "increase_health_regen", "value": 5, "chance": 100 },
+      { "code": "resist_burn", "value": 4, "chance": 60 },
+      { "code": "add_charisma", "value": 1, "chance": 40 }
+    ]
+  },
+  {
+    "code": "burlap-trousers",
+    "name": "Штаны из мешковины",
+    "slot": "legs",
+    "tags": ["armor", "cloth", "primitive", "light", "natural"],
+    "weight": 1.2,
+    "drop_chance": 1,
+    "image": "burlap-trousers.png",
+    "craft": [
+      { "code": "cloth", "stack": 6, "chance": 80 }
+    ],
+    "modifiers": [
+      { "code": "add_health", "value": 10, "chance": 100 },
+      { "code": "increase_health", "value": 10, "chance": 100 },
+      { "code": "add_health_regen", "value": 1, "chance": 100 },
+      { "code": "increase_health_regen", "value": 5, "chance": 100 },
+      { "code": "add_weight", "value": 5, "chance": 50 },
+      { "code": "add_endurance", "value": 2, "chance": 40 }
+    ]
+  },
+  {
+    "code": "burlap-headwrap",
+    "name": "Повязка из мешковины",
+    "slot": "face",
+    "tags": ["armor", "cloth", "primitive", "light", "natural"],
+    "weight": 0.9,
+    "drop_chance": 1,
+    "image": "burlap-headwrap.png",
+    "craft": [
+      { "code": "cloth", "stack": 4, "chance": 75 }
+    ],
+    "modifiers": [
+      { "code": "add_health", "value": 5, "chance": 100 },
+      { "code": "increase_health", "value": 5, "chance": 100 },
+      { "code": "add_health_regen", "value": 1, "chance": 100 },
+      { "code": "increase_health_regen", "value": 5, "chance": 100 },
+      { "code": "add_view_range", "value": 1, "chance": 80 },
+      { "code": "increase_view_range", "value": 10, "chance": 80 }
+    ]
+  },
+  {
+    "code": "bone-helmet",
+    "name": "Костяной шлем",
+    "slot": "head",
+    "tags": ["armor", "bone", "primitive", "headgear", "medium"],
+    "weight": 1.4,
+    "drop_chance": 1,
+    "image": "bone-helmet.png",
+    "craft": [
+      { "code": "bone-fragments", "stack": 6, "chance": 80 },
+      { "code": "rope", "stack": 2, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_evasion", "value": 5, "chance": 100 },
+      { "code": "increase_evasion", "value": 10, "chance": 100 },
+      { "code": "add_view_range", "value": -1, "chance": 100 },
+      { "code": "resist_crit", "value": 10, "chance": 60 },
+      { "code": "add_health", "value": 10, "chance": 50 },
+      { "code": "block_chance", "value": 3, "chance": 40 }
+    ]
+  },
+  {
+    "code": "bone-armor",
+    "name": "Костяной нагрудник",
+    "slot": "armor",
+    "tags": ["armor", "bone", "primitive", "medium"],
+    "weight": 3.5,
+    "drop_chance": 1,
+    "image": "bone-armor.png",
+    "craft": [
+      { "code": "bone-fragments", "stack": 10, "chance": 85 },
+      { "code": "rope", "stack": 4, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_evasion", "value": 6, "chance": 100 },
+      { "code": "increase_evasion", "value": 12, "chance": 100 },
+      { "code": "resist_bleed", "value": 10, "chance": 70 },
+      { "code": "add_defence", "value": 4, "chance": 60 },
+      { "code": "reflect_damage", "value": 3, "chance": 40 },
+      { "code": "resist_crit", "value": 10, "chance": 50 }
+    ]
+  },
+  {
+    "code": "bone-armor-pants",
+    "name": "Костяные щитки",
+    "slot": "belt",
+    "tags": ["armor", "bone", "primitive", "medium"],
+    "weight": 2.5,
+    "drop_chance": 1,
+    "image": "bone-armor-pants.png",
+    "craft": [
+      { "code": "bone-fragments", "stack": 4, "chance": 80 },
+      { "code": "rope", "stack": 3, "chance": 60 }
+    ],
+    "modifiers": [
+      { "code": "add_evasion", "value": 5, "chance": 100 },
+      { "code": "increase_evasion", "value": 10, "chance": 100 },
+      { "code": "resist_poison", "value": 8, "chance": 60 },
+      { "code": "add_weight", "value": 5, "chance": 50 },
+      { "code": "add_strength", "value": 2, "chance": 40 },
+      { "code": "block_chance", "value": 3, "chance": 40 }
+    ]
+  }
+]

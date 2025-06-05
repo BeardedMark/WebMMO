@@ -1,0 +1,122 @@
+[
+  {
+    "code": "chicken",
+    "name": "Курица",
+    "spawn_chance": 5,
+    "image": "chicken.png",
+    "modifiers": [
+      { "code": "add_strength", "value": 1 },
+      { "code": "add_agility", "value": 4 },
+      { "code": "add_intelligence", "value": 1 },
+      { "code": "add_evasion", "value": 5 },
+      { "code": "increase_move_speed", "value": 10 }
+    ],
+    "drop": [
+      { "code": "raw-chicken-breast", "stack": 2, "chance": 80 },
+      { "code": "worm", "stack": 1, "chance": 60 },
+      { "code": "bone-fragments", "stack": 1, "chance": 50 }
+    ]
+  },
+  {
+    "code": "rooster",
+    "name": "Петух",
+    "spawn_chance": 3,
+    "image": "rooster.png",
+    "modifiers": [
+      { "code": "add_strength", "value": 2 },
+      { "code": "add_agility", "value": 4 },
+      { "code": "add_intelligence", "value": 2 },
+      { "code": "add_crit_chance", "value": 5 },
+      { "code": "add_move_speed", "value": 1 }
+    ],
+    "drop": [
+      { "code": "raw-chicken-breast", "stack": 3, "chance": 80 },
+      { "code": "worm", "stack": 2, "chance": 70 },
+      { "code": "bone-fragments", "stack": 2, "chance": 60 }
+    ]
+  },
+  {
+    "code": "deer",
+    "name": "Олень",
+    "spawn_chance": 4,
+    "image": "deer.png",
+    "modifiers": [
+      { "code": "add_strength", "value": 3 },
+      { "code": "add_agility", "value": 6 },
+      { "code": "add_intelligence", "value": 2 },
+      { "code": "increase_move_speed", "value": 20 },
+      { "code": "add_evasion", "value": 10 }
+    ],
+    "drop": [
+      { "code": "raw-deer-meat", "stack": 3, "chance": 90 },
+      { "code": "dung", "stack": 1, "chance": 50 },
+      { "code": "animal-fat", "stack": 2, "chance": 60 },
+      { "code": "bone-fragments", "stack": 3, "chance": 70 },
+      { "code": "leather", "stack": 2, "chance": 80 }
+    ]
+  },
+  {
+    "code": "boar",
+    "name": "Кабан",
+    "spawn_chance": 2,
+    "image": "boar.png",
+    "max_level": 40,
+    "modifiers": [
+      { "code": "add_strength", "value": 6 },
+      { "code": "add_agility", "value": 2 },
+      { "code": "add_intelligence", "value": 1 },
+      { "code": "add_defence", "value": 5 },
+      { "code": "reflect_damage", "value": 3 }
+    ],
+    "drop": [
+      { "code": "raw-pork", "stack": 3, "chance": 90 },
+      { "code": "dung", "stack": 1, "chance": 50 },
+      { "code": "animal-fat", "stack": 3, "chance": 70 },
+      { "code": "bone-fragments", "stack": 3, "chance": 70 },
+      { "code": "leather", "stack": 2, "chance": 80 }
+    ]
+  },
+  {
+    "code": "wolf",
+    "name": "Волк",
+    "spawn_chance": 1.5,
+    "image": "wolf.png",
+    "min_level": 30,
+    "max_level": 80,
+    "modifiers": [
+      { "code": "add_strength", "value": 5 },
+      { "code": "add_agility", "value": 6 },
+      { "code": "add_intelligence", "value": 2 },
+      { "code": "add_crit_chance", "value": 5 },
+      { "code": "add_crit_damage", "value": 10 },
+      { "code": "add_evasion", "value": 5 }
+    ],
+    "drop": [
+      { "code": "raw-wolf-meat", "stack": 3, "chance": 80 },
+      { "code": "animal-fat", "stack": 3, "chance": 70 },
+      { "code": "bone-fragments", "stack": 4, "chance": 80 },
+      { "code": "leather", "stack": 3, "chance": 80 }
+    ]
+  },
+  {
+    "code": "bear",
+    "name": "Медведь",
+    "spawn_chance": 0.5,
+    "image": "bear.png",
+    "min_level": 70,
+    "modifiers": [
+      { "code": "add_strength", "value": 10 },
+      { "code": "add_agility", "value": 4 },
+      { "code": "add_intelligence", "value": 2 },
+      { "code": "add_damage", "value": 10 },
+      { "code": "increase_health", "value": 20 },
+      { "code": "reflect_damage", "value": 5 }
+    ],
+    "drop": [
+      { "code": "raw-bear-meat", "stack": 4, "chance": 90 },
+      { "code": "animal-fat", "stack": 4, "chance": 90 },
+      { "code": "bone-fragments", "stack": 5, "chance": 90 },
+      { "code": "leather", "stack": 4, "chance": 90 }
+    ]
+  }
+]

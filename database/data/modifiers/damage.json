@@ -1,0 +1,86 @@
+[
+  {
+    "code": "add_damage",
+    "name": "Базовый урон",
+    "value": 5,
+    "tags": ["add", "damage"]
+  },
+  {
+    "code": "increase_damage",
+    "name": "Увеличение урона",
+    "value": 10,
+    "tags": ["increase", "damage"],
+    "is_percent": true
+  },
+  {
+    "code": "add_crit_damage",
+    "name": "Критический урон",
+    "value": 20,
+    "tags": ["add", "crit", "damage"]
+  },
+  {
+    "code": "increase_crit_damage",
+    "name": "Увеличение критического урона",
+    "value": 25,
+    "tags": ["increase", "crit", "damage"],
+    "is_percent": true
+  },
+  {
+    "code": "add_crit_chance",
+    "name": "Шанс крита",
+    "value": 3,
+    "tags": ["add", "crit", "chance"]
+  },
+  {
+    "code": "increase_crit_chance",
+    "name": "Увеличение шанса крита",
+    "value": 10,
+    "tags": ["increase", "crit", "chance"],
+    "is_percent": true
+  },
+  {
+    "code": "add_bleed_chance",
+    "name": "Шанс кровотечения",
+    "value": 4,
+    "tags": ["add", "bleed", "chance", "damage"]
+  },
+  {
+    "code": "increase_bleed_damage",
+    "name": "Урон от кровотечения",
+    "value": 15,
+    "tags": ["increase", "bleed", "damage"],
+    "is_percent": true
+  },
+  {
+    "code": "add_burn_chance",
+    "name": "Шанс поджога",
+    "value": 3,
+    "tags": ["add", "burn", "chance", "damage"]
+  },
+  {
+    "code": "increase_burn_damage",
+    "name": "Урон от огня",
+    "value": 20,
+    "tags": ["increase", "burn", "damage"],
+    "is_percent": true
+  },
+  {
+    "code": "add_poison_chance",
+    "name": "Шанс отравления",
+    "value": 5,
+    "tags": ["add", "poison", "chance", "damage"]
+  },
+  {
+    "code": "increase_poison_damage",
+    "name": "Урон от яда",
+    "value": 15,
+    "tags": ["increase", "poison", "damage"],
+    "is_percent": true
+  },
+  {
+    "code": "add_true_damage",
+    "name": "Игнорирование брони",
+    "value": 3,
+    "tags": ["add", "true", "damage"]
+  }
+]

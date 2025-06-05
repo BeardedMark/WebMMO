@@ -1,0 +1,90 @@
+[
+  {
+    "code": "add_health",
+    "name": "Базовое здоровье",
+    "value": 10,
+    "tags": ["add", "health"]
+  },
+  {
+    "code": "increase_health",
+    "name": "Увеличение здоровья",
+    "value": 15,
+    "tags": ["increase", "health"],
+    "is_percent": true
+  },
+  {
+    "code": "add_health_regen",
+    "name": "Регенерация здоровья",
+    "value": 2,
+    "tags": ["add", "regen", "health"]
+  },
+  {
+    "code": "increase_health_regen",
+    "name": "Увеличение регенерации здоровья",
+    "value": 10,
+    "tags": ["increase", "regen", "health"],
+    "is_percent": true
+  },
+  {
+    "code": "add_evasion",
+    "name": "Базовое уклонение",
+    "value": 5,
+    "tags": ["add", "evasion", "defence"]
+  },
+  {
+    "code": "increase_evasion",
+    "name": "Увеличение уклонения",
+    "value": 15,
+    "tags": ["increase", "evasion", "defence"],
+    "is_percent": true
+  },
+  {
+    "code": "add_defence",
+    "name": "Броня",
+    "value": 8,
+    "tags": ["add", "armor", "defence"]
+  },
+  {
+    "code": "increase_defence",
+    "name": "Увеличение брони",
+    "value": 10,
+    "tags": ["increase", "armor", "defence"],
+    "is_percent": true
+  },
+  {
+    "code": "resist_bleed",
+    "name": "Сопротивление кровотечению",
+    "value": 20,
+    "tags": ["resist", "bleed", "status"]
+  },
+  {
+    "code": "resist_burn",
+    "name": "Сопротивление огню",
+    "value": 20,
+    "tags": ["resist", "burn", "status"]
+  },
+  {
+    "code": "resist_poison",
+    "name": "Сопротивление яду",
+    "value": 25,
+    "tags": ["resist", "poison", "status"]
+  },
+  {
+    "code": "resist_crit",
+    "name": "Снижение критического урона",
+    "value": 10,
+    "tags": ["resist", "crit", "defence"]
+  },
+  {
+    "code": "reflect_damage",
+    "name": "Отражение урона",
+    "value": 5,
+    "tags": ["reflect", "damage", "defence"]
+  },
+  {
+    "code": "block_chance",
+    "name": "Шанс блока",
+    "value": 4,
+    "tags": ["block", "chance", "defence"]
+  }
+]

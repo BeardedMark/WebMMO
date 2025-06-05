@@ -6,14 +6,15 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Character;
-use App\Models\Enemy;
-use App\Models\Location;
+use App\Domains\Characters\Models\Character;
+use App\Domains\Enemies\Models\Enemy;
+use App\Domains\Containers\Models\Container;
+use App\Domains\Locations\Models\Location;
 use App\Models\Road;
 use App\Models\Transition;
-use App\Models\Item;
+use App\Domains\Items\Models\Item;
 use App\Models\Property;
-use App\Models\Modifier;
+use App\Domains\Modifiers\Models\Modifier;
 
 use Illuminate\Support\Facades\File;
 
@@ -31,45 +32,67 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true
         ]);
 
+        User::create([
+            'login' => 'user',
+            'email' => 'user@admin.ru',
+            'password' => 'Dev.201095'
+        ]);
+
+        User::create([
+            'login' => 'guest',
+            'email' => 'guest@admin.ru',
+            'password' => 'Dev.201095'
+        ]);
+
         // Загрузка предметов
-        $items = json_decode(File::get(database_path('data/items.json')), true);
-        foreach ($items as $item) {
-            Item::create($item);
-        }
-
-        // Загрузка параметров предметов
-        $properties = json_decode(File::get(database_path('data/properties.json')), true);
-        foreach ($properties as $prop) {
-            Property::create($prop);
-        }
-
-        // Загрузка модификаторов предметов
-        $modifiers = json_decode(File::get(database_path('data/modifiers.json')), true);
-        foreach ($modifiers as $mod) {
-            Modifier::create($mod);
+        $itemsFileNames = ['armor', 'weapons', 'equipment', 'components', 'food', 'resources', 'entities'];
+        foreach ($itemsFileNames as $itemsFileName) {
+            $items = json_decode(File::get(database_path("data/items/{$itemsFileName}.json")), true);
+            foreach ($items as $item) {
+                Item::create($item);
+            }
         }
 
         // Загрузка врагов
-        $enemies = json_decode(File::get(database_path('data/enemies.json')), true);
-        foreach ($enemies as $enemy) {
-            Enemy::create($enemy);
+        $enemiesFileNames = ['animals', 'humans'];
+        foreach ($enemiesFileNames as $enemiesFileName) {
+            $enemies = json_decode(File::get(database_path("data/enemies/{$enemiesFileName}.json")), true);
+            foreach ($enemies as $enemy) {
+                Enemy::create($enemy);
+            }
+        }
+
+        // Загрузка объектов
+        $containersFileNames = ['treasure', 'corpses', 'nature'];
+        foreach ($containersFileNames as $containersFileName) {
+            $containers = json_decode(File::get(database_path("data/containers/{$containersFileName}.json")), true);
+            foreach ($containers as $container) {
+                Container::create($container);
+            }
         }
 
         // Загрузка локаций
-        $locationData = json_decode(File::get(database_path('data/locations.json')), true);
-        $locations = [];
-
-        foreach ($locationData as $index => $location) {
-            $locations[$index + 1] = Location::create($location);
+        $locationsFileNames = ['junior', 'middle', 'senior'];
+        foreach ($locationsFileNames as $locationsFileName) {
+            $locations = json_decode(File::get(database_path("data/locations/{$locationsFileName}.json")), true);
+            foreach ($locations as $location) {
+                Location::create($location);
+            }
         }
 
         // Загрузка дорог
-        $roads = json_decode(File::get(database_path('data/roads.json')), true);
-        foreach ($roads as [$from, $to]) {
-            Road::create([
-                'from_location_id' => $locations[$from]->id,
-                'to_location_id' => $locations[$to]->id
-            ]);
+        $roads = json_decode(File::get(database_path('data/locations/roads.json')), true);
+        foreach ($roads as $road) {
+            Road::create($road);
+        }
+
+        // Загрузка модификаторов
+        $modifiersFileNames = ['action', 'attribute', 'defence', 'damage'];
+        foreach ($modifiersFileNames as $modifiersFileName) {
+            $modifiers = json_decode(File::get(database_path("data/modifiers/{$modifiersFileName}.json")), true);
+            foreach ($modifiers as $modifier) {
+                Modifier::create($modifier);
+            }
         }
     }
 }

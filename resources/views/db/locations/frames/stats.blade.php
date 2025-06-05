@@ -1,14 +1,14 @@
 <div class="frame flex-col-13" >
     <div>
-        @component('components.stat', ['name' => 'Уровень','value' => $location->getLevel(),])
+        @component('components.stat', ['name' => 'Уровень','value' => $location->getLevel()])
         @endcomponent
-        @component('components.stat', ['name' => 'Размер','value' => $location->getSize(),])
+        @component('components.stat', ['name' => 'Размер','value' => $location->getSize()])
         @endcomponent
-        @component('components.stat', ['name' => 'Координаты по X','value' => $location->getCordX(),])
+        @component('components.stat', ['name' => 'Координаты по X','value' => $location->getCordX()])
         @endcomponent
-        @component('components.stat', ['name' => 'Координаты по Y','value' => $location->getCordY(),])
+        @component('components.stat', ['name' => 'Координаты по Y','value' => $location->getCordY()])
         @endcomponent
-        @component('components.stat', ['name' => 'Состояние','value' => $location->getStatusTitle(),])
+        @component('components.stat', ['name' => 'Состояние','value' => $location->getStatus() ? 'Открыто' : 'Закрыто'])
         @endcomponent
     </div>
 
@@ -19,12 +19,12 @@
         @endcomponent
         @component('components.stat', ['name' => 'Доступных локаций', 'value' => count($location->connectedLocations()), 'link' => '#locations'])
         @endcomponent
-        @component('components.stat', ['name' => 'Персонажей на локации', 'value' => count($location->charactersOnLocation()), 'link' => '#characters'])
+        @component('components.stat', ['name' => 'Персонажей на локации', 'value' => count($location->characters()), 'link' => '#characters'])
         @endcomponent
     </div>
 
     <div>
-        @component('components.datetime', ['entity' => $location])
+        @component('components.datetime', ['container' => $location])
         @endcomponent
     </div>
 </div>

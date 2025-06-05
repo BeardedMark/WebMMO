@@ -4,28 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Traits\HasItems;
-use App\Traits\HasEnemies;
+use App\Domains\Items\Traits\HasItems;
+// use App\Traits\HasContainers;
+use App\Domains\Enemies\Traits\HasEnemies;
+use App\Domains\Modifiers\Traits\HasModifiers;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
+use App\Domains\Locations\Models\Location;
+use App\Domains\Characters\Models\Character;
 
 class Transition extends Model
 {
     use SoftDeletes;
     use HasItems;
     use HasEnemies;
+    // use HasContainers;
+    use HasModifiers;
 
     protected $fillable = [
         'character_id',
         'location_id',
-        'hideout_id',
-        'items',
+        'inventory',
         'enemies',
+        'containers',
     ];
 
     protected $casts = [
-        'items' => 'array',
+        'inventory' => 'array',
         'enemies' => 'array',
+        'containers' => 'array',
+        'modifiers' => 'array',
     ];
 
     public function character()
@@ -36,10 +43,5 @@ class Transition extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id');
-    }
-
-    public function hideout()
-    {
-        return $this->belongsTo(Hideout::class, 'hideout_id');
     }
 }

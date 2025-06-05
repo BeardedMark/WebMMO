@@ -1,0 +1,33 @@
+[
+  {
+    "code": "test",
+    "name": "Тестеровщик",
+    "spawn_chance": 100,
+    "image": "noname.png",
+    "drop": [
+      { "code": "wood", "stack": 10, "chance": 100 },
+      { "code": "rope", "stack": 10, "chance": 100 },
+      { "code": "cloth", "stack": 10, "chance": 100 },
+
+      { "code": "wood-armor-helmet", "stack": 5, "chance": 100 },
+      { "code": "wood-chestplate", "stack": 5, "chance": 100 },
+      { "code": "wood-armor-pants", "stack": 5, "chance": 100 },
+      { "code": "vampire-stake", "stack": 5, "chance": 100 },
+      { "code": "wooden-spear", "stack": 5, "chance": 100 },
+
+      { "code": "burlap-shoes", "stack": 5, "chance": 100 },
+      { "code": "burlap-gloves", "stack": 5, "chance": 100 },
+      { "code": "burlap-shirt", "stack": 5, "chance": 100 },
+      { "code": "burlap-trousers", "stack": 5, "chance": 100 },
+      { "code": "burlap-headwrap", "stack": 5, "chance": 100 },
+
+      { "code": "new-large-backpack", "stack": 5, "chance": 10 }
+    ],
+    "modifiers": [
+      { "code": "add_strength", "value": 10 },
+      { "code": "add_agility", "value": 10 },
+      { "code": "add_intelligence", "value": 10 },
+      { "code": "add_intelligence", "value": 1 }
+    ]
+  }
+]

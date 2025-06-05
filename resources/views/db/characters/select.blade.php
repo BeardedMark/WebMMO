@@ -8,20 +8,19 @@
                     <h1>Выбор персонажа</h1>
                     <p>Персонажи других игроков, которых вы може встретить</p>
                 </div>
-                <div class="row">
 
+                <div class="row g-4">
                     @foreach ($user->characters as $character)
                         <div class="col-4">
-                            <form class="flex-col-8" action="{{ route('characters.selected', $character) }}" method="POST">
-                                @csrf
+                            <div class="flex-col-13">
                                 @component('db.characters.frames.card', compact('character'))
                                 @endcomponent
 
-                                @component('db.characters.frames.stats', compact('character'))
-                                @endcomponent
-
-                                <button class="button" type="submit">Выбрать</button>
-                            </form>
+                                <form class="flex-col" action="{{ route('characters.selected', $character) }}" method="POST">
+                                    @csrf
+                                    <button class="button" type="submit">Выбрать</button>
+                                </form>
+                            </div>
                         </div>
                     @endforeach
                 </div>

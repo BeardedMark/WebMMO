@@ -1,0 +1,187 @@
+[
+  {
+    "level": 1,
+    "x": 220,
+    "y": 470,
+    "code": "loc-8fd1a2",
+    "name": "Побережье пробуждения",
+    "image": "coast_of_awakening.png",
+    "sound": "coast_of_awakening.mp3",
+    "is_peaceful": true,
+    "description": "Солнечное побережье, где впервые открылись глаза новому миру. Безопасное место для начала.",
+    "modifiers": [
+      { "code": "add_move_speed", "value": 1 },
+      { "code": "add_strength", "value": 1 },
+      { "code": "add_agility", "value": 1 }
+    ]
+  },
+  {
+    "level": 5,
+    "x": 170,
+    "y": 560,
+    "code": "loc-91be5f",
+    "name": "Руины причала",
+    "image": "empty_ruins.png",
+    "sound": "empty_ruins.mp3",
+    "description": "Побережье старого порта, где давно не швартуются корабли. Здесь витают воспоминания и грызуны.",
+    "modifiers": [
+      { "code": "add_evasion", "value": 2 },
+      { "code": "add_perception", "value": 1 }
+    ]
+  },
+  {
+    "level": 10,
+    "x": 180,
+    "y": 660,
+    "code": "loc-c1f3d9",
+    "name": "Обломки пирса",
+    "image": "old_pier.png",
+    "sound": "old_pier.mp3",
+    "description": "Остатки доков, в которые врезались штормы. Здесь часто можно найти полезный мусор.",
+    "modifiers": [
+      { "code": "increase_loot_chance", "value": 10 },
+      { "code": "add_view_range", "value": 1 }
+    ]
+  },
+  {
+    "level": 10,
+    "x": 260,
+    "y": 650,
+    "code": "loc-b7e0aa",
+    "name": "Заброшенная лесопилка",
+    "image": "abandoned_sawmill.png",
+    "sound": "abandoned_sawmill.mp3",
+    "description": "Полуразвалившееся здание в лесу с остатками инструментов. Хорошее место для поиска полезных деталей.",
+    "modifiers": [
+      { "code": "add_strength", "value": 2 },
+      { "code": "add_weight", "value": 5 }
+    ]
+  },
+  {
+    "level": 15,
+    "x": 270,
+    "y": 740,
+    "code": "loc-41ac33",
+    "name": "Дикий заповедник",
+    "image": "wildlife_sanctuary.png",
+    "sound": "wildlife_sanctuary.mp3",
+    "description": "Когда-то охраняемая территория, а теперь — охотничьи угодья диких зверей.",
+    "modifiers": [
+      { "code": "add_agility", "value": 2 },
+      { "code": "add_health", "value": 5 }
+    ]
+  },
+  {
+    "level": 20,
+    "x": 370,
+    "y": 760,
+    "code": "loc-0e93f2",
+    "name": "Горный перевал",
+    "image": "mountain_pass.png",
+    "sound": "mountain_pass.mp3",
+    "description": "Узкая тропа, соединяющая две долины. Опасно, но полезно.",
+    "modifiers": [
+      { "code": "add_endurance", "value": 2 },
+      { "code": "add_move_speed", "value": 1 }
+    ]
+  },
+  {
+    "level": 25,
+    "x": 520,
+    "y": 730,
+    "code": "loc-709f8d",
+    "name": "Заросший город",
+    "image": "overgrown_city.png",
+    "sound": "overgrown_city.mp3",
+    "is_peaceful": true,
+    "description": "Цивилизация, захваченная листвой. Здесь обосновались выжившие и бродяги.",
+    "modifiers": [
+      { "code": "increase_health_regen", "value": 10 },
+      { "code": "add_charisma", "value": 1 }
+    ]
+  },
+  {
+    "level": 25,
+    "x": 500,
+    "y": 810,
+    "code": "loc-3a17c0",
+    "name": "Южный маяк",
+    "image": "southern_lighthouse.png",
+    "sound": "southern_lighthouse.mp3",
+    "description": "Одинокий маяк, всё ещё мигающий в пустоту. Здесь спокойно, но неспокойно внутри.",
+    "modifiers": [
+      { "code": "add_perception", "value": 2 },
+      { "code": "add_intelligence", "value": 1 }
+    ]
+  },
+  {
+    "level": 25,
+    "x": 500,
+    "y": 650,
+    "code": "loc-d5317b",
+    "name": "Вход в шахту",
+    "image": "entrance_mine.png",
+    "sound": "entrance_mine.mp3",
+    "description": "Старая заьрошеная шахта с остатками руды и скрежетом под землёй.",
+    "modifiers": [
+      { "code": "add_weight", "value": 10 },
+      { "code": "increase_loot_chance", "value": 5 }
+    ]
+  },
+  {
+    "level": 30,
+    "x": 430,
+    "y": 600,
+    "code": "loc-e8144b",
+    "name": "Подземная развилка",
+    "image": "underground_fork.png",
+    "sound": "underground_fork.mp3",
+    "description": "Старые туннели, где не ясно куда идти, и не ясно, кто идёт за тобой.",
+    "modifiers": [
+      { "code": "add_evasion", "value": 3 },
+      { "code": "reduce_noise", "value": 5 }
+    ]
+  },
+  {
+    "level": 30,
+    "x": 350,
+    "y": 550,
+    "code": "loc-5f2cdd",
+    "name": "Минеральная пещера",
+    "image": "cave_minerals.png",
+    "sound": "cave_minerals.mp3",
+    "description": "Глубокие залегания редких ресурсов, и что-то ещё более редкое — тишина.",
+    "modifiers": [
+      { "code": "increase_loot_chance", "value": 15 },
+      { "code": "add_weight", "value": 10 }
+    ]
+  },
+  {
+    "level": 30,
+    "x": 600,
+    "y": 700,
+    "code": "loc-a61c2e",
+    "name": "Забытая деревня",
+    "image": "forgotten_village.png",
+    "sound": "forgotten_village.mp3",
+    "description": "Ржавые вывески, разрушенные дома. Здесь всё забыто... кроме запаха дыма и старых технологий.",
+    "modifiers": [
+      { "code": "add_intelligence", "value": 2 },
+      { "code": "increase_loot_chance", "value": 5 }
+    ]
+  },
+  {
+    "level": 30,
+    "x": 640,
+    "y": 830,
+    "code": "loc-9b03e6",
+    "name": "Ржавый ангар",
+    "image": "rusty_hangar.png",
+    "sound": "rusty_hangar.png",
+    "description": "Огромные технологичные поля, где хранятся тени прошлого. Что-то тут ещё может пригодится.",
+    "modifiers": [
+      { "code": "add_strength", "value": 3 },
+      { "code": "resist_bleed", "value": 5 }
+    ]
+  }
+]

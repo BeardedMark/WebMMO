@@ -65,7 +65,12 @@ class AuthController extends Controller
     // Форма регистрации
     public function register()
     {
-        return view('db.users.register');
+        if (Auth::check() && Auth::user()->isAdmin()) {
+
+            return view('db.users.register');
+        } else {
+            return view('db.users.offer');
+        }
     }
 
     // Регистрация

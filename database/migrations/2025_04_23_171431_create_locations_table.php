@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Schema\MetaFieldsSchema;
+use App\Schema\HasItemsSchema;
 
 return new class extends Migration
 {
@@ -14,22 +16,18 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->longText('content')->nullable();
-            $table->text('comment')->nullable();
-            $table->string('tags')->nullable();
-            $table->json('data')->nullable();
-            $table->string('image')->nullable();
-            $table->string('sound')->nullable();
+            MetaFieldsSchema::applyContent($table);
+            MetaFieldsSchema::applyMedia($table);
 
-            $table->integer('level')->default(0);
-            $table->integer('size')->default(1);
-            $table->boolean('is_open')->default(true);
-            $table->boolean('is_hideout')->default(true);
-            $table->boolean('is_peaceful')->default(false);
+            $table->integer('level')->default(1);
+            $table->integer('size')->nullable();
             $table->integer('x')->nullable();
             $table->integer('y')->nullable();
+
+            $table->boolean('is_open')->default(true);
+            $table->boolean('is_peaceful')->default(false);
+
+            $table->json('modifiers')->nullable();
             $table->json('drop')->nullable();
 
             $table->timestamps();

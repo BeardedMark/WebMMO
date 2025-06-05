@@ -1,0 +1,67 @@
+[
+  {
+    "code": "add_strength",
+    "name": "Сила",
+    "value": 5,
+    "tags": ["add", "strength", "attribute"]
+  },
+  {
+    "code": "increase_strength",
+    "name": "Увеличение силы",
+    "value": 10,
+    "tags": ["increase", "strength", "attribute"],
+    "is_percent": true
+  },
+  {
+    "code": "add_agility",
+    "name": "Ловкость",
+    "value": 5,
+    "tags": ["add", "agility", "attribute"]
+  },
+  {
+    "code": "increase_agility",
+    "name": "Увеличение ловкости",
+    "value": 10,
+    "tags": ["increase", "agility", "attribute"],
+    "is_percent": true
+  },
+  {
+    "code": "add_intelligence",
+    "name": "Интеллект",
+    "value": 5,
+    "tags": ["add", "intelligence", "attribute"]
+  },
+  {
+    "code": "increase_intelligence",
+    "name": "Увеличение интеллекта",
+    "value": 10,
+    "tags": ["increase", "intelligence", "attribute"],
+    "is_percent": true
+  },
+  {
+    "code": "add_attractiveness",
+    "name": "Привлекательность",
+    "value": 5,
+    "tags": ["add", "attractiveness", "attribute"]
+  },
+  {
+    "code": "increase_attractiveness",
+    "name": "Увеличение привлекательности",
+    "value": 10,
+    "tags": ["increase", "attractiveness", "attribute"],
+    "is_percent": true
+  },
+  {
+    "code": "add_luck",
+    "name": "Удача",
+    "value": 1,
+    "tags": ["add", "luck", "attribute"]
+  },
+  {
+    "code": "increase_luck",
+    "name": "Увеличение удачи",
+    "value": 5,
+    "tags": ["increase", "luck", "attribute"],
+    "is_percent": true
+  }
+]

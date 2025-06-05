@@ -14,7 +14,7 @@
 
     <div class="flex-row-8 flex ai-center">
         <button class="button" type="submit">Подтвердить</button>
-        <p class="color-second font-small">или <a class="link font-small" href="{{ route('users.login') }}">Войти</a> в
+        <p class="color-second font-sm">или <a class="link font-sm" href="{{ route('users.login') }}">Войти</a> в
             существующий профиль</p>
     </div>
 </form>

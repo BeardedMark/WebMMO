@@ -1,0 +1,152 @@
+[
+  {
+    "code": "mushroom",
+    "name": "Гриб",
+    "tags": ["organic", "fungus", "food", "wild", "common"],
+    "weight": 0.1,
+    "drop_chance": 30,
+    "min_level": 1,
+    "max_level": 30,
+    "image": "mushroom.png"
+  },
+  {
+    "code": "apple",
+    "name": "Яблоко",
+    "tags": ["organic", "fruit", "food", "common", "wild"],
+    "weight": 0.2,
+    "drop_chance": 25,
+    "min_level": 10,
+    "max_level": 30,
+    "image": "apple.png"
+  },
+  {
+    "code": "black-raspberries",
+    "name": "Ежевика",
+    "tags": ["organic", "berry", "food", "wild", "common"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 10,
+    "max_level": 30,
+    "image": "black-raspberries.png"
+  },
+  {
+    "code": "blueberries",
+    "name": "Черника",
+    "tags": ["organic", "berry", "food", "wild", "rare"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 60,
+    "max_level": 80,
+    "image": "blueberries.png"
+  },
+  {
+    "code": "white-berry",
+    "name": "Белая ягода",
+    "tags": ["organic", "berry", "food", "wild", "rare"],
+    "weight": 0.05,
+    "drop_chance": 8,
+    "min_level": 40,
+    "max_level": 60,
+    "image": "white-berry.png"
+  },
+  {
+    "code": "yellow-berry",
+    "name": "Жёлтая ягода",
+    "tags": ["organic", "berry", "food", "wild", "uncommon"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 20,
+    "max_level": 40,
+    "image": "yellow-berry.png"
+  },
+  {
+    "code": "green-berry",
+    "name": "Зелёная ягода",
+    "tags": ["organic", "berry", "food", "wild", "uncommon"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 30,
+    "max_level": 50,
+    "image": "green-berry.png"
+  },
+  {
+    "code": "red-berry",
+    "name": "Красная ягода",
+    "tags": ["organic", "berry", "food", "wild", "uncommon"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 40,
+    "max_level": 60,
+    "image": "red-berry.png"
+  },
+  {
+    "code": "blue-berry",
+    "name": "Синяя ягода",
+    "tags": ["organic", "berry", "food", "wild", "rare"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 50,
+    "max_level": 70,
+    "image": "blue-berry.png"
+  },
+  {
+    "code": "black-berry",
+    "name": "Чёрная ягода",
+    "tags": ["organic", "berry", "food", "wild", "rare"],
+    "weight": 0.05,
+    "drop_chance": 18,
+    "min_level": 60,
+    "max_level": 80,
+    "image": "black-berry.png"
+  },
+  {
+    "code": "raw-chicken-breast",
+    "name": "Сырое куриное мясо",
+    "tags": ["organic", "meat", "raw", "animal", "food", "cooking"],
+    "weight": 0.4,
+    "drop_chance": 0.1,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "raw-chicken-breast.png"
+  },
+  {
+    "code": "raw-deer-meat",
+    "name": "Сырая оленина",
+    "tags": ["organic", "meat", "raw", "animal", "food", "cooking"],
+    "weight": 0.4,
+    "drop_chance": 0.1,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "raw-deer-meat.png"
+  },
+  {
+    "code": "raw-bear-meat",
+    "name": "Сырая медвежатина",
+    "tags": ["organic", "meat", "raw", "animal", "food", "cooking"],
+    "weight": 0.4,
+    "drop_chance": 0.1,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "raw-bear-meat.png"
+  },
+  {
+    "code": "raw-pork",
+    "name": "Сырая свинина",
+    "tags": ["organic", "meat", "raw", "animal", "food", "cooking"],
+    "weight": 0.4,
+    "drop_chance": 0.1,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "raw-pork.png"
+  },
+  {
+    "code": "raw-wolf-meat",
+    "name": "Сырое волчье мясо",
+    "tags": ["organic", "meat", "raw", "animal", "food", "cooking"],
+    "weight": 0.4,
+    "drop_chance": 0.1,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "raw-wolf-meat.png"
+  }
+]

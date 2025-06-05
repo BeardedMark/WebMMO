@@ -1,10 +1,16 @@
 <p class="flex-row-8 ai-center">
-    <a class="link" href="{{ route('locations.show', $location) }}">{{ $location->getTitle() }}</a>
+    @component('db.locations.components.link', compact('location'))
+    @endcomponent
 
-    {{-- <span class="color-second">#{{ $location->id }}</span> --}}
+    <span class="flex grow color-second font-sm">
+        {{ $location->getSize() }} разм.
+    </span>
 
-    <span class="flex grow"></span>
-    <span class="color-second font-small">{{ count($location->charactersOnLocation()) }} чел</span>
-    <span class="font-small">{{ $location->getSize() }} разм</span>
-    <span class="color-brand font-small">{{ $location->getLevel() }} ур</span>
+    <span class="font-sm {{ $location->isPeaceful() ? 'color-success' : 'color-danger' }}">
+        {{ $location->isPeaceful() ? 'Мирно' : 'Враждебно' }}
+    </span>
+
+    <span class="color-brand font-sm">
+        {{ $location->getLevel() }} ур
+    </span>
 </p>

@@ -1,0 +1,140 @@
+[
+  {
+    "code": "papper",
+    "name": "Бумага",
+    "tags": ["organic", "craft", "lightweight", "burnable", "common"],
+    "weight": 0.01,
+    "drop_chance": 5,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "paper.png",
+    "craft": [
+      { "code": "plant-fiber", "stack": 2 },
+      { "code": "water", "stack": 1 }
+    ]
+  },
+  {
+    "code": "scrap",
+    "name": "Металлолом",
+    "tags": ["metal", "scrap", "material", "industrial", "craft", "common"],
+    "weight": 0.4,
+    "drop_chance": 30,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "scrap.png"
+  },
+  {
+    "code": "rope",
+    "name": "Веревка",
+    "tags": ["fiber", "crafted", "tool-part", "construction", "common"],
+    "weight": 0.1,
+    "drop_chance": 15,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "rope.png",
+    "craft": [
+      { "code": "plant-fiber", "stack": 3 }
+    ]
+  },
+  {
+    "code": "duct-tape",
+    "name": "Скотч",
+    "tags": ["synthetic", "adhesive", "crafted", "repair", "uncommon"],
+    "weight": 0.3,
+    "drop_chance": 6,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "duct-tape.png",
+    "craft": [
+      { "code": "scrap", "stack": 1 },
+      { "code": "animal-fat", "stack": 1 }
+    ]
+  },
+  {
+    "code": "tarp",
+    "name": "Брезент",
+    "tags": ["synthetic", "cover", "crafted", "construction", "uncommon"],
+    "weight": 0.4,
+    "drop_chance": 10,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "tarp.png",
+    "craft": [
+      { "code": "cloth", "stack": 2 },
+      { "code": "duct-tape", "stack": 1 }
+    ]
+  },
+  {
+    "code": "road-signs",
+    "name": "Дорожные знаки",
+    "tags": ["metal", "junk", "industrial", "scrap", "uncommon"],
+    "weight": 1.5,
+    "drop_chance": 4,
+    "min_level": 30,
+    "max_level": 100,
+    "image": "road-signs.png"
+  },
+  {
+    "code": "sheet-metal",
+    "name": "Листовой металл",
+    "tags": ["metal", "plate", "construction", "material", "rare"],
+    "weight": 2,
+    "drop_chance": 4,
+    "min_level": 60,
+    "max_level": 100,
+    "image": "sheet-metal.png",
+    "craft": [
+      { "code": "scrap", "stack": 3 }
+    ]
+  },
+  {
+    "code": "metal-pipe",
+    "name": "Труба",
+    "tags": ["metal", "pipe", "construction", "craft", "industrial"],
+    "weight": 1.2,
+    "drop_chance": 5,
+    "min_level": 50,
+    "max_level": 100,
+    "image": "metal-pipe.png",
+    "craft": [
+      { "code": "sheet-metal", "stack": 1 }
+    ]
+  },
+  {
+    "code": "metal-spring",
+    "name": "Пружина",
+    "tags": ["metal", "spring", "tool-part", "mechanical", "craft"],
+    "weight": 0.3,
+    "drop_chance": 6,
+    "min_level": 40,
+    "max_level": 100,
+    "image": "metal-spring.png",
+    "craft": [
+      { "code": "scrap", "stack": 1 }
+    ]
+  },
+  {
+    "code": "gears",
+    "name": "Шестерни",
+    "tags": ["metal", "gear", "tool-part", "mechanical", "rare"],
+    "weight": 0.5,
+    "drop_chance": 5,
+    "min_level": 50,
+    "max_level": 100,
+    "image": "gears.png",
+    "craft": [
+      { "code": "metal-fragments", "stack": 2 },
+      { "code": "metal-spring", "stack": 1 }
+    ]
+  },
+  {
+    "code": "tech-trash",
+    "name": "Микросхемы",
+    "tags": ["electronic", "tech", "rare", "junk", "component", "mechanical"],
+    "weight": 0.1,
+    "drop_chance": 3,
+    "min_level": 60,
+    "max_level": 100,
+    "image": "tech-trash.png"
+  }
+]

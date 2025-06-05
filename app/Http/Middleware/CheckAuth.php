@@ -19,6 +19,7 @@ class CheckAuth
             return redirect()->route('users.login')->with('error', 'Нужен профиль на сайте');
         }
 
+        auth()->user()->setActivityAt();
         return $next($request);
     }
 }

@@ -27,18 +27,18 @@
         <div class="flex-row-8">
             @if (count($item->model->getCraftItems()) > 0)
                 <button class="icon" type="submit" formaction="{{ route('items.disassemble') }}">
-                    @component('components.icon', ['size' => 21, 'name' => 'divarication', 'color' => 'BAC7E3'])
+                    @component('components.icon', ['size' => 21, 'name' => 'divarication', 'color' => 'FFFFFF'])
                     @endcomponent
                 </button>
             @endif
 
             <button class="icon" type="submit" formaction="{{ route('items.equip') }}">
-                @component('components.icon', ['size' => 21, 'name' => 'gender-neutral-user', 'color' => 'BAC7E3'])
+                @component('components.icon', ['size' => 21, 'name' => 'gender-neutral-user', 'color' => 'FFFFFF'])
                 @endcomponent
             </button>
 
             <button class="icon" type="submit" formaction="{{ route('items.move') }}">
-                @component('components.icon', ['size' => 21, 'name' => 'up-right-arrow', 'color' => 'BAC7E3'])
+                @component('components.icon', ['size' => 21, 'name' => 'up-right-arrow', 'color' => 'FFFFFF'])
                 @endcomponent
             </button>
         </div>

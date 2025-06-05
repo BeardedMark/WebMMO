@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="flex-col-8 pad-13">
-                        <p class="color-second font-small">Если вы забыли данные для входа то вы всегда можете их <a class="link" href="">восстановить</a></p>
+                        <p class="color-second font-sm">Если вы забыли данные для входа то вы всегда можете их <a class="link" href="">восстановить</a></p>
                     </div>
                 </div>
             </div>

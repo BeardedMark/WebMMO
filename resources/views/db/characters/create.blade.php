@@ -17,18 +17,18 @@
                             <p>Имя персонажа</p>
                             <input id="name" class="input" type="text" name="name"
                                 value="{{ old('name', $location->name ?? '') }}" required autofocus>
-                                <p class="color-second font-small">уникальное, от 5 до 20 символов</p>
+                                <p class="color-second font-sm">уникальное, от 5 до 20 символов</p>
                         </div>
 
                         <div class="flex-row-8 flex ai-center">
                             <button type="submit" class="button">Создать персонажа</button>
-                            <p class="color-second font-small">или <a class="link font-small"
+                            <p class="color-second font-sm">или <a class="link font-sm"
                                     href="{{ route('users.register') }}">Выбрать</a> из созданных</p>
                         </div>
                     </form>
 
                     <div class="flex-col-8 pad-13">
-                        <p class="color-second font-small">Для избежания блокировки, ознакомтесь <a class="link" href="">правилами</a> создания персонажа</p>
+                        <p class="color-second font-sm">Для избежания блокировки, ознакомтесь <a class="link" href="">правилами</a> создания персонажа</p>
                     </div>
                 </div>
             </div>

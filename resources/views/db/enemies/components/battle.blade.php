@@ -1,60 +1,72 @@
-{{-- <form class="row g-1" action="{{ route('enemies.battle', $enemy->enemy) }}" method="POST" class="flex enemys-center gap-2">
-    @csrf
-    @isset($enemy->enemy)
-        <input type="hidden" name="enemy_id" value="{{ $enemy->enemy->id }}">
-    @endisset
-
-    <div class="col">
-        @component('db.enemies.components.link', ['enemy' => $enemy->enemy])
-        @endcomponent
-    </div>
-
-    <div class="col-3">
-        <span class="color-second">{{ $enemy->enemy->danger }} сл</span>
-    </div>
-
-    <div class="col-3">
-        <input class="link" type="number" name="stack" value="{{ $enemy->stack }}" min="1"
-            max="{{ $enemy->stack }}" class="w-16 text-center">
-    </div>
-
-    <div class="col-auto">
-        <button class="icon" type="submit" data-tooltip="Атаковать">
-            @component('components.icon', ['size' => 21, 'name' => 'define-location', 'color' => 'BAC7E3'])
-            @endcomponent
-        </button>
-    </div>
-</form> --}}
-
 <div style="display: inline-block; position: relative;">
 
     {{-- Клик-зона отдельно --}}
     <div onclick="toggleContextMenu(this)" style="cursor: pointer; padding: 8px;">
-        <img src="{{ $enemy->enemy->getImageUrl() }}" width="48" height="48"  style="border-radius: 100%">
-        @if ($enemy->stack > 1)
-            <small class=""
-                style="position: absolute; left: 0; right: 0; bottom: 0; text-align: end; margin: 1px;">
-                x{{ $enemy->stack }}
+        <img src="{{ $enemy->getModel()->getImageUrl() }}" width="48" height="48" style="border-radius: 100%">
+        @if ($enemy->getStack() > 1)
+            <small class="" style="position: absolute; left: 0; right: 0; bottom: 0; text-align: end; margin: 1px;">
+                x{{ $enemy->getStack() }}
             </small>
         @endif
     </div>
 
     {{-- Само меню — теперь не входит в область клика --}}
     <div class="context-menu frame"
-        style="display: none; position: absolute; top: 101%; left: 0; min-width: 250px; max-width: 400px; z-index:999">
+        style="display: none; position: absolute; top: 101%; left: 0; min-width: 300px; max-width: 400px; z-index:999">
         <form method="POST" class="flex-col-13">
             @csrf
-            @component('db.enemies.components.link', ['enemy' => $enemy->enemy])
-            @endcomponent
+            <div class="flex-row-8">
+                @component('db.enemies.components.link', ['enemy' => $enemy->getModel()])
+                @endcomponent
+
+                <span class="flex grow"></span>
+                <span class="color-brand font-sm">{{ $enemy->getLevel() }} ур</span>
+            </div>
+
+            @if ($enemy->hasModifiers())
+                @component('db.modifiers.frames.modifiers', ['modifiers' => $enemy->getModifierInstances()])
+                @endcomponent
+            @endif
+
+            <div class=" flex-row-13">
+                <p class="flex-col ai-center font-center w-100">
+                    <span>{{ $enemy->getHealth() }}</span>
+                    <span class="color-second font-sm">Здр</span>
+                </p>
+
+                <p class="flex-col ai-center font-center w-100">
+                    <span>{{ $enemy->getDamage() }}</span>
+                    <span class="color-second font-sm">Урн</span>
+                </p>
+
+                <p class="flex-col ai-center font-center w-100">
+                    <span>{{ $enemy->getDefence() }}</span>
+                    <span class="color-second font-sm">Защ</span>
+                </p>
+
+                <p class="flex-col ai-center font-center w-100">
+                    <span>{{ $enemy->getStrength() }}</span>
+                    <span class="color-second font-sm">Сил</span>
+                </p>
+
+                <p class="flex-col ai-center font-center w-100">
+                    <span>{{ $enemy->getAgility() }}</span>
+                    <span class="color-second font-sm">Лов</span>
+                </p>
+
+                <p class="flex-col ai-center font-center w-100">
+                    <span>{{ $enemy->getIntelligence() }}</span>
+                    <span class="color-second font-sm">Инт</span>
+                </p>
+            </div>
 
 
-            {{-- <input type="hidden" name="uuid" value="{{ $enemy->uuid }}"> --}}
-        <input type="hidden" name="enemy_id" value="{{ $enemy->enemy->id }}">
-            <input class="input w-100" type="number" name="stack" value="{{ $enemy->stack }}" min="1"
-                max="{{ $enemy->stack }}">
+            <input class="input w-100" type="number" name="stack" value="{{ $enemy->getStack() }}" min="1"
+                max="{{ $enemy->getStack() }}">
 
             <small class="flex-col">
-                <button class="link" type="submit" formaction="{{ route('enemies.battle', $enemy->enemy) }}">Атаковать</button>
+                <button class="link" type="submit"
+                    formaction="{{ route('enemies.battle', $enemy->getUuid()) }}">Атаковать</button>
             </small>
         </form>
     </div>

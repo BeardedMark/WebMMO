@@ -3,6 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Schema\MetaFieldsSchema;
+use App\Schema\HasModifiersSchema;
+use App\Schema\HasItemsSchema;
 
 return new class extends Migration
 {
@@ -14,22 +17,17 @@ return new class extends Migration
         Schema::create('enemies', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')->comment('Название');
-            $table->text('description')->nullable();
-            $table->longText('content')->nullable();
-            $table->text('comment')->nullable();
-            $table->string('tags')->nullable();
-            $table->json('data')->nullable();
-            $table->string('image')->nullable();
-            $table->string('sound')->nullable();
+            MetaFieldsSchema::applyMeta($table);
+            MetaFieldsSchema::applyContent($table);
+            MetaFieldsSchema::applyMedia($table);
 
-            $table->integer('danger')->default(0);
             $table->integer('spawn_chance')->default(0);
-            $table->integer('min_stack')->nullable();
-            $table->integer('max_stack')->nullable();
             $table->integer('min_level')->nullable();
             $table->integer('max_level')->nullable();
+
             $table->json('drop')->nullable();
+            $table->json('modifiers')->nullable();
+            $table->json('requirements')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

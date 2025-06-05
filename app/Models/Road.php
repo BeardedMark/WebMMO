@@ -5,66 +5,48 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Domains\Locations\Models\Location;
 
 class Road extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
-        'from_location_id', 'to_location_id', 'is_one_way', 'is_open', 'size'
-    ];
+    protected $fillable = [];
 
     public function fromLocation()
     {
-        return $this->belongsTo(Location::class, 'from_location_id');
+        return $this->belongsTo(Location::class, 'from_location_code', 'code');
     }
 
     public function toLocation()
     {
-        return $this->belongsTo(Location::class, 'to_location_id');
+        return $this->belongsTo(Location::class, 'to_location_code', 'code');
     }
 
-    public function getDistance()
+    public function getDistance(): float
     {
-        $fromLocation = $this->fromLocation;
-        $toLocation = $this->toLocation;
+        $from = $this->fromLocation;
+        $to = $this->toLocation;
 
-        if (!$fromLocation || !$toLocation) {
-            return 0; // Если одна из локаций отсутствует, возвращаем 0
-        }
+        if (!$from || !$to) return 0;
 
-        // Получаем координаты локаций
-        $x1 = $fromLocation->x;
-        $y1 = $fromLocation->y;
-        $x2 = $toLocation->x;
-        $y2 = $toLocation->y;
+        $distance = sqrt(pow($to->x - $from->x, 2) + pow($to->y - $from->y, 2));
 
-        $result = sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2));
-        $result = ceil($result / 50);
-
-        return $result;
+        return ceil($distance / 50);
     }
 
-    public function getCenterCoordinates()
+    public static function betweenRoad(Location $from, Location $to): ?Road
     {
-        $fromLocation = $this->fromLocation;
-        $toLocation = $this->toLocation;
-
-        if (!$fromLocation || !$toLocation) {
-            return null; // Если одна из локаций отсутствует, возвращаем null
-        }
-
-        // Получаем координаты локаций
-        $x1 = $fromLocation->x;
-        $y1 = $fromLocation->y;
-        $x2 = $toLocation->x;
-        $y2 = $toLocation->y;
-
-        // Находим центр дороги (среднее значение координат)
-        $centerX = ($x1 + $x2) / 2;
-        $centerY = ($y1 + $y2) / 2;
-
-        return ['x' => $centerX, 'y' => $centerY];
+        return self::query()
+            ->where(function ($q) use ($from, $to) {
+                $q->where('from_location_code', $from->code)
+                  ->where('to_location_code', $to->code);
+            })
+            ->orWhere(function ($q) use ($from, $to) {
+                $q->where('from_location_code', $to->code)
+                  ->where('to_location_code', $from->code);
+            })
+            ->first();
     }
-
 }
+

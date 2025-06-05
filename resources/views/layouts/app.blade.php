@@ -2,6 +2,7 @@
 <html lang="ru">
 
 <head>
+    <meta name="robots" content="noindex, nofollow"> {{--  Блокировка роботов  --}}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Карта Локаций</title>
@@ -11,21 +12,22 @@
 </head>
 
 <body class="relative">
-    <audio id="bg-audio" autoplay loop>
+    {{-- <audio id="bg-audio" autoplay loop>
         <source src="@yield('sound')" type="audio/mpeg">
     </audio>
 
     <script>
         const audio = document.getElementById('bg-audio');
-        audio.volume = 0.3;
-    </script>
+        audio.volume = 0.1;
+    </script> --}}
 
-    <div class="wallpaper" style="background-image: url('@yield('wallpaper', asset('storage/img/locations/default.png'))')"></div>
+    <div class="wallpaper" style="background-image: url('@yield('wallpaper', asset('storage/images/locations/default.png'))')"></div>
     <div class="overlay"></div>
+
 
     <script>
         document.addEventListener('mousemove', (e) => {
-            const maxShift = 20;
+            const maxShift = 5;
 
             const x = e.clientX / window.innerWidth - 0.5; // от -0.5 до 0.5
             const y = e.clientY / window.innerHeight - 0.5;
@@ -38,23 +40,11 @@
         });
     </script>
 
-    @yield('container')
+    @yield('app-content')
 
-    {{-- <div class="container-fluid mx-auto p-4">
-        <div class="flex-col-13">
-            <header>
-                @include('partials.header')
-            </header>
+    <script src="path/to/your/script.js"></script>
 
-            <main>
-                @yield('content')
-            </main>
-
-            <footer>
-                @include('partials.footer')
-            </footer>
-        </div>
-    </div> --}}
+    @stack('scripts')
 </body>
 
 </html>

@@ -1,0 +1,104 @@
+[
+  {
+    "code": "add_view_range",
+    "name": "Дальность обзора",
+    "value": 2,
+    "tags": ["add", "range", "vision"]
+  },
+  {
+    "code": "increase_view_range",
+    "name": "Увеличение дальности обзора",
+    "value": 10,
+    "tags": ["increase", "range", "vision"],
+    "is_percent": true
+  },
+  {
+    "code": "add_attack_range",
+    "name": "Дальность атаки",
+    "value": 1,
+    "tags": ["add", "range", "attack"]
+  },
+  {
+    "code": "increase_attack_range",
+    "name": "Увеличение дальности атаки",
+    "value": 10,
+    "tags": ["increase", "range", "attack"],
+    "is_percent": true
+  },
+  {
+    "code": "add_attack_speed",
+    "name": "Скорость атаки",
+    "value": 1,
+    "tags": ["add", "speed", "attack"]
+  },
+  {
+    "code": "increase_attack_speed",
+    "name": "Увеличение скорости атаки",
+    "value": 10,
+    "tags": ["increase", "speed", "attack"],
+    "is_percent": true
+  },
+  {
+    "code": "add_move_speed",
+    "name": "Скорость передвижения",
+    "value": 1,
+    "tags": ["add", "speed", "move"]
+  },
+  {
+    "code": "increase_move_speed",
+    "name": "Увеличение скорости передвижения",
+    "value": 10,
+    "tags": ["increase", "speed", "move"],
+    "is_percent": true
+  },
+  {
+    "code": "add_weight",
+    "name": "Переносимый вес",
+    "value": 10,
+    "tags": ["add", "weight", "capacity"]
+  },
+  {
+    "code": "increase_weight",
+    "name": "Увеличение переносимого веса",
+    "value": 20,
+    "tags": ["increase", "weight", "capacity"],
+    "is_percent": true
+  },
+  {
+    "code": "reduce_cooldown",
+    "name": "Снижение времени перезарядки",
+    "value": 10,
+    "tags": ["reduce", "cooldown", "time"],
+    "is_percent": true
+  },
+  {
+    "code": "reduce_action_cost",
+    "name": "Снижение стоимости действий",
+    "value": 1,
+    "tags": ["reduce", "cost", "action"]
+  },
+  {
+    "code": "increase_loot_chance",
+    "name": "Шанс нахождения лута",
+    "value": 15,
+    "tags": ["increase", "loot", "chance"]
+  },
+  {
+    "code": "increase_escape_chance",
+    "name": "Шанс побега из боя",
+    "value": 20,
+    "tags": ["increase", "escape", "chance"]
+  },
+  {
+    "code": "increase_detection",
+    "name": "Шанс обнаружить врага",
+    "value": 10,
+    "tags": ["increase", "detection", "perception"]
+  },
+  {
+    "code": "reduce_noise",
+    "name": "Уменьшение шума",
+    "value": 5,
+    "tags": ["reduce", "noise", "stealth"]
+  }
+]

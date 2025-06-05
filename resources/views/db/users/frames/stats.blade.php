@@ -11,12 +11,12 @@
     <div>
         @component('components.stat', ['name' => 'Персонажей', 'value' => count($user->characters)])
         @endcomponent
-        @component('components.stat', ['name' => 'Убежищь', 'value' => count($user->hideouts)])
-        @endcomponent
     </div>
 
     <div>
-        @component('components.datetime', ['entity' => $user])
+        @component('components.stat', ['name' => 'Последняя активность', 'value' => $user->getActivityAt()])
+        @endcomponent
+        @component('components.datetime', ['container' => $user])
         @endcomponent
     </div>
 </div>

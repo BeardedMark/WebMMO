@@ -1,0 +1,33 @@
+[
+    {
+      "code": "stone",
+      "name": "Камень",
+      "spawn_chance": 100,
+      "drop": [
+        { "code": "rock", "stack": 5 }
+      ],
+      "requirements": [
+        { "type": "has_item", "code": "pickaxe" }
+      ]
+    },
+    {
+      "code": "tree",
+      "name": "Дерево",
+      "spawn_chance": 100,
+      "drop": [
+        { "code": "wood", "stack": 5 }
+      ],
+      "requirements": [
+        { "type": "has_item", "code": "axe" }
+      ]
+    },
+    {
+      "code": "bush",
+      "name": "Куст",
+      "spawn_chance": 100,
+      "drop": [
+        { "code": "plant-fiber", "stack": 5 }
+      ],
+      "requirements": []
+    }
+  ]

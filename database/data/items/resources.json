@@ -1,0 +1,129 @@
+[
+  {
+    "code": "gold",
+    "name": "Золото",
+    "tags": ["metal", "currency", "precious", "material", "rare"],
+    "weight": 0.01,
+    "drop_chance": 1,
+    "min_level": 60,
+    "max_level": 100,
+    "image": "easter.goldegg.png"
+  },
+  {
+    "code": "silver",
+    "name": "Серебро",
+    "tags": ["metal", "currency", "precious", "material", "uncommon"],
+    "weight": 0.02,
+    "drop_chance": 3,
+    "min_level": 30,
+    "max_level": 70,
+    "image": "easter.silveregg.png"
+  },
+  {
+    "code": "copper",
+    "name": "Медь",
+    "tags": ["metal", "currency", "material", "common"],
+    "weight": 0.03,
+    "drop_chance": 5,
+    "min_level": 1,
+    "max_level": 40,
+    "image": "easter.bronzeegg.png"
+  },
+  {
+    "code": "metal-ore",
+    "name": "Железная руда",
+    "tags": ["metal", "ore", "raw", "mineral", "material"],
+    "weight": 2,
+    "drop_chance": 15,
+    "min_level": 40,
+    "max_level": 80,
+    "image": "metal.ore.png"
+  },
+  {
+    "code": "metal-fragments",
+    "name": "Фрагменты металла",
+    "tags": ["metal", "fragment", "refined", "material"],
+    "weight": 0.6,
+    "drop_chance": 15,
+    "min_level": 30,
+    "max_level": 70,
+    "image": "metal-fragments.png",
+    "craft": [
+      { "code": "metal-ore", "stack": 1 },
+      { "code": "coal", "stack": 1 }
+    ]
+  },
+  {
+    "code": "rock",
+    "name": "Камень",
+    "tags": ["mineral", "rock", "material", "common", "construction"],
+    "weight": 1.5,
+    "drop_chance": 30,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "stones.png"
+  },
+  {
+    "code": "wood",
+    "name": "Дерево",
+    "tags": ["wood", "plant", "material", "construction", "common"],
+    "weight": 1.5,
+    "drop_chance": 40,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "wood.png"
+  },
+  {
+    "code": "coal",
+    "name": "Уголь",
+    "tags": ["mineral", "fuel", "material", "burnable"],
+    "weight": 0.5,
+    "drop_chance": 20,
+    "min_level": 1,
+    "max_level": 60,
+    "image": "charcoal.png"
+  },
+  {
+    "code": "cloth",
+    "name": "Ткань",
+    "tags": ["fabric", "crafted", "material", "lightweight"],
+    "weight": 0.15,
+    "drop_chance": 25,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "cloth.png",
+    "craft": [
+      { "code": "plant-fiber", "stack": 3 }
+    ]
+  },
+  {
+    "code": "leather",
+    "name": "Кожа",
+    "tags": ["organic", "animal", "material", "crafted", "common"],
+    "weight": 0.4,
+    "drop_chance": 10,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "leather.png"
+  },
+  {
+    "code": "bone-fragments",
+    "name": "Обломки костей",
+    "tags": ["organic", "animal", "bone", "material", "fragment"],
+    "weight": 0.3,
+    "drop_chance": 25,
+    "min_level": 1,
+    "max_level": 100,
+    "image": "bone-fragments.png"
+  },
+  {
+    "code": "animal-fat",
+    "name": "Животный жир",
+    "tags": ["organic", "animal", "fat", "fuel", "material"],
+    "weight": 0.4,
+    "drop_chance": 10,
+    "min_level": 10,
+    "max_level": 100,
+    "image": "animal-fat.png"
+  }
+]

@@ -1,9 +1,13 @@
+<div id="location-{{ $location->getId() }}" class="frame flex-col-13 h-100">
+    @component('db.locations.components.line', compact('location'))
+    @endcomponent
 
-<div id="location-{{ $location->id }}" class="frame flex-col-13">
-    <img width="100%" src="{{ $location->getImageUrl() }}" alt="">
+    @if ($location->getImageUrl())
+        <div class="img-contain">
+            <img src="{{ $location->getImageUrl() }}" alt="{{ $location->getTitle() }}">
+        </div>
+    @endif
 
-    <div class="flex-col">
-        @component('db.locations.components.link', compact('location'))
-        @endcomponent
-    </div>
+    {{-- @component('db.locations.components.stats', compact('location'))
+    @endcomponent --}}
 </div>
