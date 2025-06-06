@@ -20,7 +20,7 @@ class CheckBattle
         $battle = $character->openBattle();
 
         if ($battle) {
-            return redirect()->route('battles.show', $battle)->with('error', 'У вас есть откытый бой');
+            return redirect()->route('battles.show', $battle)->with('error', 'У вас есть открытый бой');
         }
 
         return $next($request);

@@ -1,4 +1,4 @@
-<div class="flex-col-13">
+<div class="pad-13 flex-col-13">
     <div class="flex-row-8">
         <div class="flex-row flex grow">
             <div class="flex-col">
@@ -9,17 +9,21 @@
 
                 <div class="flex-row-8">
                     <a class="link font-sm" href="{{ route('pages.main') }}">Главная</a>
+                    <a class="link font-sm" href="{{ route('pages.about') }}">О игре</a>
                     <a class="link font-sm" href="{{ route('pages.lore') }}">Лор</a>
-                    <a class="link font-sm" href="{{ route('pages.about') }}">Геймплей</a>
-                    <a class="link font-sm" href="{{ route('users.index') }}">Пользователи</a>
-                    <a class="link font-sm" href="{{ route('characters.index') }}">Персонажи</a>
+                    <a class="link font-sm" href="{{ route('pages.gameplay') }}">Геймплей</a>
+                    <a class="link font-sm" href="{{ route('pages.gallery') }}">Галерея</a>
                 </div>
             </div>
         </div>
 
         <div class="flex-row ai-center">
             @if (auth()->check())
-                <div class="flex-col">
+                <a class="icon d-flex d-md-none" href="{{ route('users.main') }}">
+                    @component('components.icon', ['size' => 28, 'name' => 'user-male-circle', 'color' => 'FFFFFF'])
+                    @endcomponent
+                </a>
+                <div class="flex-col d-none d-md-flex">
                     <p class="flex-row-8 jc-end ai-center text-end">
                         @if (!empty(auth()->user()->currentCharacter()))
                             @component('db.transitions.components.timer', ['character' => auth()->user()->currentCharacter()])

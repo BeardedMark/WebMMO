@@ -26,7 +26,10 @@ use App\Http\Middleware\{
 
 Route::get('/', [PageController::class, 'main'])->name('pages.main');
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
+Route::get('/gameplay', [PageController::class, 'gameplay'])->name('pages.gameplay');
 Route::get('/lore', [PageController::class, 'lore'])->name('pages.lore');
+Route::get('/gallery', [PageController::class, 'gallery'])->name('pages.gallery');
+
 
 Route::resource('/locations', LocationController::class)->only(['index', 'show']);
 Route::resource('/items', ItemController::class)->only(['index', 'show']);

@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="flex-col-8 pad-13">
-        <h1>Мир игры — основа лора</h1>
+        <h1 class="color-brand">Мир игры — основа лора</h1>
         <p class="font-lg">Мир, где прошлое забыто, настоящее собрано заново, а будущее зависит от тебя</p>
     </div>
 
 
     <div class="flex-col-13">
-        <div class="row ai-center">
-            <div class="col">
+        <div class="row align-items-center">
+            <div class="col-12 col-md">
                 <div class="flex-col-8 pad-13">
                     <h2>Прошлое</h2>
                     <p class="p-indent">Мир когда-то жил в изобилии и покое. Искусственный интеллект управлял всем — от
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="col-5">
+            <div class="col-12 col-md-5">
                 <div class="frame img-contain">
                     <img src="{{ asset('storage/images/pages/lore/past.png') }}" alt="">
                 </div>
@@ -30,14 +30,14 @@
     </div>
 
     <div class="flex-col-13">
-        <div class="row ai-center">
-            <div class="col-5">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-5">
                 <div class="frame img-contain">
                     <img src="{{ asset('storage/images/pages/lore/backstory.png') }}" alt="">
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col-12 col-md">
                 <div class="flex-col-8 pad-13">
                     <h2>Предыстория</h2>
                     <p class="p-indent">Переход в эпоху тишины был незаметным. Ни катастроф, ни войн. Просто однажды системы
@@ -53,8 +53,8 @@
     </div>
 
     <div class="flex-col-13">
-        <div class="row ai-center">
-            <div class="col">
+        <div class="row align-items-center">
+            <div class="col-12 col-md">
                 <div class="flex-col-8 pad-13">
                     <h2>Настоящее</h2>
                     <p class="p-indent">Прошло около двадцати лет. Электричество — редкая находка. Рабочая техника — ещё
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="col-5">
+            <div class="col-12 col-md-5">
                 <div class="frame img-contain">
                     <img src="{{ asset('storage/images/pages/lore/present.png') }}" alt="">
                 </div>
@@ -76,14 +76,14 @@
 
 
     <div class="flex-col-13">
-        <div class="row ai-center">
-            <div class="col-5">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-5">
                 <div class="frame img-contain">
                     <img src="{{ asset('storage/images/pages/lore/future.png') }}" alt="">
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col-12 col-md">
                 <div class="flex-col-8 pad-13">
                     <h2>Будущее</h2>
                     <p class="p-indent">Мир ждет тех, кто решится выбрать путь. Вернёшь ли ты технологии и возродишь
