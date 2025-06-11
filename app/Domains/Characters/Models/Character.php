@@ -57,7 +57,7 @@ class Character extends Model
     }
     public function getImageUrl()
     {
-        return asset('storage/images/characters/' . $this->image);
+        return asset('storage/images/characters/avatars/' . $this->image);
     }
 
     public function getJson(): ?string
@@ -136,30 +136,30 @@ class Character extends Model
 
     public function setDelayToNextAction($seconds): void
     {
-        $validSeconds = $seconds - ($seconds * $this->getSpeed() / 100);
+        $validSeconds = $seconds - ($seconds * $this->getMoveSpeed() / 100);
         $this->next_action_at = now()->addSeconds($validSeconds);
         $this->save();
     }
 
     public function increaseDelayToNextAction($seconds): void
     {
-        $validSeconds = $seconds - ($seconds * $this->getSpeed() / 100);
+        $validSeconds = $seconds - ($seconds * $this->getMoveSpeed() / 100);
         $this->next_action_at += now()->addSeconds($validSeconds);
         $this->save();
     }
 
     public function decreaseDelayToNextAction($seconds): void
     {
-        $validSeconds = $seconds - ($seconds * $this->getSpeed() / 100);
+        $validSeconds = $seconds - ($seconds * $this->getMoveSpeed() / 100);
         $this->next_action_at -= now()->addSeconds($validSeconds);
         $this->save();
     }
 
     public function getModifierStats()
     {
-        // $modifiers = $this->transition->getModifierInstances();
-        // $modifiers = $modifiers->merge($this->getEquipmentModifiers());
-        $modifiers = $this->getEquipmentModifiers();
+        $modifiers = $this->transition->getModifierInstances();
+        $modifiers = $modifiers->merge($this->getEquipmentModifiers());
+        // $modifiers = $this->getEquipmentModifiers();
 
         return ModifierService::sumModifiers($modifiers);
     }

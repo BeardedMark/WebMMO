@@ -12,7 +12,7 @@
     @endcomponent
 @endif
 
-@isset($character->deleted_at)
+@isset($container->deleted_at)
     @component('components.stat', [
         'name' => 'Дата удаления',
         'value' => $container->deleted_at,

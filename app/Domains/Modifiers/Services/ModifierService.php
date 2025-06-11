@@ -49,6 +49,30 @@ class ModifierService
             ->values();
     }
 
+    /**
+     * Генерирует набор модификаторов
+     */
+    public static function rollModifiers(array $modifiers, int $level): array
+    {
+        $codes = collect($modifiers)->pluck('code')->all();
+        $defs = Modifier::whereIn('code', $codes)->get()->keyBy('code');
+
+        return collect($modifiers)->map(function ($items) use ($defs, $level) {
+            $code = $items['code'];
+            $value = $items['value'] + floor(rand(1, $level) * ($items['value'] / 100));
+            $chance = $items['chance'] ?? 25;
+
+            if (!isset($defs[$code])) return null;
+            $baseType = $defs[$code];
+
+            if (rand(0, 100) < 100 - $chance) return null;
+
+            return [
+                'code' => $code,
+                'value' => $value,
+            ];
+        })->filter()->values()->toArray();
+    }
 
     /**
      * Генерирует набор модификаторов по коду
@@ -58,18 +82,22 @@ class ModifierService
         $codes = collect($modifiers)->pluck('code')->all();
         $defs = Modifier::whereIn('code', $codes)->get()->keyBy('code');
 
-        $grouped = collect($modifiers)->groupBy('code');
+        // $grouped = collect($modifiers)->groupBy('code');
+        // dd(collect($modifiers));
 
-        return $grouped->map(function ($items, $code) use ($defs) {
-            if (!isset($defs[$code])) return null;
+        return collect($modifiers)->map(function ($items) use ($defs) {
+            $code = $items['code'];
+            $value = $items['value'];
+            $baseType = $defs[$code];
 
-            $def = $defs[$code];
-            $total = $items->count() * $def->value;
+            if (!isset($baseType)) return null;
+
+            // $def = $defs[$code];
+            // $total = $items->count() * $value;
 
             return [
-                'code' => $def->code,
-                'name' => $def->name,
-                'value' => $total,
+                'code' => $code,
+                'value' => $value,
             ];
         })->filter()->values()->toArray();
     }
@@ -82,6 +110,7 @@ class ModifierService
         if (empty($modifiers)) return [];
 
         $codes = collect($modifiers)->pluck('code')->all();
+
         $defs = Modifier::whereIn('code', $codes)->get()->shuffle()->values();
         if ($defs->isEmpty()) return [];
 

@@ -48,30 +48,71 @@
     background: var(--color-brand);
 }
 
+
+
+
 /* Для Firefox */
 * {
     scrollbar-width: auto;
     scrollbar-color: var(--color-second) var(--color-other);
 }
 
+.preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-other);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.tooltip {
+.preloader.visible {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.3s ease-in;
+}
+
+.preloader.fade-out {
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    transition: opacity .3s ease-out;
+    /* Медленное исчезновение */
+}
+
+.spinner {
+    width: 128px;
+    height: 128px;
+    border: 1px solid var(--color-brand);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.tooltip-bubble {
     position: fixed;
     z-index: 9999;
-    max-width: 300px;
-    padding: 8px 12px;
-    background: #333;
-    color: #fff;
-    border-radius: 6px;
-    font-size: 14px;
+    background: var(--color-other);
+    color: var(--color-prime);
+    border: solid 1px var(--color-main);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    max-width: 250px;
     pointer-events: none;
-    transition: opacity 0.15s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-.tooltip.hidden {
     opacity: 0;
+    transition: opacity .3s ease-in-out;
 }
-.tooltip.visible {
+
+.tooltip-bubble.visible {
     opacity: 1;
 }
 
@@ -325,7 +366,7 @@ p {
     display: flex;
 }
 
-.flex.grow {
+.flex-grow {
     display: flex;
     flex-grow: 1;
 }
@@ -446,10 +487,7 @@ p {
     display: inline-block;
     text-decoration: none;
     text-align: center;
-    /* background-color: var(--color-other);
-    border: 1px solid var(--color-second); */
     background-color: var(--color-other);
-    backdrop-filter: blur(10px);
     border: 1px solid var(--color-main);
 
     border-radius: 0px;
@@ -457,6 +495,10 @@ p {
     padding: 5px 13px;
     transition: .3s;
     font-size: 14px;
+}
+
+.button.pad-5 {
+    padding: 5px 5px;
 }
 
 .button:hover {
@@ -504,6 +546,23 @@ p {
     font-weight: 400;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Универсально, если поддерживается */
+input[type=number] {
+    appearance: none;
+}
+
 input::selection {
     /* background-color: var(--color-);
     color: var(--color-prime); */
@@ -531,6 +590,10 @@ input::placeholder {
     outline-width: 0;
 }
 
+.input.pad-5 {
+    padding: 5px 5px;
+}
+
 .input:focus {
     border: 1px solid var(--color-second);
 }
@@ -550,6 +613,72 @@ input::placeholder {
 
 .input:focus:hover {
     border: 1px solid var(--color-accent);
+}
+/* Основные стили для input file */
+input[type="file"] {
+    display: block;
+    cursor: pointer;
+}
+
+/* Скрываем стандартный текст в input */
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 1px;
+    background: var(--color-main);
+    outline: none;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+input[type="range"]:hover {
+    background: var(--color-second);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: var(--color-accent);
+    cursor: pointer;
+    transition: background .3s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    filter: brightness(1.5) saturate(2);
+    background: var(--color-brand);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 24px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    background: #45a049;
+}
+
+input[type="range"]::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type="range"]::-ms-thumb:hover {
+    background: rgb(5, 5, 5, 100);
+    background-color: #000000cc;
 }
 
 .radio {
@@ -672,26 +801,26 @@ input::placeholder {
 
 .rarity-1,
 .rarity-2 {
-    /* filter: drop-shadow(0 0 3px var(--color-rarity-common)); */
-    background: radial-gradient(ellipse closest-side,
+    filter: drop-shadow(0 0 5px var(--color-rarity-common));
+    /* background: radial-gradient(ellipse closest-side,
             var(--color-rarity-common),
-            transparent);
+            transparent); */
 }
 
 .rarity-3,
 .rarity-4 {
-    /* filter: drop-shadow(0 0 3px var(--color-rarity-uncommon)); */
-    background: radial-gradient(ellipse closest-side,
+    filter: drop-shadow(0 0 5px var(--color-rarity-uncommon));
+    /* background: radial-gradient(ellipse closest-side,
             var(--color-rarity-uncommon),
-            transparent);
+            transparent); */
 }
 
 .rarity-5,
 .rarity-6 {
-    /* filter: drop-shadow(0 0 3px var(--color-rarity-rare)); */
-    background: radial-gradient(ellipse closest-side,
+    filter: drop-shadow(0 0 5px var(--color-rarity-rare));
+    /* background: radial-gradient(ellipse closest-side,
             var(--color-rarity-rare),
-            transparent);
+            transparent); */
 }
 
 .slider {
@@ -738,7 +867,7 @@ input::placeholder {
     /* border: 1px solid var(--color-second); */
     box-shadow: inset 0 0 34px rgba(0, 0, 0, 1);
     background-color: rgba(0, 0, 0, 0.3);
-    cursor: grab;
+    cursor: crosshair;
 }
 
 .svg-map:active {
@@ -748,56 +877,86 @@ input::placeholder {
 .svg-fog {}
 
 .svg-location {
-    fill: transparent;
+    fill: var(--color-main);
+    stroke: var(--color-second);
+    stroke-width: 3px;
     transition: .3s;
+    cursor: help;
 }
 
 .svg-location:hover {
-    fill: var(--color-accent);
+    stroke: var(--color-prime);
 }
 
-.svg-location.current {
+.svg-location-current {
+    /* fill: var(--color-brand); */
     fill: var(--color-brand);
+    stroke: var(--color-accent);
+    stroke-width: 3px;
+    cursor: help;
 }
 
-.svg-location.hideout {
+.svg-location-hideout {
     fill: var(--color-accent);
 }
 
-.svg-location.visited {
-    fill: var(--color-second);
+.svg-location-visited {
+    fill: var(--color-prime);
+    pointer-events: none;
 }
 
-.svg-location.unvisited {
+.svg-location-active {
+    fill: var(--color-brand);
+    pointer-events: none;
+}
+
+.svg-location-unvisited {
     fill: var(--color-main);
     stroke: var(--color-second);
-    stroke-width: 1px;
+    stroke-width: 3px;
+    transition: .3s;
+    cursor: help;
 }
 
-.svg-location.available {
-    fill: var(--color-accent);
+.svg-location-unvisited:hover {
+    stroke: var(--color-prime);
+}
+
+.svg-location-available {
+    fill: transparent;
     stroke: var(--color-accent);
-    stroke-width: 0px;
+    stroke-width: 3px;
+    transition: .3s;
     cursor: pointer;
 }
 
-.svg-location.available:hover {
-    fill: var(--color-accent);
-    stroke: var(--color-accent);
-    stroke-width: 10px;
+.svg-location-available:hover {
+    stroke: var(--color-brand);
 }
 
 .svg-area {
-    fill: var(--color-brand);
+    /* fill: transparent;
+    stroke: var(--color-accent);
+    stroke-width: 1px; */
+    fill: var(--color-second);
     opacity: .1;
 }
 
 .svg-road {
-    stroke: var(--color-second);
+    cursor: help;
+    transition: .3s;
+}
+
+.svg-road:hover {
+    stroke: var(--color-prime);
 }
 
 .svg-road.visited {
     stroke: var(--color-other);
+}
+
+.svg-road.visited:hover {
+    stroke: var(--color-prime);
 }
 
 .svg-road.ground {
@@ -806,7 +965,7 @@ input::placeholder {
 }
 
 .svg-road.available {
-    stroke: var(--color-brand);
+    stroke: var(--color-accent);
     stroke-linecap: round;
     /* stroke-dasharray: 5, 5; */
 }
@@ -817,16 +976,11 @@ input::placeholder {
     stroke-dasharray: 5, 8;
 }
 
-.svg-icon {
-    /* pointer-events: none; */
-    /* transition: .3s;
-    cursor: pointer; */
+.svg-road.unvisited:hover {
+    stroke-dasharray: none;
+    stroke: var(--color-prime);
 }
 
-.svg-icon.available {
-    transition: .3s;
-    cursor: pointer;
-}
 
 .lock {
     pointer-events: none;

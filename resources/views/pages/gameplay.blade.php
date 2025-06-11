@@ -1,4 +1,4 @@
-@extends('layouts.hug')
+@extends('layouts.container')
 
 @section('content')
     <div class="flex-col-8 pad-13">

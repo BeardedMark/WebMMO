@@ -23,7 +23,7 @@ class CraftingService
 
         ResourceService::consume($container, $item->getCraftArray());
 
-        $crafted = ItemFactory::makeFromModel($item, 1);
+        $crafted = ItemFactory::makeFromModel($item, $container->getLevel());
         $container->addItem($crafted);
 
         return $crafted;
@@ -32,24 +32,27 @@ class CraftingService
     /**
      * Разбор предмета
      */
-    public static function disassemble($container, ItemInstance $instance): void
+    public static function disassemble($container, ItemInstance $instance, int $count): void
     {
         $item = $instance->getModel();
         if (!$item || empty($item->getCraftArray())) return;
 
-        $container->removeItem($instance->getUuid());
+        $container->removeItem($instance->getUuid(), $count);
 
         $bonusChance = 30;
 
-        foreach ($item->getCraftArray() as $component) {
-            $componentItem = Item::where('code', $component['code'])->first();
-            if (!$componentItem) continue;
+        for ($i = 0; $i < $count; $i++) {
+            foreach ($item->getCraftArray() as $component) {
+                $componentItem = Item::where('code', $component['code'])->first();
+                if (!$componentItem) continue;
 
-            $stack = $component['stack'] ?? 1;
-            $baseChance = $component['chance'] ?? $componentItem->drop_chance ?? 100;
-            $finalChance = min(100, $baseChance + $bonusChance);
+                $stack = $component['stack'] ?? 1;
+                $baseChance = $component['chance'] ?? $componentItem->drop_chance ?? 100;
+                $finalChance = min(100, $baseChance + $bonusChance);
 
-            LootService::lootFromObject($container, $stack, collect([$componentItem]), $finalChance);
+                $loot = ItemService::generateItems($stack, $container->getLevel(), collect([$componentItem]), $finalChance);
+                $container->addItems($loot);
+            }
         }
     }
 }

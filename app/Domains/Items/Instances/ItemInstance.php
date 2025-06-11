@@ -14,14 +14,30 @@ class ItemInstance extends Instance
     use HasModifierStats;
 
     public int $stack;
+    public int $level;
     public array $modifiers;
+    public bool $is_equipped;
 
     public function __construct(array $data) {
-        $this->data = $data;
+        // $this->data = $data;
         $this->uuid = $data['uuid'];
         $this->code = $data['code'];
         $this->stack = $data['stack'];
+        $this->level = $data['level'];
+        $this->is_equipped = $data['is_equipped'] ?? false;
         $this->modifiers = $data['modifiers'];
+    }
+
+
+
+    public function isEquipped(): bool
+    {
+        return $this->is_equipped;
+    }
+
+    public function setEquipped(bool $isEquipped): void
+    {
+        $this->is_equipped = $isEquipped;
     }
 
     public function getModel()
@@ -53,6 +69,12 @@ class ItemInstance extends Instance
     {
         return $this->stack;
     }
+
+    public function setStack(int $stack): void
+    {
+        $this->stack = $stack;
+    }
+
     public function increaseStack($amount): void
     {
         $this->stack = max(0, ($this->stack ?? 0) + $amount);
@@ -61,5 +83,10 @@ class ItemInstance extends Instance
     public function decreaseStack(int $amount = 1): void
     {
         $this->stack = max(0, ($this->stack ?? 0) - $amount);
+    }
+
+    public function getLevel(): int
+    {
+        return $this->level;
     }
 }

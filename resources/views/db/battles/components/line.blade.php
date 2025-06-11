@@ -8,7 +8,7 @@
     $canJoin = !$isParticipant && !$hasOpponent && !$self->inBattle();
 @endphp
 
-<div class="flex-row-13">
+<div class="flex-row-8">
     <p class="flex-row-5 ai-center color-second">
         <a class="link" href="{{ route('battles.show', $battle) }}">{{ $battle->getTitle() }} бой</a>
 
@@ -36,7 +36,7 @@
         @endif
     </p>
 
-    <span class="flex grow"></span>
+    <span class="flex-grow"></span>
 
     @if (!$isFinished)
         <div class="flex-row-5 ai-center color-second font-sm">

@@ -8,31 +8,82 @@ use App\Domains\Characters\Models\Character;
 
 class CombatService
 {
-    public static function fight($character, EnemyInstance $enemy): bool
+    public static function autoFightVsBot($character, EnemyInstance $enemy, bool $isAttack = false): bool
     {
-        $charAttack = $character->getDamage();
+        $charDamage = $character->getDamage();
         $charHealth = $character->getCurrentHealth();
-        $enemyAttack = $enemy->getDamage();
+        $charDefence = $character->getDefence();
+        $charAttackSpeed = $character->getAttackSpeed();
+
+        $enemyDamage = $enemy->getDamage();
         $enemyHealth = $enemy->getHealth();
+        $enemyDefence = $enemy->getDefence();
+        $enemyAttackSpeed = $enemy->getAttackSpeed();
+
+        $charDamageReduction = $charDefence / ($charDefence + (10 * $enemyDamage));
+        $enemyDamageReduction = $enemyDefence / ($enemyDefence + (10 * $charDamage));
+        $charAttack = round($charDamage - $charDamage * $enemyDamageReduction);
+        $enemyAttack = round($enemyDamage - $enemyDamage * $charDamageReduction);
+
+        $minAttackSpeed = min($charAttackSpeed, $enemyAttackSpeed);
+        $charAttacks = $charAttackSpeed / $minAttackSpeed;
+        $enemyAttacks = $enemyAttackSpeed / $minAttackSpeed;
+
+        $charExtraAttacksChance = (int) floor(($charAttacks - 1) * 100);
+        $enemyExtraAttacksChance = (int) floor(($enemyAttacks - 1) * 100);
+
+        $charAttacks = (int) floor($charAttacks);
+        $enemyAttacks = (int) floor($enemyAttacks);
+
+        // dd($charAttackSpeed, $enemyAttackSpeed, $minAttackSpeed, $charAttacks, $enemyAttacks, $charExtraAttacksChance, $enemyExtraAttacksChance);
+
+        if ($isAttack) {
+            for ($i = 0; $i < $enemyAttacks; $i++) {
+                $charHealth -= $enemyAttack;
+                $character->addLog('CombatService.autoFightVsBot', "{$enemy->getModel()->getTitle()} наносит 💥{$enemyAttack} урона. У вас осталось ❤️{$charHealth}");
+            }
+
+            if (rand(0, 100) < $enemyExtraAttacksChance) {
+                $charHealth -= $enemyAttack;
+                $character->addLog('CombatService.autoFightVsBot', "С шансом {$enemyExtraAttacksChance}, {$enemy->getModel()->getTitle()} наносит дополнительно 💥{$enemyAttack} урона. У вас осталось ❤️{$charHealth}");
+            }
+        }
 
         while ($charHealth > 0 && $enemyHealth > 0) {
-            $enemyHealth -= $charAttack;
-            $character->addLog('CombatService.fight', "Вы наносите 💥{$charAttack} урона. У врага осталось ❤️{$enemyHealth}");
+            for ($i = 0; $i < $charAttacks; $i++) {
+                $enemyHealth -= $charAttack;
+                $character->addLog('CombatService.autoFightVsBot', "Вы наносите 💥{$charAttack} урона. У врага осталось ❤️{$enemyHealth}");
+            }
+
+            if (rand(0, 100) < $charExtraAttacksChance) {
+                $enemyHealth -= $charAttack;
+                $character->addLog('CombatService.autoFightVsBot', "С шансом {$charExtraAttacksChance}, вы наносите дополнительно 💥{$charAttack} урона. У врага осталось ❤️{$enemyHealth}");
+            }
 
             if ($enemyHealth <= 0) break;
 
-            $charHealth -= $enemyAttack;
-            $character->addLog('CombatService.fight', "{$enemy->getModel()->getTitle()} наносит 💥{$enemyAttack} урона. У вас осталось ❤️{$charHealth}");
+            for ($i = 0; $i < $enemyAttacks; $i++) {
+                $charHealth -= $enemyAttack;
+                $character->addLog('CombatService.autoFightVsBot', "{$enemy->getModel()->getTitle()} наносит 💥{$enemyAttack} урона. У вас осталось ❤️{$charHealth}");
+            }
+
+            if (rand(0, 100) < $enemyExtraAttacksChance) {
+                $charHealth -= $enemyAttack;
+                $character->addLog('CombatService.autoFightVsBot', "С шансом {$enemyExtraAttacksChance}, {$enemy->getModel()->getTitle()} наносит дополнительно 💥{$enemyAttack} урона. У вас осталось ❤️{$charHealth}");
+            }
         }
 
         $character->setRegenerationTime($charHealth > 0 ? $charHealth : 0);
 
         if ($charHealth < 0) {
-            // $character->setDelayToNextAction($charHealth * -1);
+            $character->setDelayToNextAction($charHealth * -10);
         }
 
         return $charHealth > 0;
     }
+
+
+
 
     public static function fightCharacterVsCharacter(Battle $battle, Character $a, Character $b): Character
     {

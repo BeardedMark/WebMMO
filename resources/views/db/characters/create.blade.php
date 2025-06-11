@@ -1,4 +1,4 @@
-@extends('layouts.hug')
+@extends('layouts.container')
 
 @section('content')
     <section class="section">

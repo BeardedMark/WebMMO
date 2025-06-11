@@ -8,7 +8,7 @@
     "image": "coast_of_awakening.png",
     "sound": "coast_of_awakening.mp3",
     "is_peaceful": true,
-    "description": "Солнечное побережье, где впервые открылись глаза новому миру. Безопасное место для начала.",
+    "description": "Побережье, где впервые открылись глаза новому миру. Безопасное место для начала.",
     "modifiers": [
       { "code": "add_move_speed", "value": 1 },
       { "code": "add_strength", "value": 1 },

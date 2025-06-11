@@ -6,7 +6,7 @@ use App\Domains\Items\Models\Item;
 use Illuminate\Support\Collection;
 
 use Illuminate\Support\Str;
-use App\Domains\Items\Services\LootService;
+use App\Domains\Items\Services\ItemService;
 use App\Domains\Items\Instances\ItemInstance;
 
 
@@ -51,6 +51,7 @@ trait HasItems
         });
 
         if (!$added) {
+            // dd($newItem);
             $items->push($newItem);
         }
 
@@ -86,9 +87,10 @@ trait HasItems
         $item = $this->findItemByUuid($uuid);
         if (!$item) return;
 
-        $transfer = new ItemInstance($item->getData());
+        // $transfer = new ItemInstance($item->getData());
+        $item->setStack($count);
 
-        $target->addItem($transfer);
+        $target->addItem($item);
         $this->removeItem($uuid, $count);
     }
 
@@ -164,11 +166,5 @@ trait HasItems
                 $need -= $remove;
             }
         }
-    }
-
-    public function generateLoot(int $count, Collection $items, float $chance = 0): void
-    {
-        $loot = LootService::generateItems($count, $items, $chance);
-        $this->addItems($loot);
     }
 }

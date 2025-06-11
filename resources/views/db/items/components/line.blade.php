@@ -3,7 +3,7 @@
         <img width="21" src="{{ $item->getImageUrl() }}" alt="">
         {{ $item->getTitle() }}
     </a>
-    <span class="flex grow"></span>
+    <span class="flex-grow"></span>
     <small>{{ $item->getWeight()}} кг</small>
     <small class="color-brand">{{ $item->getDropChance() }} %</small>
 </p> --}}

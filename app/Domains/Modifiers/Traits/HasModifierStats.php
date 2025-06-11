@@ -13,41 +13,59 @@ trait HasModifierStats
         return optional($modifiers->firstWhere('code', $code))->getValue() ?? 0;
     }
 
-    public function getResultValue(string $addCode, string $increaseCode, float $default = 0): float
+    public function getResultValue(string $addCode, string $increaseCode): float
     {
         $add = $this->getModifierValueByCode($addCode);
         $increase = $this->getModifierValueByCode($increaseCode);
 
-        return $default + $add + ($add * $increase / 100);
+        return $add + ($add * $increase / 100);
     }
 
     // Attributes
 
+    public function getAttributesColor(): array
+    {
+        $strength = $this->getStrength();
+        $agility = $this->getAgility();
+        $intelligence = $this->getIntelligence();
+
+        $onePercent = 100 / max($strength, $agility, $intelligence);
+
+        return  [
+            'R' => 2.55 * ($strength * $onePercent),
+            'G' => 2.55 * ($agility * $onePercent),
+            'B' => 2.55 * ($intelligence * $onePercent)
+        ];
+    }
+
     public function getStrength(): float
     {
-        return  $this->getResultValue('add_strength', 'increase_strength', $this->getLevel());
+        $strength = $this->getLevel() + $this->getResultValue('add_strength', 'increase_strength');
+        return floor($strength);
     }
 
     public function getAgility(): float
     {
-        return $this->getResultValue('add_agility', 'increase_agility', $this->getLevel());
+        $agility = $this->getLevel() + $this->getResultValue('add_agility', 'increase_agility');
+        return floor($agility);
     }
 
     public function getIntelligence(): float
     {
-        return $this->getResultValue('add_intelligence', 'increase_intelligence', $this->getLevel());
+        $intelligence = $this->getLevel() + $this->getResultValue('add_intelligence', 'increase_intelligence');
+        return floor($intelligence);
     }
 
     // Properties
 
     public function getViewRange()
     {
-        return $this->getResultValue('add_view_range', 'increase_view_range', 100);
+        return 100 + $this->getResultValue('add_view_range', 'increase_view_range');
     }
 
     public function maxWeight()
     {
-        return $this->getResultValue('add_weight', 'increase_weight', 100) + $this->getStrength();
+        return 30 + $this->getStrength() + $this->getResultValue('add_weight', 'increase_weight');
     }
 
     public function overWeight()
@@ -60,24 +78,27 @@ trait HasModifierStats
 
     public function getDefence()
     {
-        return $this->getResultValue('add_defence', 'increase_defence');
+        $defence = $this->getResultValue('add_defence', 'increase_defence');
+        return floor($defence);
     }
 
     // Strength
 
     public function getDamage()
     {
-        return $this->getResultValue('add_damage', 'increase_damage', 1) + $this->getStrength();
+        $damage = $this->getStrength() + $this->getResultValue('add_damage', 'increase_damage');
+        return floor($damage);
     }
 
     public function getHealth()
     {
-        return $this->getResultValue('add_health', 'increase_health', 10) + $this->getStrength();
+        $health = 10 + $this->getStrength() + $this->getResultValue('add_health', 'increase_health');
+        return floor($health);
     }
 
     public function getRegen()
     {
-        return $this->getResultValue('add_health_regen', 'increase_health_regen', 1);
+        return 1 + $this->getResultValue('add_health_regen', 'increase_health_regen');
     }
 
     public function setRegenerationTime(int $currentHealth): void
@@ -135,9 +156,27 @@ trait HasModifierStats
 
     // Agility
 
-    public function getSpeed()
+    public function getMoveSpeed(): float
     {
-        return ($this->getAgility()) / 10;
+        $moveSpeed = 15 + $this->getResultValue('add_move_speed', 'increase_move_speed');
+        $agility = $this->getAgility();
+
+        $agilityBoost = $agility / ($agility + (10 * $moveSpeed));
+        $moveSpeed = $moveSpeed + $moveSpeed * $agilityBoost;
+
+        return number_format($moveSpeed, 2);
+    }
+
+    public function getAttackSpeed(): float
+    {
+        $attackSpeed = $this->getResultValue('add_attack_speed', 'increase_attack_speed');
+        $agility = $this->getAgility();
+        $boost = $agility + $attackSpeed;
+
+        $speedBoost = $boost / ($boost + (10 * 1));
+        $attackSpeed = 1 + 1 * $speedBoost;
+
+        return number_format($attackSpeed, 2);
     }
 
     public function getAccuracy()

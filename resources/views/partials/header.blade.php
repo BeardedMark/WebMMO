@@ -1,10 +1,9 @@
 <div class="pad-13 flex-col-13">
     <div class="flex-row-8">
-        <div class="flex-row flex grow">
+        <div class="flex-row flex-grow">
             <div class="flex-col">
                 <div class="flex-row-8">
                     <p>Remnants of the Future</p>
-                    {{-- <a class="link" href="{{ route('pages.main') }}">Remnants of the Future</a> --}}
                 </div>
 
                 <div class="flex-row-8">
@@ -26,9 +25,6 @@
                 <div class="flex-col d-none d-md-flex">
                     <p class="flex-row-8 jc-end ai-center text-end">
                         @if (!empty(auth()->user()->currentCharacter()))
-                            @component('db.transitions.components.timer', ['character' => auth()->user()->currentCharacter()])
-                            @endcomponent
-
                             <span
                                 class="color-second font-sm">{{ auth()->user()->currentCharacter()->getOnlineTitle() }}</span>
 

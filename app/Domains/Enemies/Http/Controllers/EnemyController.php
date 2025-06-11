@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Services\CombatService;
-use App\Domains\Items\Services\LootService;
+use App\Domains\Items\Services\ItemService;
 
 class EnemyController extends Controller
 {
@@ -33,7 +33,7 @@ class EnemyController extends Controller
 
     public function destroy(Enemy $enemy) {}
 
-    public function battle($uuid)
+    public function battle($uuid, Request $request)
     {
         $character = Auth::user()->currentCharacter();
         $transition = $character->transition;
@@ -47,12 +47,12 @@ class EnemyController extends Controller
         $character->addLog('EnemyController.battle', "⚔️ Начинается бой c x{$enemies->getStack()} {$enemies->getModel()->getTitle()} {$enemies->getLevel()} ур");
 
         for ($i = 1; $i <= $enemies->getStack(); $i++) {
-            $result = CombatService::fight($character, $enemies);
+            $result = CombatService::autoFightVsBot($character, $enemies);
 
             if (!$result) {
                 $character->reduceExperience($enemies->getHealth());
 
-                // LootService::generateFromList($transition, $character->getInventorySummary(), -$character->getLuck());
+                // ItemService::generateFromList($transition, $character->getInventorySummary(), -$character->getLuck());
                 $character->addLog('EnemyController.battle', "⚔️ Вы проиграли бой");
                 return back();
             }
@@ -60,7 +60,7 @@ class EnemyController extends Controller
             $transition->removeEnemy($uuid);
             $itemsList = $enemies->getModel()->getDropList();
 
-            LootService::generateFromList($transition, $itemsList, $character->getLuck());
+            ItemService::generateFromList($transition, $enemies->getLevel(), $itemsList, $character->getLuck());
 
             $character->increaseExperience($enemies->getHealth() + $enemies->getDamage());
 

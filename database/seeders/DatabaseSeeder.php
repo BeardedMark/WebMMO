@@ -27,25 +27,61 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'login' => 'admin',
-            'email' => 'admin@admin.ru',
+            'email' => 'admin@remfut.ru',
             'password' => 'Dev.201095',
             'is_admin' => true
         ]);
 
         User::create([
             'login' => 'user',
-            'email' => 'user@admin.ru',
+            'email' => 'user@remfut.ru',
             'password' => 'Dev.201095'
         ]);
 
         User::create([
             'login' => 'guest',
-            'email' => 'guest@admin.ru',
+            'email' => 'guest@remfut.ru',
             'password' => 'Dev.201095'
         ]);
 
+        User::create([
+            'login' => 'user1',
+            'email' => 'user1@remfut.ru',
+            'password' => 'Dev.200095'
+        ]);
+
+        User::create([
+            'login' => 'user2',
+            'email' => 'user2@remfut.ru',
+            'password' => 'Dev.001095'
+        ]);
+
+        User::create([
+            'login' => 'user3',
+            'email' => 'user3@remfut.ru',
+            'password' => 'Dev.203095'
+        ]);
+
+        User::create([
+            'login' => 'user4',
+            'email' => 'user4@remfut.ru',
+            'password' => 'Dev.201495'
+        ]);
+
+        User::create([
+            'login' => 'user5',
+            'email' => 'user5@remfut.ru',
+            'password' => 'Dev.201005'
+        ]);
+
+        User::create([
+            'login' => 'user6',
+            'email' => 'user6@remfut.ru',
+            'password' => 'Dev.201090'
+        ]);
+
         // Загрузка предметов
-        $itemsFileNames = ['armor', 'weapons', 'equipment', 'components', 'food', 'resources', 'entities'];
+        $itemsFileNames = ['armor','clothes', 'weapons', 'equipment', 'components', 'food', 'resources', 'entities'];
         foreach ($itemsFileNames as $itemsFileName) {
             $items = json_decode(File::get(database_path("data/items/{$itemsFileName}.json")), true);
             foreach ($items as $item) {
@@ -54,7 +90,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Загрузка врагов
-        $enemiesFileNames = ['animals', 'humans'];
+        $enemiesFileNames = ['animals'];
         foreach ($enemiesFileNames as $enemiesFileName) {
             $enemies = json_decode(File::get(database_path("data/enemies/{$enemiesFileName}.json")), true);
             foreach ($enemies as $enemy) {

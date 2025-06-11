@@ -2,7 +2,7 @@
 
 
 
-@extends('layouts.hug')
+@extends('layouts.container')
 
 @section('content')
     <div class="row">

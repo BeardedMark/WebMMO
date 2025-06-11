@@ -33,7 +33,7 @@ class TransitionController extends Controller
         $character = Auth::user()->currentCharacter();
         $location = Location::findOrFail($request->location_id);
 
-        $transition = $movement->moveTo($character, $location);
+        $transition = $movement->moveToLocation($character, $location);
 
         if (!$transition) {
             $character->addLog('TransitionController.store', "Нельзя перейти в локацию {$location->getTitle()}");

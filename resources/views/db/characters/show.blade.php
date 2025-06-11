@@ -1,12 +1,12 @@
-@extends('layouts.hug')
+@extends('layouts.container')
 
 @section('content')
     <div class="row">
         <div class="col">
             <div class="flex-col-13">
                 <div class="flex-col-8 pad-13">
-                    <h1>Подробности о персонаже</h1>
-                    <p>Информация, показатели и статистика персонажа</p>
+                    <h1 class="color-brand">Подробности о персонаже</h1>
+                    <p class="font-lg">Информация, показатели и статистика персонажа</p>
                 </div>
 
                 <div class="flex-col-8 pad-13">
@@ -61,7 +61,7 @@
                         @endcomponent
                         @component('components.stat', ['name' => 'Перевес', 'value' => $character->overWeight() . ' кг'])
                         @endcomponent
-                        @component('components.stat', ['name' => 'Ускорение действий', 'value' => $character->getSpeed() . ' %'])
+                        @component('components.stat', ['name' => 'Скорость передвижения', 'value' => $character->getMoveSpeed() . ' км/ч'])
                         @endcomponent
                         @component('components.stat', ['name' => 'Выпадение предметов', 'value' => $character->dropChanceBonus() . ' %'])
                         @endcomponent

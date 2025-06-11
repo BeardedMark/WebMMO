@@ -69,8 +69,8 @@ class CharacterController extends Controller
     {
         if ($request->user()->currentCharacter()?->id !== $character->id) return back();
 
-        $files = Storage::disk('public')->files('images/characters');
-        $avatars = collect($files)->map(function ($file) {
+        $filesAvatars = Storage::disk('public')->files('images/characters/avatars');
+        $avatars = collect($filesAvatars)->map(function ($file) {
             return basename($file);
         });
 
@@ -109,6 +109,12 @@ class CharacterController extends Controller
     {
         $character = Auth::user()->currentCharacter();
         return view('db.characters.craft', compact('character'));
+    }
+
+    public function stats()
+    {
+        $character = Auth::user()->currentCharacter();
+        return view('db.characters.stats', compact('character'));
     }
 
     public function select()

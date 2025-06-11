@@ -123,13 +123,21 @@ class ItemController extends Controller
         return back();
     }
 
-    public function disassemble($uuid)
+    public function disassemble($uuid, Request $request)
     {
+        $request->validate([
+            'uuid' => 'required|string',
+            'stack' => 'required|integer|min:1',
+        ]);
+
+        $uuid = $request->uuid;
+        $stack = $request->stack;
+
         $character = Auth::user()->currentCharacter();
         $item = $character->findItemByUuid($uuid); // метод из HasItems
 
         if ($item) {
-            CraftingService::disassemble($character, $item);
+            CraftingService::disassemble($character, $item, $stack);
         }
 
         $character->addLog('ItemController.disassemble', "Предмет разобран");
@@ -154,7 +162,7 @@ class ItemController extends Controller
             return redirect()->back();
         }
 
-        $item->slot = $model->slot; // "weapon", "armor" и т.п.
+        $item->getModel()->slot = $model->slot; // "weapon", "armor" и т.п.
 
         if (!$character->equip($item)) {
             $character->addLog('ItemController.equip', "Не удалось экипировать предмет");

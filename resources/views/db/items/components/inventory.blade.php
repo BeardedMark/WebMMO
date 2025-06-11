@@ -11,6 +11,6 @@
             @endcomponent
         @endforeach
     </div>
-    @else
-            <p class="color-second font-sm">Нет предметов в инвентаре</p>
+@else
+    <p class="color-second font-sm">Нет предметов в инвентаре</p>
 @endif

@@ -1,4 +1,4 @@
-@extends('layouts.hug')
+@extends('layouts.container')
 
 @section('content')
     <div class="row">
@@ -39,7 +39,7 @@
                                 <label class="radio">
                                     <input type="radio" name="image" value="{{ $image }}"
                                         @checked($character->image === $image)>
-                                    <img style="width: 100px" src="{{ asset('storage/images/characters/' . $image) }}"
+                                    <img style="width: 100px" src="{{ asset('storage/images/characters/avatars/' . $image) }}"
                                         alt="{{ $image }}">
                                 </label>
                             @endforeach

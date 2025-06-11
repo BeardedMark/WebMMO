@@ -13,7 +13,7 @@
         <p class="flex-row-5 ai-center">
             <a class="link" href="{{ route('battles.show', $battle) }}">{{ $battle->getTitle() }} бой</a>
 
-            <span class="flex grow"></span>
+            <span class="flex-grow"></span>
 
             <span
                 class="flex color-{{ $battle->hasWinner() ? 'second' : ($battle->hasOpponent() ? 'warning' : 'success') }} font-sm text-end">{{ $battle->getStatus() }}</span>

@@ -1,17 +1,42 @@
 <div class="frame flex-col-13">
-    <div id="character-card">
-        <div class=" flex-col-8">
-            @component('db.characters.components.line', compact('character'))
+    <div class="flex-col-8">
+        @component('db.characters.components.line', compact('character'))
+        @endcomponent
+
+        <div class="flex-col-5">
+            <p class="health" id="character-health-bar-{{ $character->id }}"
+                style="width: {{ $character->getHealthPercent() }}%"></p>
+            <p class="experience" id="character-experience-bar-{{ $character->id }}"
+                style="width: {{ $character->getLevelPercent() }}%"></p>
+        </div>
+
+        <div class="flex-row-5 jc-end">
+            @component('components.icon', [
+                'size' => 21,
+                'name' => 'pulse',
+                'color' => 'FFFFFF',
+                'tooltip' => 'Регенерация ' . $character->getRegen() . ' зд/с',
+                'class' => 'icon',
+            ])
             @endcomponent
 
-            <div class="flex-col-5">
-                {{-- <p class="health" style="width: {{ $character->getHealthPercent() }}%"></p>
-                <p class="experience" style="width: {{ $character->getLevelPercent() }}%"></p> --}}
-                <p class="health" id="character-health-bar-{{ $character->id }}"
-                    style="width: {{ $character->getHealthPercent() }}%"></p>
-                <p class="experience" id="character-experience-bar-{{ $character->id }}"
-                    style="width: {{ $character->getLevelPercent() }}%"></p>
-            </div>
+            @component('components.icon', [
+                'size' => 21,
+                'name' => 'air-element',
+                'color' => 'FFFFFF',
+                'tooltip' => 'Скорость атаки ' . $character->getAttackSpeed() . ' уд/с',
+                'class' => 'icon',
+            ])
+            @endcomponent
+
+            @component('components.icon', [
+                'size' => 21,
+                'name' => 'stopwatch',
+                'color' => 'FFFFFF',
+                'tooltip' => 'Скорость передвижения ' . $character->getMoveSpeed() . ' км/ч',
+                'class' => 'icon',
+            ])
+            @endcomponent
         </div>
     </div>
 
@@ -28,56 +53,57 @@
         }, 1000);
     </script>
 
-    {{-- <script>
-        setInterval(function() {
-            fetch('{{ route('characters.card') }}')
-                .then(response => response.text())
-                .then(html => {
-                    const el = document.getElementById('character-card');
-                    el.innerHTML = html;
-                });
-        }, 1000);
-    </script> --}}
-
     @component('db.characters.frames.equip', compact('character'))
     @endcomponent
 
+    <div class="flex-row-8">
+        @component('components.stamp', [
+            'note' => 'Урн',
+            'header' => $character->getDamage(),
+            'tooltip' => 'Урон персонажа',
+        ])
+        @endcomponent
 
-    <div class=" flex-row-13">
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getHealth() }}</span>
-            <span class="color-second font-sm">Здр</span>
-        </p>
+        @component('components.stamp', [
+            'note' => 'Здр',
+            'header' => $character->getHealth(),
+            'tooltip' => 'Здоровье персонажа',
+        ])
+        @endcomponent
 
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getDamage() }}</span>
-            <span class="color-second font-sm">Урн</span>
-        </p>
+        @component('components.stamp', [
+            'note' => 'Защ',
+            'header' => $character->getDefence(),
+            'tooltip' => 'Защита персонажа',
+        ])
+        @endcomponent
 
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getDefence() }}</span>
-            <span class="color-second font-sm">Защ</span>
-        </p>
+        @component('components.stamp', [
+            'note' => 'Вес',
+            'header' => $character->getTotalWeight() . '/' . $character->maxWeight(),
+            'tooltip' => 'Текущий/максимальный переносимый вес',
+        ])
+        @endcomponent
 
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getTotalWeight() }}/{{ $character->maxWeight() }}</span>
-            <span class="color-second font-sm">Вес</span>
-        </p>
+        @component('components.stamp', [
+            'note' => 'Сил',
+            'header' => $character->getStrength(),
+            'tooltip' => 'Сила персонажа',
+        ])
+        @endcomponent
 
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getStrength() }}</span>
-            <span class="color-second font-sm">Сил</span>
-        </p>
+        @component('components.stamp', [
+            'note' => 'Лов',
+            'header' => $character->getAgility(),
+            'tooltip' => 'Ловкость персонажа',
+        ])
+        @endcomponent
 
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getAgility() }}</span>
-            <span class="color-second font-sm">Лов</span>
-        </p>
-
-        <p class="flex-col ai-center font-center w-100">
-            <span>{{ $character->getIntelligence() }}</span>
-            <span class="color-second font-sm">Инт</span>
-        </p>
+        @component('components.stamp', [
+            'note' => 'Инт',
+            'header' => $character->getIntelligence(),
+            'tooltip' => 'Интеллект персонажа',
+        ])
+        @endcomponent
     </div>
-
 </div>

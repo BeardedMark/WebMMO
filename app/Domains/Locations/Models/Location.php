@@ -58,7 +58,7 @@ class Location extends Model
 
     public function getSize(): int
     {
-        return 5 + $this->level + $this->size;
+        return $this->size + $this->getLevel();
     }
 
     public function getCordX(): int

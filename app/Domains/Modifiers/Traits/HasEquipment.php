@@ -13,12 +13,12 @@ trait HasEquipment
     public function getEquipment(): Collection
     {
         $items = collect($this->equipment ?? []);
-        return $items->map(fn($data) => new ItemInstance($data));
+        return $items->map(fn($item) => new ItemInstance($item));
     }
 
     public function saveEquipment(Collection $equipment): void
     {
-        $this->equipment = $equipment->map(fn($e) => method_exists($e, 'getData') ? $e->getData() : (array) $e)->toArray();
+        $this->equipment = $equipment->map(fn($e) => (array) $e)->toArray();
         $this->save();
     }
 
@@ -48,10 +48,10 @@ trait HasEquipment
                 $this->addItem($unequipped); // вернули в инвентарь
             }
         }
-
-        // Добавляем в экипировку
-        $equipment = $this->getEquipment(); // Collection<ItemInstance>
+        $equipment = $this->getEquipment();
+        $item->setEquipped(true);
         $equipment->push($item);
+
         $this->saveEquipment($equipment);
 
         return true;
@@ -59,18 +59,17 @@ trait HasEquipment
 
     public function unequip(string $uuid): ?ItemInstance
     {
-        $equipment = $this->getEquipment(); // Collection<ItemInstance>
+        $equipment = $this->getEquipment();
 
         $item = $equipment->first(fn($i) => $i->getUuid() === $uuid);
         if (!$item) return null;
 
         $updated = $equipment->reject(fn($i) => $i->getUuid() === $uuid);
         $this->saveEquipment($updated);
+        $item->setEquipped(false);
 
         return $item;
     }
-
-
 
     public function getEquipmentStats(): array
     {

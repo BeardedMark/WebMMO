@@ -31,17 +31,19 @@ Route::get('/lore', [PageController::class, 'lore'])->name('pages.lore');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('pages.gallery');
 
 
-Route::resource('/locations', LocationController::class)->only(['index', 'show']);
-Route::resource('/items', ItemController::class)->only(['index', 'show']);
-Route::resource('/enemies', EnemyController::class)->only(['index', 'show']);
-Route::resource('/containers', ContainerController::class)->only(['index', 'show']);
 
 Route::middleware(CheckAuth::class)->group(function () {
+    Route::resource('/locations', LocationController::class)->only(['index', 'show']);
+    Route::resource('/items', ItemController::class)->only(['index', 'show']);
+    Route::resource('/enemies', EnemyController::class)->only(['index', 'show']);
+    Route::resource('/containers', ContainerController::class)->only(['index', 'show']);
+
     Route::get('/characters/values', [CharacterController::class, 'values'])->name('characters.values');
     Route::get('/characters/card', [CharacterController::class, 'card'])->name('characters.card');
     Route::get('/characters/select', [CharacterController::class, 'select'])->name('characters.select');
     Route::get('/characters/inventory', [CharacterController::class, 'inventory'])->name('characters.inventory');
     Route::get('/characters/craft', [CharacterController::class, 'craft'])->name('characters.craft');
+    Route::get('/characters/stats', [CharacterController::class, 'stats'])->name('characters.stats');
     Route::post('/characters/selected/{character}',  [CharacterController::class, 'selected'])->name('characters.selected');
     Route::resource('/characters', CharacterController::class);
 
@@ -85,5 +87,5 @@ Route::middleware(CheckGuest::class)->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('users.login');
     Route::post('/authorization', [AuthController::class, 'authorization'])->name('users.authorization');
 });
-    Route::get('/register',  [AuthController::class, 'register'])->name('users.register');
-    Route::post('/registration',  [AuthController::class, 'registration'])->name('users.registration');
+Route::get('/register',  [AuthController::class, 'register'])->name('users.register');
+Route::post('/registration',  [AuthController::class, 'registration'])->name('users.registration');

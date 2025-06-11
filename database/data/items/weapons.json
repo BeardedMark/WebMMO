@@ -12,12 +12,16 @@
       { "code": "rope", "stack": 1, "chance": 70 }
     ],
     "modifiers": [
-      { "code": "add_damage", "value": 6, "chance": 100 },
-      { "code": "increase_damage", "value": 10, "chance": 100 },
-      { "code": "add_crit_chance", "value": 3, "chance": 80 },
-      { "code": "add_crit_damage", "value": 10, "chance": 70 },
-      { "code": "add_agility", "value": 1, "chance": 60 },
-      { "code": "resist_bleed", "value": 5, "chance": 40 }
+      { "code": "add_damage", "value": 5, "chance": 100 },
+      { "code": "increase_damage", "value": 5, "chance": 100 },
+      { "code": "add_crit_chance", "value": 3 },
+      { "code": "increase_crit_chance", "value": 3 },
+      { "code": "add_crit_damage", "value": 3 },
+      { "code": "increase_crit_damage", "value": 3 },
+      { "code": "add_attack_range", "value": 1 },
+      { "code": "increase_attack_range", "value": 10 },
+      { "code": "add_attack_speed", "value": 1 },
+      { "code": "increase_attack_speed", "value": 10 }
     ]
   },
   {
@@ -33,12 +37,16 @@
       { "code": "rope", "stack": 2, "chance": 60 }
     ],
     "modifiers": [
-      { "code": "add_damage", "value": 8, "chance": 100 },
-      { "code": "increase_damage", "value": 12, "chance": 100 },
-      { "code": "add_strength", "value": 2, "chance": 80 },
-      { "code": "reflect_damage", "value": 5, "chance": 60 },
-      { "code": "add_endurance", "value": 1, "chance": 60 },
-      { "code": "resist_crit", "value": 5, "chance": 40 }
+      { "code": "add_damage", "value": 5, "chance": 100 },
+      { "code": "increase_damage", "value": 8, "chance": 100 },
+      { "code": "add_crit_chance", "value": 3 },
+      { "code": "increase_crit_chance", "value": 3 },
+      { "code": "add_crit_damage", "value": 3 },
+      { "code": "increase_crit_damage", "value": 3 },
+      { "code": "add_attack_range", "value": 3 },
+      { "code": "increase_attack_range", "value": 10 },
+      { "code": "add_attack_speed", "value": 1 },
+      { "code": "increase_attack_speed", "value": 10 }
     ]
   },
   {
@@ -54,12 +62,16 @@
       { "code": "rope", "stack": 1, "chance": 60 }
     ],
     "modifiers": [
-      { "code": "add_damage", "value": 5, "chance": 100 },
-      { "code": "increase_damage", "value": 10, "chance": 100 },
-      { "code": "add_crit_chance", "value": 5, "chance": 80 },
-      { "code": "add_attack_speed", "value": 1, "chance": 80 },
-      { "code": "add_agility", "value": 2, "chance": 60 },
-      { "code": "add_poison_chance", "value": 3, "chance": 40 }
+      { "code": "add_damage", "value": 3, "chance": 100 },
+      { "code": "increase_damage", "value": 5, "chance": 100 },
+      { "code": "add_crit_chance", "value": 5 },
+      { "code": "increase_crit_chance", "value": 5 },
+      { "code": "add_crit_damage", "value": 5 },
+      { "code": "increase_crit_damage", "value": 5 },
+      { "code": "add_attack_range", "value": 1 },
+      { "code": "increase_attack_range", "value": 10 },
+      { "code": "add_attack_speed", "value": 1 },
+      { "code": "increase_attack_speed", "value": 10 }
     ]
   },
   {
@@ -75,12 +87,16 @@
       { "code": "rope", "stack": 2, "chance": 70 }
     ],
     "modifiers": [
-      { "code": "add_damage", "value": 7, "chance": 100 },
-      { "code": "increase_damage", "value": 10, "chance": 100 },
-      { "code": "add_attack_range", "value": 1, "chance": 80 },
-      { "code": "add_strength", "value": 1, "chance": 60 },
-      { "code": "resist_poison", "value": 4, "chance": 40 },
-      { "code": "add_move_speed", "value": 1, "chance": 30 }
+      { "code": "add_damage", "value": 3, "chance": 100 },
+      { "code": "increase_damage", "value": 5, "chance": 100 },
+      { "code": "add_crit_chance", "value": 3 },
+      { "code": "increase_crit_chance", "value": 3 },
+      { "code": "add_crit_damage", "value": 3 },
+      { "code": "increase_crit_damage", "value": 3 },
+      { "code": "add_attack_range", "value": 3 },
+      { "code": "increase_attack_range", "value": 10 },
+      { "code": "add_attack_speed", "value": 1 },
+      { "code": "increase_attack_speed", "value": 10 }
     ]
   },
   {
@@ -97,12 +113,16 @@
       { "code": "wooden-spear", "stack": 1, "chance": 100 }
     ],
     "modifiers": [
-      { "code": "add_damage", "value": 9, "chance": 100 },
-      { "code": "increase_damage", "value": 15, "chance": 100 },
-      { "code": "add_attack_range", "value": 1, "chance": 90 },
-      { "code": "resist_bleed", "value": 5, "chance": 60 },
-      { "code": "add_strength", "value": 2, "chance": 50 },
-      { "code": "add_crit_damage", "value": 10, "chance": 50 }
+      { "code": "add_damage", "value": 5, "chance": 100 },
+      { "code": "increase_damage", "value": 5, "chance": 100 },
+      { "code": "add_crit_chance", "value": 3 },
+      { "code": "increase_crit_chance", "value": 3 },
+      { "code": "add_crit_damage", "value": 3 },
+      { "code": "increase_crit_damage", "value": 3 },
+      { "code": "add_attack_range", "value": 3 },
+      { "code": "increase_attack_range", "value": 10 },
+      { "code": "add_attack_speed", "value": 1 },
+      { "code": "increase_attack_speed", "value": 10 }
     ]
   }
 ]

@@ -1,54 +1,55 @@
 @extends('db.locations.layouts.location')
 
+@section('top-content')
+    <div class="frame flex-row-8 ai-center">
+        <p class="flex-grow">
+            <span class="color-brand">Инвентарь персонажа</span>
+        </p>
+
+        <a class="icon flex-row-5 ai-center" href="{{ route('characters.stats') }}" data-tooltip="Показатели персонажа">
+            @component('components.icon', ['size' => 28, 'name' => 'resume', 'color' => 'FFFFFF'])
+            @endcomponent
+        </a>
+
+        <a class="icon flex-row-5 ai-center" href="{{ route('characters.craft') }}" data-tooltip="Создание предметов">
+            @component('components.icon', ['size' => 28, 'name' => 'full-tool-storage-box-', 'color' => 'FFFFFF'])
+            @endcomponent
+        </a>
+    </div>
+@endsection
+
 @section('right-content')
     <div class="frame flex-col-13">
-        <p>Предметы в инвентаре</p>
+        @component('components.header-sm', [
+            'header' => 'Предметы в инвентаре',
+            'note' => 'x' . count($character->getItems()),
+        ])
+        @endcomponent
+
         @component('db.items.components.inventory', [
             'fromContainer' => $character,
             'toContainer' => $character->transition,
         ])
         @endcomponent
     </div>
-
-    <div class="frame flex-col-13">
-        <p>Создание предметов</p>
-        <div class="color-second">
-            @if (count($character->getAvailableCrafts($character->getLevel())) > 0)
-                @foreach ($character->getAvailableCrafts($character->getLevel()) as $availableCraftItem)
-                    @component('db.items.components.assemble', [
-                        'item' => $availableCraftItem,
-                        'fromContainer' => $character->getTable(),
-                        'fromId' => $character->id,
-                    ])
-                    @endcomponent
-                @endforeach
-            @else
-                <p class="color-second font-sm">Нет доступных рецептов</p>
-            @endif
-        </div>
-    </div>
 @endsection
-
 
 @section('left-content')
     <div class="frame flex-col-13">
-        <p>Эффекты от экипировки</p>
-        <div class="color-second">
-            @if (count($character->getEquipmentModifiers()) > 0)
-                @foreach ($character->getEquipmentModifiers() as $mod)
-                    @component('components.stat', ['name' => $mod->getName(), 'value' => $mod->getValueTitle()])
-                    @endcomponent
-                @endforeach
-            @else
-                <p class="color-second font-sm">Нет экипированных предметов</p>
-            @endif
-        </div>
-    </div>
+        @component('components.header-sm', [
+            'header' => 'Предметы на местности',
+            'note' => 'x' . count($character->transition->getItems()),
+        ])
+        @endcomponent
 
-    <div class="frame flex-col-13">
-        <p>Эффекты от навыков</p>
-        <div class="color-second">
-            <p class="color-second font-sm">Нет вкаченных навыков</p>
-        </div>
+        @if (count($character->transition->getItems()) > 0)
+            @component('db.items.components.inventory', [
+                'fromContainer' => $character->transition,
+                'toContainer' => $character,
+            ])
+            @endcomponent
+        @else
+            <p class="color-second">Ничего не найдено</p>
+        @endif
     </div>
 @endsection

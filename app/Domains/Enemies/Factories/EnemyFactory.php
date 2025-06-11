@@ -20,7 +20,7 @@ class EnemyFactory
             'id' => $model->id,
             'level' => $level,
             'stack' => $stack,
-            'modifiers' => ModifierService::rollStaticModifiers($model->modifiers ?? []),
+            'modifiers' => ModifierService::rollModifiers($model->modifiers ?? [], $level),
         ]);
     }
 }

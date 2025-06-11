@@ -1,98 +1,145 @@
-<div style="display: inline-block; position: relative;">
+@component('components.context-menu', [
+    'menuStyle' => 'min-width: 300px; max-width: 400px;',
+])
+    @slot('trigger')
+        <img class="img-fill" src="{{ $enemy->getModel()->getImageUrl() }}" style="border-radius: 100%">
 
-    {{-- Клик-зона отдельно --}}
-    <div onclick="toggleContextMenu(this)" style="cursor: pointer; padding: 8px;">
-        <img src="{{ $enemy->getModel()->getImageUrl() }}" width="48" height="48" style="border-radius: 100%">
         @if ($enemy->getStack() > 1)
-            <small class="" style="position: absolute; left: 0; right: 0; bottom: 0; text-align: end; margin: 1px;">
+            <p class="font-sm" style="position: absolute; left: 0; right: 0; bottom: 0; text-align: end;">
                 x{{ $enemy->getStack() }}
-            </small>
+            </p>
         @endif
+    @endslot
+
+    <div class="flex-row-8">
+        @component('db.enemies.components.link', ['enemy' => $enemy->getModel()])
+        @endcomponent
+
+        <p class="flex-grow"></p>
+
+        <span class="color-brand font-sm">{{ $enemy->getLevel() }} ур</span>
     </div>
 
-    {{-- Само меню — теперь не входит в область клика --}}
-    <div class="context-menu frame"
-        style="display: none; position: absolute; top: 101%; left: 0; min-width: 300px; max-width: 400px; z-index:999">
-        <form method="POST" class="flex-col-13">
-            @csrf
-            <div class="flex-row-8">
-                @component('db.enemies.components.link', ['enemy' => $enemy->getModel()])
-                @endcomponent
+    <div class="flex-row-5 jc-end">
+        @component('components.icon', [
+            'size' => 21,
+            'name' => 'pulse',
+            'color' => 'FFFFFF',
+            'tooltip' => 'Регенерация ' . $enemy->getRegen() . ' зд/с',
+            'class' => 'icon',
+        ])
+        @endcomponent
 
-                <span class="flex grow"></span>
-                <span class="color-brand font-sm">{{ $enemy->getLevel() }} ур</span>
-            </div>
+        @component('components.icon', [
+            'size' => 21,
+            'name' => 'air-element',
+            'color' => 'FFFFFF',
+            'tooltip' => 'Скорость атаки ' . $enemy->getAttackSpeed() . ' уд/с',
+            'class' => 'icon',
+        ])
+        @endcomponent
 
-            @if ($enemy->hasModifiers())
-                @component('db.modifiers.frames.modifiers', ['modifiers' => $enemy->getModifierInstances()])
-                @endcomponent
-            @endif
-
-            <div class=" flex-row-13">
-                <p class="flex-col ai-center font-center w-100">
-                    <span>{{ $enemy->getHealth() }}</span>
-                    <span class="color-second font-sm">Здр</span>
-                </p>
-
-                <p class="flex-col ai-center font-center w-100">
-                    <span>{{ $enemy->getDamage() }}</span>
-                    <span class="color-second font-sm">Урн</span>
-                </p>
-
-                <p class="flex-col ai-center font-center w-100">
-                    <span>{{ $enemy->getDefence() }}</span>
-                    <span class="color-second font-sm">Защ</span>
-                </p>
-
-                <p class="flex-col ai-center font-center w-100">
-                    <span>{{ $enemy->getStrength() }}</span>
-                    <span class="color-second font-sm">Сил</span>
-                </p>
-
-                <p class="flex-col ai-center font-center w-100">
-                    <span>{{ $enemy->getAgility() }}</span>
-                    <span class="color-second font-sm">Лов</span>
-                </p>
-
-                <p class="flex-col ai-center font-center w-100">
-                    <span>{{ $enemy->getIntelligence() }}</span>
-                    <span class="color-second font-sm">Инт</span>
-                </p>
-            </div>
-
-
-            <input class="input w-100" type="number" name="stack" value="{{ $enemy->getStack() }}" min="1"
-                max="{{ $enemy->getStack() }}">
-
-            <small class="flex-col">
-                <button class="link" type="submit"
-                    formaction="{{ route('enemies.battle', $enemy->getUuid()) }}">Атаковать</button>
-            </small>
-        </form>
+        @component('components.icon', [
+            'size' => 21,
+            'name' => 'stopwatch',
+            'color' => 'FFFFFF',
+            'tooltip' => 'Скорость передвижения ' . $enemy->getMoveSpeed() . ' км/ч',
+            'class' => 'icon',
+        ])
+        @endcomponent
     </div>
-</div>
 
+    <div class="flex jc-center pad-13">
+        <div class="img-contain" style="width: 150px; height: 150px; ">
+            <img src="{{ $enemy->getModel()->getImageUrl() }}" class="img-fill" style="border-radius: 100%">
+        </div>
+    </div>
 
-<script>
-    function toggleContextMenu(trigger) {
-        const wrapper = trigger.parentElement;
-        const menu = wrapper.querySelector('.context-menu');
-        const isVisible = menu.style.display === 'block';
+    <div class="flex-row-8">
+        @component('components.stamp', [
+            'header' => $enemy->getHealth(),
+            'note' => 'Здр',
+            'tooltip' => 'Здоровье врага',
+        ])
+        @endcomponent
 
-        // Скрыть все
-        document.querySelectorAll('.context-menu').forEach(m => m.style.display = 'none');
+        @component('components.stamp', [
+            'header' => $enemy->getDamage(),
+            'note' => 'Урн',
+            'tooltip' => 'Урон врага',
+        ])
+        @endcomponent
 
-        if (!isVisible) {
-            menu.style.display = 'block';
-        }
-    }
+        @component('components.stamp', [
+            'header' => $enemy->getDefence(),
+            'note' => 'Защ',
+            'tooltip' => 'Защита врага',
+        ])
+        @endcomponent
 
-    document.addEventListener('click', function(e) {
-        const isInsideMenu = e.target.closest('.context-menu');
-        const isTrigger = e.target.closest('[onclick^="toggleContextMenu"]');
+        @component('components.stamp', [
+            'header' => $enemy->getStrength(),
+            'note' => 'Сил',
+            'tooltip' => 'Сила врага',
+        ])
+        @endcomponent
 
-        if (!isInsideMenu && !isTrigger) {
-            document.querySelectorAll('.context-menu').forEach(m => m.style.display = 'none');
-        }
-    });
-</script>
+        @component('components.stamp', [
+            'header' => $enemy->getAgility(),
+            'note' => 'Лов',
+            'tooltip' => 'Ловкость врага',
+        ])
+        @endcomponent
+
+        @component('components.stamp', [
+            'header' => $enemy->getIntelligence(),
+            'note' => 'Инт',
+            'tooltip' => 'Интеллект врага',
+        ])
+        @endcomponent
+    </div>
+
+    @if ($enemy->hasModifiers())
+        <div class="flex-col font-sm">
+
+            @component('db.modifiers.frames.modifiers', ['modifiers' => $enemy->getModifierInstances()])
+            @endcomponent
+        </div>
+    @endif
+
+    <form method="POST" class="flex-col-13">
+        @csrf
+
+        <div class="flex-row-5 ai-center @if ($enemy->getStack() <= 1) d-none @endif">
+            <button type="button" class="button" onclick="changeStack('{{ $enemy->getUuid() }}', -10)">−10</button>
+            <button type="button" class="button" onclick="changeStack('{{ $enemy->getUuid() }}', -1)">−</button>
+
+            <input id="stack-input-{{ $enemy->getUuid() }}" class="input text-center font-sm flex-grow" type="number"
+                name="stack" value="{{ $enemy->getStack() }}" min="1" max="{{ $enemy->getStack() }}">
+
+            <button type="button" class="button" onclick="changeStack('{{ $enemy->getUuid() }}', +1)">+</button>
+
+            <button type="button" class="button" onclick="changeStack('{{ $enemy->getUuid() }}', +10)">+10</button>
+        </div>
+
+        <small class="flex-col">
+            <button class="link" type="submit"
+                formaction="{{ route('enemies.battle', $enemy->getUuid()) }}">Атаковать</button>
+        </small>
+    </form>
+
+    @push('scripts')
+        <script>
+            function changeStack(uuid, delta) {
+                const input = document.getElementById('stack-input-' + uuid);
+                let val = parseInt(input.value, 10) + delta;
+                const min = parseInt(input.min, 10);
+                const max = parseInt(input.max, 10);
+                if (!isNaN(min)) val = Math.max(val, min);
+                if (!isNaN(max)) val = Math.min(val, max);
+                input.value = val;
+            }
+        </script>
+    @endpush
+
+@endcomponent
